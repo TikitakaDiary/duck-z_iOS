@@ -8,5 +8,14 @@ target 'MemoryTrace' do
   # Pods for MemoryTrace
   
   pod 'Alamofire'
-
+  pod 'Firebase/Auth'
+  pod 'GoogleSignIn'
+  pod 'KakaoSDKCommon'
+  pod 'KakaoSDKAuth'
+  pod 'KakaoSDKUser'
+  pod 'RxSwift'
+  pod 'RxCocoa'
+  pod 'Kingfisher'
+  pod 'Toast-Swift'
+  
 end

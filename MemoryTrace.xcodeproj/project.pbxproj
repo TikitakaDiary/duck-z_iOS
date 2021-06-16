@@ -3,30 +3,137 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D10001EB2658FCDD00C17A2B /* ChangeNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10001EA2658FCDD00C17A2B /* ChangeNameViewController.swift */; };
+		D10001F3265BBE2900C17A2B /* StickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10001F2265BBE2900C17A2B /* StickerView.swift */; };
+		D10B34002654188F00BD45D0 /* MemberCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10B33FF2654188F00BD45D0 /* MemberCell.swift */; };
+		D10C83C9263AA8FC007DD41D /* DiaryPolaroidCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10C83C7263AA8FC007DD41D /* DiaryPolaroidCell.swift */; };
+		D10C83CA263AA8FD007DD41D /* DiaryPolaroidCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D10C83C8263AA8FC007DD41D /* DiaryPolaroidCell.xib */; };
+		D10C83CE263AA912007DD41D /* DiaryMiniCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10C83CC263AA912007DD41D /* DiaryMiniCell.swift */; };
+		D10C83CF263AA912007DD41D /* DiaryMiniCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D10C83CD263AA912007DD41D /* DiaryMiniCell.xib */; };
+		D15285B82671D21C00E11C7F /* ColorPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D15285B72671D21C00E11C7F /* ColorPickerView.swift */; };
+		D15285BA2671D28100E11C7F /* ColorPickerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D15285B92671D28100E11C7F /* ColorPickerView.xib */; };
+		D161ED07263ABAC000C31F56 /* DiaryBookLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = D161ED06263ABAC000C31F56 /* DiaryBookLayout.swift */; };
+		D161ED0A263ABC0400C31F56 /* DiaryPolaroidLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = D161ED09263ABC0400C31F56 /* DiaryPolaroidLayout.swift */; };
+		D161ED0D263ABC1900C31F56 /* DiaryMiniLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = D161ED0C263ABC1900C31F56 /* DiaryMiniLayout.swift */; };
+		D161ED15263AC48F00C31F56 /* DiaryListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D161ED14263AC48F00C31F56 /* DiaryListViewController.swift */; };
+		D161ED1A263D41B000C31F56 /* DiaryHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D161ED18263D41B000C31F56 /* DiaryHeaderView.swift */; };
+		D161ED1B263D41B000C31F56 /* DiaryHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D161ED19263D41B000C31F56 /* DiaryHeaderView.xib */; };
+		D161ED1E263EA75D00C31F56 /* WritingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D161ED1D263EA75D00C31F56 /* WritingViewController.swift */; };
+		D161ED22263EF44600C31F56 /* DiaryHeaderWithButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D161ED20263EF44600C31F56 /* DiaryHeaderWithButtonView.swift */; };
+		D161ED23263EF44700C31F56 /* DiaryHeaderWithButtonView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D161ED21263EF44600C31F56 /* DiaryHeaderWithButtonView.xib */; };
+		D16DF324265415B70073EA37 /* MemberManagementController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D16DF323265415B70073EA37 /* MemberManagementController.swift */; };
+		D170A928265CE7B200D5A4A3 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D170A927265CE7B200D5A4A3 /* UIView.swift */; };
+		D170A94B265E2CDE00D5A4A3 /* BackgroundColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D170A94A265E2CDE00D5A4A3 /* BackgroundColor.swift */; };
+		D170A94D265E44F700D5A4A3 /* SNSType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D170A94C265E44F700D5A4A3 /* SNSType.swift */; };
+		D17E1C49266654BE0037216F /* ColorSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D17E1C48266654BE0037216F /* ColorSettingViewController.swift */; };
+		D1858E80264D97B5007EAB62 /* StickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1858E7F264D97B5007EAB62 /* StickerCell.swift */; };
+		D18F05C3267A3242002AA558 /* MakersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D18F05C2267A3242002AA558 /* MakersViewController.swift */; };
+		D194B700264BF8B500D00B8B /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D194B6FD264BF01800D00B8B /* LoginViewController.swift */; };
+		D194B702264C063500D00B8B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D194B701264C063400D00B8B /* GoogleService-Info.plist */; };
+		D19B6D582651235D00D1FDC3 /* StickerViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = D19B6D572651235D00D1FDC3 /* StickerViewLayout.swift */; };
+		D19B6D5A26513FDC00D1FDC3 /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D19B6D5926513FDC00D1FDC3 /* UIViewController.swift */; };
+		D19B6D5C2652CB1E00D1FDC3 /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = D19B6D5B2652CB1D00D1FDC3 /* Login.swift */; };
+		D1A198AE266542A80029EF73 /* ReadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1A198AD266542A80029EF73 /* ReadingViewController.swift */; };
+		D1BDEC742647F6B000C9DD8F /* UILabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1BDEC732647F6B000C9DD8F /* UILabel.swift */; };
+		D1BDEC762647F6C300C9DD8F /* UITextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1BDEC752647F6C200C9DD8F /* UITextField.swift */; };
+		D1BDEC782647F6D800C9DD8F /* UITextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1BDEC772647F6D800C9DD8F /* UITextView.swift */; };
+		D1BDEC7A2648536700C9DD8F /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1BDEC792648536600C9DD8F /* NetworkManager.swift */; };
+		D1C13C472646EC9300C5686F /* DiarySettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1C13C462646EC9300C5686F /* DiarySettingViewController.swift */; };
 		D1D2BEB7263A875C007D63B4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1D2BEB6263A875C007D63B4 /* AppDelegate.swift */; };
 		D1D2BEB9263A875C007D63B4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1D2BEB8263A875C007D63B4 /* SceneDelegate.swift */; };
-		D1D2BEBB263A875C007D63B4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1D2BEBA263A875C007D63B4 /* ViewController.swift */; };
+		D1D2BEBB263A875C007D63B4 /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1D2BEBA263A875C007D63B4 /* HomeController.swift */; };
 		D1D2BEBE263A875C007D63B4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D1D2BEBC263A875C007D63B4 /* Main.storyboard */; };
 		D1D2BEC0263A8764007D63B4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D1D2BEBF263A8764007D63B4 /* Assets.xcassets */; };
 		D1D2BEC3263A8764007D63B4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D1D2BEC1263A8764007D63B4 /* LaunchScreen.storyboard */; };
+		D1D2BED6263A9D9A007D63B4 /* DiaryBookCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1D2BED4263A9D9A007D63B4 /* DiaryBookCell.swift */; };
+		D1D2BED7263A9D9A007D63B4 /* DiaryBookCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1D2BED5263A9D9A007D63B4 /* DiaryBookCell.xib */; };
+		D1D2CB7F264D8D4400079756 /* StickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1D2CB7E264D8D4400079756 /* StickerViewController.swift */; };
+		D1D2CB81264D8E7600079756 /* StickerLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1D2CB80264D8E7600079756 /* StickerLayout.swift */; };
+		D1D2CB83264D92C700079756 /* StickerViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1D2CB82264D92C700079756 /* StickerViewCell.swift */; };
+		D1D804D4266285BE00C0A4C8 /* LicenseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1D804D3266285BE00C0A4C8 /* LicenseViewController.swift */; };
+		D1D804D626629E4B00C0A4C8 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1D804D526629E4B00C0A4C8 /* String.swift */; };
+		D1E41E89264A6A0400C41D08 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1E41E88264A6A0400C41D08 /* Router.swift */; };
+		D1E41E8C264BAA1000C41D08 /* Book.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1E41E8B264BAA1000C41D08 /* Book.swift */; };
+		D1E41E8E264BB9B900C41D08 /* Diary.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1E41E8D264BB9B900C41D08 /* Diary.swift */; };
+		D1E41E90264BBC8100C41D08 /* APIRequester.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1E41E8F264BBC8100C41D08 /* APIRequester.swift */; };
+		D1F31E892645ADFF005D9F15 /* CircleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1F31E882645ADFF005D9F15 /* CircleButton.swift */; };
+		D1F31E8C2645B180005D9F15 /* DecoratingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1F31E8B2645B180005D9F15 /* DecoratingViewController.swift */; };
+		D1FA2DBF2647F1FA00AEC471 /* GmarketSansMedium.otf in Resources */ = {isa = PBXBuildFile; fileRef = D1FA2DBC2647F1FA00AEC471 /* GmarketSansMedium.otf */; };
+		D1FA2DC02647F1FA00AEC471 /* GmarketSansLight.otf in Resources */ = {isa = PBXBuildFile; fileRef = D1FA2DBD2647F1FA00AEC471 /* GmarketSansLight.otf */; };
+		D1FA2DC12647F1FA00AEC471 /* GmarketSansBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = D1FA2DBE2647F1FA00AEC471 /* GmarketSansBold.otf */; };
+		D1FB38092658E99700AE537C /* MypageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1FB38082658E99700AE537C /* MypageViewController.swift */; };
 		EB0A775052E71814C152E25F /* Pods_MemoryTrace.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB40FE61FE49DF7EB01799E8 /* Pods_MemoryTrace.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		05F3128E515B87D7E7D37E69 /* Pods-MemoryTrace.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MemoryTrace.release.xcconfig"; path = "Target Support Files/Pods-MemoryTrace/Pods-MemoryTrace.release.xcconfig"; sourceTree = "<group>"; };
 		AB40FE61FE49DF7EB01799E8 /* Pods_MemoryTrace.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MemoryTrace.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		D1D2BEB3263A875C007D63B4 /* MemoryTrace.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MemoryTrace.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D10001EA2658FCDD00C17A2B /* ChangeNameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeNameViewController.swift; sourceTree = "<group>"; };
+		D10001F2265BBE2900C17A2B /* StickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickerView.swift; sourceTree = "<group>"; };
+		D10B33FF2654188F00BD45D0 /* MemberCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberCell.swift; sourceTree = "<group>"; };
+		D10C83C7263AA8FC007DD41D /* DiaryPolaroidCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryPolaroidCell.swift; sourceTree = "<group>"; };
+		D10C83C8263AA8FC007DD41D /* DiaryPolaroidCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DiaryPolaroidCell.xib; sourceTree = "<group>"; };
+		D10C83CC263AA912007DD41D /* DiaryMiniCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryMiniCell.swift; sourceTree = "<group>"; };
+		D10C83CD263AA912007DD41D /* DiaryMiniCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DiaryMiniCell.xib; sourceTree = "<group>"; };
+		D15285B72671D21C00E11C7F /* ColorPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPickerView.swift; sourceTree = "<group>"; };
+		D15285B92671D28100E11C7F /* ColorPickerView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ColorPickerView.xib; sourceTree = "<group>"; };
+		D161ED06263ABAC000C31F56 /* DiaryBookLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryBookLayout.swift; sourceTree = "<group>"; };
+		D161ED09263ABC0400C31F56 /* DiaryPolaroidLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryPolaroidLayout.swift; sourceTree = "<group>"; };
+		D161ED0C263ABC1900C31F56 /* DiaryMiniLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryMiniLayout.swift; sourceTree = "<group>"; };
+		D161ED14263AC48F00C31F56 /* DiaryListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryListViewController.swift; sourceTree = "<group>"; };
+		D161ED18263D41B000C31F56 /* DiaryHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryHeaderView.swift; sourceTree = "<group>"; };
+		D161ED19263D41B000C31F56 /* DiaryHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DiaryHeaderView.xib; sourceTree = "<group>"; };
+		D161ED1D263EA75D00C31F56 /* WritingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WritingViewController.swift; sourceTree = "<group>"; };
+		D161ED20263EF44600C31F56 /* DiaryHeaderWithButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryHeaderWithButtonView.swift; sourceTree = "<group>"; };
+		D161ED21263EF44600C31F56 /* DiaryHeaderWithButtonView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DiaryHeaderWithButtonView.xib; sourceTree = "<group>"; };
+		D16DF323265415B70073EA37 /* MemberManagementController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberManagementController.swift; sourceTree = "<group>"; };
+		D170A927265CE7B200D5A4A3 /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
+		D170A94A265E2CDE00D5A4A3 /* BackgroundColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundColor.swift; sourceTree = "<group>"; };
+		D170A94C265E44F700D5A4A3 /* SNSType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SNSType.swift; sourceTree = "<group>"; };
+		D17E1C48266654BE0037216F /* ColorSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSettingViewController.swift; sourceTree = "<group>"; };
+		D1858E7F264D97B5007EAB62 /* StickerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickerCell.swift; sourceTree = "<group>"; };
+		D18F05C2267A3242002AA558 /* MakersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakersViewController.swift; sourceTree = "<group>"; };
+		D194B6FD264BF01800D00B8B /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		D194B6FF264BF3B100D00B8B /* MemoryTrace.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MemoryTrace.entitlements; sourceTree = "<group>"; };
+		D194B701264C063400D00B8B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		D19B6D572651235D00D1FDC3 /* StickerViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickerViewLayout.swift; sourceTree = "<group>"; };
+		D19B6D5926513FDC00D1FDC3 /* UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
+		D19B6D5B2652CB1D00D1FDC3 /* Login.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
+		D1A198AD266542A80029EF73 /* ReadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingViewController.swift; sourceTree = "<group>"; };
+		D1BDEC732647F6B000C9DD8F /* UILabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILabel.swift; sourceTree = "<group>"; };
+		D1BDEC752647F6C200C9DD8F /* UITextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextField.swift; sourceTree = "<group>"; };
+		D1BDEC772647F6D800C9DD8F /* UITextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextView.swift; sourceTree = "<group>"; };
+		D1BDEC792648536600C9DD8F /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		D1C13C462646EC9300C5686F /* DiarySettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiarySettingViewController.swift; sourceTree = "<group>"; };
+		D1D2BEB3263A875C007D63B4 /* duck-z.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "duck-z.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D1D2BEB6263A875C007D63B4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D1D2BEB8263A875C007D63B4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		D1D2BEBA263A875C007D63B4 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		D1D2BEBA263A875C007D63B4 /* HomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
 		D1D2BEBD263A875C007D63B4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D1D2BEBF263A8764007D63B4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D1D2BEC2263A8764007D63B4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D1D2BEC4263A8764007D63B4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D1D2BED4263A9D9A007D63B4 /* DiaryBookCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryBookCell.swift; sourceTree = "<group>"; };
+		D1D2BED5263A9D9A007D63B4 /* DiaryBookCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DiaryBookCell.xib; sourceTree = "<group>"; };
+		D1D2CB7E264D8D4400079756 /* StickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickerViewController.swift; sourceTree = "<group>"; };
+		D1D2CB80264D8E7600079756 /* StickerLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickerLayout.swift; sourceTree = "<group>"; };
+		D1D2CB82264D92C700079756 /* StickerViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickerViewCell.swift; sourceTree = "<group>"; };
+		D1D804D3266285BE00C0A4C8 /* LicenseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicenseViewController.swift; sourceTree = "<group>"; };
+		D1D804D526629E4B00C0A4C8 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
+		D1E41E88264A6A0400C41D08 /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
+		D1E41E8B264BAA1000C41D08 /* Book.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Book.swift; sourceTree = "<group>"; };
+		D1E41E8D264BB9B900C41D08 /* Diary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Diary.swift; sourceTree = "<group>"; };
+		D1E41E8F264BBC8100C41D08 /* APIRequester.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIRequester.swift; sourceTree = "<group>"; };
+		D1F31E882645ADFF005D9F15 /* CircleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleButton.swift; sourceTree = "<group>"; };
+		D1F31E8B2645B180005D9F15 /* DecoratingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecoratingViewController.swift; sourceTree = "<group>"; };
+		D1FA2DBC2647F1FA00AEC471 /* GmarketSansMedium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = GmarketSansMedium.otf; sourceTree = "<group>"; };
+		D1FA2DBD2647F1FA00AEC471 /* GmarketSansLight.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = GmarketSansLight.otf; sourceTree = "<group>"; };
+		D1FA2DBE2647F1FA00AEC471 /* GmarketSansBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = GmarketSansBold.otf; sourceTree = "<group>"; };
+		D1FB38082658E99700AE537C /* MypageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageViewController.swift; sourceTree = "<group>"; };
 		DA0EB8E6D784846827C560F7 /* Pods-MemoryTrace.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MemoryTrace.debug.xcconfig"; path = "Target Support Files/Pods-MemoryTrace/Pods-MemoryTrace.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -48,7 +155,6 @@
 				DA0EB8E6D784846827C560F7 /* Pods-MemoryTrace.debug.xcconfig */,
 				05F3128E515B87D7E7D37E69 /* Pods-MemoryTrace.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -58,6 +164,152 @@
 				AB40FE61FE49DF7EB01799E8 /* Pods_MemoryTrace.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D10C83D1263AA91F007DD41D /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				D18F05C6267A55A9002AA558 /* Model */,
+				D1D2BEBA263A875C007D63B4 /* HomeController.swift */,
+				D1D2BED4263A9D9A007D63B4 /* DiaryBookCell.swift */,
+				D161ED06263ABAC000C31F56 /* DiaryBookLayout.swift */,
+				D1D2BED5263A9D9A007D63B4 /* DiaryBookCell.xib */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		D10C83D2263AA92C007DD41D /* Diary */ = {
+			isa = PBXGroup;
+			children = (
+				D18F05C5267A5595002AA558 /* Model */,
+				D1C13C452646EAB000C5686F /* Setting */,
+				D1F31E8A2645B161005D9F15 /* Decorating */,
+				D10C83D5263AA9A8007DD41D /* DiaryList */,
+				D10C83D6263AA9B1007DD41D /* Writing */,
+				D1A198AC266541250029EF73 /* Reading */,
+			);
+			path = Diary;
+			sourceTree = "<group>";
+		};
+		D10C83D3263AA93E007DD41D /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				D194B6FD264BF01800D00B8B /* LoginViewController.swift */,
+				D18F05C4267A5580002AA558 /* Model */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		D10C83D4263AA946007DD41D /* Mypage */ = {
+			isa = PBXGroup;
+			children = (
+				D1FB38082658E99700AE537C /* MypageViewController.swift */,
+				D10001EA2658FCDD00C17A2B /* ChangeNameViewController.swift */,
+				D1D804D3266285BE00C0A4C8 /* LicenseViewController.swift */,
+				D18F05C2267A3242002AA558 /* MakersViewController.swift */,
+			);
+			path = Mypage;
+			sourceTree = "<group>";
+		};
+		D10C83D5263AA9A8007DD41D /* DiaryList */ = {
+			isa = PBXGroup;
+			children = (
+				D161ED14263AC48F00C31F56 /* DiaryListViewController.swift */,
+				D10C83C7263AA8FC007DD41D /* DiaryPolaroidCell.swift */,
+				D10C83C8263AA8FC007DD41D /* DiaryPolaroidCell.xib */,
+				D10C83CC263AA912007DD41D /* DiaryMiniCell.swift */,
+				D10C83CD263AA912007DD41D /* DiaryMiniCell.xib */,
+				D161ED09263ABC0400C31F56 /* DiaryPolaroidLayout.swift */,
+				D161ED0C263ABC1900C31F56 /* DiaryMiniLayout.swift */,
+				D161ED18263D41B000C31F56 /* DiaryHeaderView.swift */,
+				D161ED19263D41B000C31F56 /* DiaryHeaderView.xib */,
+				D161ED20263EF44600C31F56 /* DiaryHeaderWithButtonView.swift */,
+				D161ED21263EF44600C31F56 /* DiaryHeaderWithButtonView.xib */,
+			);
+			path = DiaryList;
+			sourceTree = "<group>";
+		};
+		D10C83D6263AA9B1007DD41D /* Writing */ = {
+			isa = PBXGroup;
+			children = (
+				D161ED1D263EA75D00C31F56 /* WritingViewController.swift */,
+				D17E1C48266654BE0037216F /* ColorSettingViewController.swift */,
+			);
+			path = Writing;
+			sourceTree = "<group>";
+		};
+		D161ED02263AB8B100C31F56 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				D1BDEC792648536600C9DD8F /* NetworkManager.swift */,
+				D1E41E88264A6A0400C41D08 /* Router.swift */,
+				D1E41E8F264BBC8100C41D08 /* APIRequester.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		D161ED03263AB8BF00C31F56 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				D1BDEC732647F6B000C9DD8F /* UILabel.swift */,
+				D1BDEC752647F6C200C9DD8F /* UITextField.swift */,
+				D1BDEC772647F6D800C9DD8F /* UITextView.swift */,
+				D19B6D5926513FDC00D1FDC3 /* UIViewController.swift */,
+				D170A927265CE7B200D5A4A3 /* UIView.swift */,
+				D1D804D526629E4B00C0A4C8 /* String.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		D170A949265E2CB800D5A4A3 /* Support */ = {
+			isa = PBXGroup;
+			children = (
+				D170A94A265E2CDE00D5A4A3 /* BackgroundColor.swift */,
+				D170A94C265E44F700D5A4A3 /* SNSType.swift */,
+			);
+			path = Support;
+			sourceTree = "<group>";
+		};
+		D18F05C4267A5580002AA558 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				D19B6D5B2652CB1D00D1FDC3 /* Login.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		D18F05C5267A5595002AA558 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				D1E41E8D264BB9B900C41D08 /* Diary.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		D18F05C6267A55A9002AA558 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				D1E41E8B264BAA1000C41D08 /* Book.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		D1A198AC266541250029EF73 /* Reading */ = {
+			isa = PBXGroup;
+			children = (
+				D1A198AD266542A80029EF73 /* ReadingViewController.swift */,
+			);
+			path = Reading;
+			sourceTree = "<group>";
+		};
+		D1C13C452646EAB000C5686F /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+				D1C13C462646EC9300C5686F /* DiarySettingViewController.swift */,
+				D16DF323265415B70073EA37 /* MemberManagementController.swift */,
+				D10B33FF2654188F00BD45D0 /* MemberCell.swift */,
+			);
+			path = Setting;
 			sourceTree = "<group>";
 		};
 		D1D2BEAA263A875C007D63B4 = {
@@ -73,7 +325,7 @@
 		D1D2BEB4263A875C007D63B4 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				D1D2BEB3263A875C007D63B4 /* MemoryTrace.app */,
+				D1D2BEB3263A875C007D63B4 /* duck-z.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -81,15 +333,75 @@
 		D1D2BEB5263A875C007D63B4 /* MemoryTrace */ = {
 			isa = PBXGroup;
 			children = (
+				D194B6FF264BF3B100D00B8B /* MemoryTrace.entitlements */,
 				D1D2BEB6263A875C007D63B4 /* AppDelegate.swift */,
 				D1D2BEB8263A875C007D63B4 /* SceneDelegate.swift */,
-				D1D2BEBA263A875C007D63B4 /* ViewController.swift */,
 				D1D2BEBC263A875C007D63B4 /* Main.storyboard */,
-				D1D2BEBF263A8764007D63B4 /* Assets.xcassets */,
 				D1D2BEC1263A8764007D63B4 /* LaunchScreen.storyboard */,
+				D1D2BECE263A9A77007D63B4 /* Resources */,
+				D170A949265E2CB800D5A4A3 /* Support */,
+				D161ED02263AB8B100C31F56 /* Network */,
+				D161ED03263AB8BF00C31F56 /* Extensions */,
+				D10C83D3263AA93E007DD41D /* Login */,
+				D10C83D4263AA946007DD41D /* Mypage */,
+				D10C83D1263AA91F007DD41D /* Home */,
+				D10C83D2263AA92C007DD41D /* Diary */,
+				D1D2CB7D264D8D0500079756 /* Sticker */,
+				D1F31E872645ADCA005D9F15 /* CustomUI */,
+				D194B701264C063400D00B8B /* GoogleService-Info.plist */,
 				D1D2BEC4263A8764007D63B4 /* Info.plist */,
 			);
 			path = MemoryTrace;
+			sourceTree = "<group>";
+		};
+		D1D2BECE263A9A77007D63B4 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				D1FA2DBB2647F1E800AEC471 /* Fonts */,
+				D1D2BEBF263A8764007D63B4 /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		D1D2CB7D264D8D0500079756 /* Sticker */ = {
+			isa = PBXGroup;
+			children = (
+				D1D2CB7E264D8D4400079756 /* StickerViewController.swift */,
+				D19B6D572651235D00D1FDC3 /* StickerViewLayout.swift */,
+				D1D2CB80264D8E7600079756 /* StickerLayout.swift */,
+				D1D2CB82264D92C700079756 /* StickerViewCell.swift */,
+				D1858E7F264D97B5007EAB62 /* StickerCell.swift */,
+				D10001F2265BBE2900C17A2B /* StickerView.swift */,
+			);
+			path = Sticker;
+			sourceTree = "<group>";
+		};
+		D1F31E872645ADCA005D9F15 /* CustomUI */ = {
+			isa = PBXGroup;
+			children = (
+				D1F31E882645ADFF005D9F15 /* CircleButton.swift */,
+				D15285B72671D21C00E11C7F /* ColorPickerView.swift */,
+				D15285B92671D28100E11C7F /* ColorPickerView.xib */,
+			);
+			path = CustomUI;
+			sourceTree = "<group>";
+		};
+		D1F31E8A2645B161005D9F15 /* Decorating */ = {
+			isa = PBXGroup;
+			children = (
+				D1F31E8B2645B180005D9F15 /* DecoratingViewController.swift */,
+			);
+			path = Decorating;
+			sourceTree = "<group>";
+		};
+		D1FA2DBB2647F1E800AEC471 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				D1FA2DBE2647F1FA00AEC471 /* GmarketSansBold.otf */,
+				D1FA2DBD2647F1FA00AEC471 /* GmarketSansLight.otf */,
+				D1FA2DBC2647F1FA00AEC471 /* GmarketSansMedium.otf */,
+			);
+			path = Fonts;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -104,6 +416,7 @@
 				D1D2BEB0263A875C007D63B4 /* Frameworks */,
 				D1D2BEB1263A875C007D63B4 /* Resources */,
 				8FE8E3330744DBDB1BF80239 /* [CP] Embed Pods Frameworks */,
+				DF69E8DA3DF47EEFA1B8EB69 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -111,7 +424,7 @@
 			);
 			name = MemoryTrace;
 			productName = MemoryTrace;
-			productReference = D1D2BEB3263A875C007D63B4 /* MemoryTrace.app */;
+			productReference = D1D2BEB3263A875C007D63B4 /* duck-z.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -151,9 +464,19 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D161ED1B263D41B000C31F56 /* DiaryHeaderView.xib in Resources */,
+				D10C83CA263AA8FD007DD41D /* DiaryPolaroidCell.xib in Resources */,
 				D1D2BEC3263A8764007D63B4 /* LaunchScreen.storyboard in Resources */,
+				D10C83CF263AA912007DD41D /* DiaryMiniCell.xib in Resources */,
+				D194B702264C063500D00B8B /* GoogleService-Info.plist in Resources */,
 				D1D2BEC0263A8764007D63B4 /* Assets.xcassets in Resources */,
+				D1FA2DC02647F1FA00AEC471 /* GmarketSansLight.otf in Resources */,
+				D1FA2DC12647F1FA00AEC471 /* GmarketSansBold.otf in Resources */,
+				D1D2BED7263A9D9A007D63B4 /* DiaryBookCell.xib in Resources */,
 				D1D2BEBE263A875C007D63B4 /* Main.storyboard in Resources */,
+				D161ED23263EF44700C31F56 /* DiaryHeaderWithButtonView.xib in Resources */,
+				D15285BA2671D28100E11C7F /* ColorPickerView.xib in Resources */,
+				D1FA2DBF2647F1FA00AEC471 /* GmarketSansMedium.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -175,6 +498,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MemoryTrace/Pods-MemoryTrace-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		DF69E8DA3DF47EEFA1B8EB69 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-MemoryTrace/Pods-MemoryTrace-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-MemoryTrace/Pods-MemoryTrace-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MemoryTrace/Pods-MemoryTrace-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		FD0414BDEF1CB3FF2AE1AFDA /* [CP] Check Pods Manifest.lock */ = {
@@ -206,9 +546,52 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D1D2BEBB263A875C007D63B4 /* ViewController.swift in Sources */,
+				D170A928265CE7B200D5A4A3 /* UIView.swift in Sources */,
+				D170A94B265E2CDE00D5A4A3 /* BackgroundColor.swift in Sources */,
+				D1D2CB83264D92C700079756 /* StickerViewCell.swift in Sources */,
+				D19B6D582651235D00D1FDC3 /* StickerViewLayout.swift in Sources */,
+				D1E41E89264A6A0400C41D08 /* Router.swift in Sources */,
+				D1F31E892645ADFF005D9F15 /* CircleButton.swift in Sources */,
+				D10C83CE263AA912007DD41D /* DiaryMiniCell.swift in Sources */,
+				D1BDEC7A2648536700C9DD8F /* NetworkManager.swift in Sources */,
+				D1E41E90264BBC8100C41D08 /* APIRequester.swift in Sources */,
+				D161ED22263EF44600C31F56 /* DiaryHeaderWithButtonView.swift in Sources */,
+				D1BDEC742647F6B000C9DD8F /* UILabel.swift in Sources */,
+				D161ED1E263EA75D00C31F56 /* WritingViewController.swift in Sources */,
+				D1D2CB81264D8E7600079756 /* StickerLayout.swift in Sources */,
+				D1E41E8C264BAA1000C41D08 /* Book.swift in Sources */,
+				D15285B82671D21C00E11C7F /* ColorPickerView.swift in Sources */,
+				D18F05C3267A3242002AA558 /* MakersViewController.swift in Sources */,
+				D10C83C9263AA8FC007DD41D /* DiaryPolaroidCell.swift in Sources */,
+				D19B6D5A26513FDC00D1FDC3 /* UIViewController.swift in Sources */,
+				D1858E80264D97B5007EAB62 /* StickerCell.swift in Sources */,
+				D1D2BEBB263A875C007D63B4 /* HomeController.swift in Sources */,
+				D161ED0D263ABC1900C31F56 /* DiaryMiniLayout.swift in Sources */,
+				D1F31E8C2645B180005D9F15 /* DecoratingViewController.swift in Sources */,
+				D1BDEC762647F6C300C9DD8F /* UITextField.swift in Sources */,
+				D161ED07263ABAC000C31F56 /* DiaryBookLayout.swift in Sources */,
 				D1D2BEB7263A875C007D63B4 /* AppDelegate.swift in Sources */,
+				D161ED1A263D41B000C31F56 /* DiaryHeaderView.swift in Sources */,
+				D1D2CB7F264D8D4400079756 /* StickerViewController.swift in Sources */,
+				D161ED0A263ABC0400C31F56 /* DiaryPolaroidLayout.swift in Sources */,
+				D10B34002654188F00BD45D0 /* MemberCell.swift in Sources */,
+				D1C13C472646EC9300C5686F /* DiarySettingViewController.swift in Sources */,
+				D1FB38092658E99700AE537C /* MypageViewController.swift in Sources */,
+				D16DF324265415B70073EA37 /* MemberManagementController.swift in Sources */,
+				D10001EB2658FCDD00C17A2B /* ChangeNameViewController.swift in Sources */,
+				D1A198AE266542A80029EF73 /* ReadingViewController.swift in Sources */,
+				D1D2BED6263A9D9A007D63B4 /* DiaryBookCell.swift in Sources */,
+				D1BDEC782647F6D800C9DD8F /* UITextView.swift in Sources */,
+				D1D804D626629E4B00C0A4C8 /* String.swift in Sources */,
+				D161ED15263AC48F00C31F56 /* DiaryListViewController.swift in Sources */,
 				D1D2BEB9263A875C007D63B4 /* SceneDelegate.swift in Sources */,
+				D194B700264BF8B500D00B8B /* LoginViewController.swift in Sources */,
+				D1E41E8E264BB9B900C41D08 /* Diary.swift in Sources */,
+				D170A94D265E44F700D5A4A3 /* SNSType.swift in Sources */,
+				D1D804D4266285BE00C0A4C8 /* LicenseViewController.swift in Sources */,
+				D10001F3265BBE2900C17A2B /* StickerView.swift in Sources */,
+				D17E1C49266654BE0037216F /* ColorSettingViewController.swift in Sources */,
+				D19B6D5C2652CB1E00D1FDC3 /* Login.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -285,7 +668,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -340,7 +723,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -356,15 +739,18 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = MemoryTrace/MemoryTrace.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 6D8SYQ63KK;
 				INFOPLIST_FILE = MemoryTrace/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.tistory.lsh424.MemoryTrace;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "duck-z";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -376,15 +762,18 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = MemoryTrace/MemoryTrace.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 6D8SYQ63KK;
 				INFOPLIST_FILE = MemoryTrace/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.tistory.lsh424.MemoryTrace;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "duck-z";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
