@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionReusableView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="diaryHeaderView" id="U6b-Vx-4bR" customClass="DiaryHeaderView" customModule="duck_z" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="19w-dN-R1G">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0000.00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YBx-7Z-eS6">
+                            <rect key="frame" x="24" y="17" width="327" height="21"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="YBx-7Z-eS6" firstAttribute="centerX" secondItem="19w-dN-R1G" secondAttribute="centerX" id="T0n-R3-QLR"/>
+                        <constraint firstAttribute="bottom" secondItem="YBx-7Z-eS6" secondAttribute="bottom" constant="5" id="o7m-hO-Yfg"/>
+                        <constraint firstItem="YBx-7Z-eS6" firstAttribute="width" secondItem="19w-dN-R1G" secondAttribute="width" multiplier="0.872" id="oJV-Vb-DQb"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="VXr-Tz-HHm"/>
+            <constraints>
+                <constraint firstItem="19w-dN-R1G" firstAttribute="leading" secondItem="VXr-Tz-HHm" secondAttribute="leading" id="MqI-hG-Hpu"/>
+                <constraint firstItem="19w-dN-R1G" firstAttribute="top" secondItem="U6b-Vx-4bR" secondAttribute="top" id="OaY-Cd-x89"/>
+                <constraint firstItem="VXr-Tz-HHm" firstAttribute="bottom" secondItem="19w-dN-R1G" secondAttribute="bottom" id="nG8-wh-soc"/>
+                <constraint firstItem="VXr-Tz-HHm" firstAttribute="trailing" secondItem="19w-dN-R1G" secondAttribute="trailing" id="w1w-qr-ZXI"/>
+            </constraints>
+            <connections>
+                <outlet property="dateLabel" destination="YBx-7Z-eS6" id="g9u-hz-1oX"/>
+            </connections>
+            <point key="canvasLocation" x="148.55072463768118" y="86.383928571428569"/>
+        </collectionReusableView>
+    </objects>
+</document>
