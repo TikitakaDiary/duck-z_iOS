@@ -15,15 +15,21 @@ class DiarySettingViewController: UIViewController {
         super.viewDidLoad()
         
         self.title = "일기 설정"
+        self.view.backgroundColor = UIColor(red: 33/255, green: 33/255, blue: 33/255, alpha: 1)
         
+        setupNavigationBar()
+        setupTableView()
+    }
+    
+    private func setupNavigationBar() {
         let backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
         self.navigationItem.backBarButtonItem = backBarButtonItem
-        
         self.navigationController?.navigationBar.titleTextAttributes = [ NSAttributedString.Key.font: UIFont(name: "Apple SD Gothic Neo", size: 16) ?? UIFont.systemFont(ofSize: 16)]
         self.navigationController?.navigationBar.tintColor = .white
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
-        
-        self.view.backgroundColor = UIColor(red: 33/255, green: 33/255, blue: 33/255, alpha: 1)
+    }
+    
+    private func setupTableView() {
         tableView.delegate = self
         tableView.dataSource = self
         
@@ -72,12 +78,12 @@ extension DiarySettingViewController: UITableViewDelegate, UITableViewDataSource
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.row == 0 {
-            let memberVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MemberManagementVC") as! MemberManagementController
+            guard let memberVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MemberManagementVC") as? MemberManagementController else { return }
             
             self.navigationController?.pushViewController(memberVC, animated: true)
         }
         else if indexPath.row == 1 {
-            let decoratingVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "DecoratingVC") as! DecoratingViewController
+            guard let decoratingVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "DecoratingVC") as? DecoratingViewController else { return }
             decoratingVC.editType = .modify
             decoratingVC.modalPresentationStyle = .fullScreen
             self.present(decoratingVC, animated: true, completion: nil)
@@ -88,12 +94,10 @@ extension DiarySettingViewController: UITableViewDelegate, UITableViewDataSource
                 
                 NetworkManager.shared.exitBook(bookID: bid) { response in
                     self.navigationController?.popToRootViewController(animated: true)
-                    
                     NotificationCenter.default.post(name: NSNotification.Name("updateBooks"), object: BookUpdateType.delete)
                 }
             }
             showAlert(title: "일기장을 나가시겠어요?", message: "일기장을 나갈 시, 작성했던 일기장에 접근할 수 없습니다. 그래도 나가시겠습니까?", action: exitAction)
-            
         }
     }
 }

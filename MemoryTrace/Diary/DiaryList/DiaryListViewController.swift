@@ -20,15 +20,7 @@ class DiaryListViewController: UIViewController {
     @IBOutlet weak var noDiaryLabel: UILabel!
     
     private var layout: Layout = .polaroid
-    private var diaryList: [[DiaryInfo]] = [] {
-        didSet {
-            if diaryList.isEmpty {
-                noDiaryLabel.isHidden = false
-            } else {
-                noDiaryLabel.isHidden = true
-            }
-        }
-    }
+    private var diaryList: [[DiaryInfo]] = []
     
     var isMyTurn: Bool?
     lazy var page: Int = 1
@@ -38,12 +30,15 @@ class DiaryListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         diaryCollectionView.delegate = self
         diaryCollectionView.dataSource = self
         setupCollectionView()
         bookTitleLabel.text = CurrentBook.shared.book?.title
-
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "setting"), style: .plain, target: self, action: #selector(didPressSetting))
+        
+        let rightBarButton = UIBarButtonItem(image: UIImage(named: "setting"), style: .plain, target: self, action: #selector(didPressSetting))
+        rightBarButton.imageInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 7)
+        navigationItem.rightBarButtonItem = rightBarButton
         navigationItem.rightBarButtonItem?.tintColor = .white
         
         let backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
@@ -97,6 +92,13 @@ class DiaryListViewController: UIViewController {
                 self?.diaryList = self?.classifiedDiaryList(originalList: strongSelf.diaryList, diaryList: diaryList.data.diaryList) ?? []
                 self?.totalDiaryCount += diaryList.data.diaryList.count
                 DispatchQueue.main.async {
+                    
+                    if strongSelf.diaryList.isEmpty {
+                        self?.noDiaryLabel.isHidden = false
+                    } else {
+                        self?.noDiaryLabel.isHidden = true
+                    }
+                    
                     self?.diaryCollectionView.reloadData()
                     self?.hasNext = diaryList.data.hasNext
                 }

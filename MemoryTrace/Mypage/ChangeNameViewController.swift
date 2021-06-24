@@ -35,11 +35,10 @@ class ChangeNameViewController: UIViewController {
                 guard let postVC = self?.navigationController?.viewControllers[1] as? MypageViewController else {return}
                 
                 postVC.nameLabel.text = modifiedName
-                self?.view.endEditing(true)
-                
-                self?.showToast(message: "변경되었습니다.", position: .center)
                 NotificationCenter.default.post(name: NSNotification.Name("updateBooks"), object: BookUpdateType.update)
+                self?.navigationController?.popViewController(animated: true)
             case .failure(let error):
+                self?.view.endEditing(true)
                 self?.showToast(message: error.localizedDescription, position: .bottom)
             }
         }

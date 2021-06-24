@@ -4,11 +4,13 @@
 //
 //  Created by seunghwan Lee on 2021/05/10.
 //
-import UIKit
+import Foundation
+import Alamofire
+import RxSwift
 
 class NetworkManager {
     static let shared = NetworkManager()
-    typealias Completion<T> = (Result<T, Error>) -> Void
+    typealias Completion<T> = (Result<T, AFError>) -> Void
     
     private init() {}
     
@@ -78,6 +80,24 @@ class NetworkManager {
     func enterDiary(invitationCode: String, completion: @escaping    Completion<NoDataResponse>) {
         let router: Router = .invite(invitationCode: invitationCode)
         APIRequester(with: router).postRequest(completion: completion)
+    }
+    
+    // MARK:- Rx
+    
+    func fetchBookInfoRx(bookID: Int) -> Observable<BookInfo> {
+        return Observable.create { emitter in
+            let router: Router = .fetchBookInfo(bookID: bookID)
+            APIRequester(with: router).getRequest { (result: Result<BookInfo, AFError>) in
+                switch result {
+                case .success(let bookInfo):
+                    emitter.onNext(bookInfo)
+                    emitter.onCompleted()
+                case .failure(let err):
+                    emitter.onError(err)
+                }
+            }
+            return Disposables.create()
+        }
     }
 }
 

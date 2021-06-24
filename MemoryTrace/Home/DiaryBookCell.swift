@@ -9,6 +9,8 @@ import UIKit
 
 class DiaryBookCell: UICollectionViewCell {
     
+    static let identifier = "DiaryBookCell"
+    
     @IBOutlet weak var colorView: UIView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var turnLabel: UILabel!
