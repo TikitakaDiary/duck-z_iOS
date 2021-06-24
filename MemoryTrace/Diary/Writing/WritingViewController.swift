@@ -91,8 +91,13 @@ class WritingViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+ 
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tap(_:)))
         contentView.addGestureRecognizer(tapGesture)
+        
+        let polaroidImageViewTapGeture = UITapGestureRecognizer(target: self, action: #selector(tapPolaroidImageView(_:)))
+        polaroidImageView.addGestureRecognizer(polaroidImageViewTapGeture)
+
         self.polaroidImageView.addSubview(stickerView)
         
         polaroidView.layer.cornerRadius = 10
@@ -105,7 +110,7 @@ class WritingViewController: UIViewController {
         textView.delegate = self
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
-
+        
         toolbarSetup(textView: textView, textField: titleTextField)
         writerLabel.text = "by \(UserDefaults.standard.string(forKey: "name") ?? "")"
         
@@ -121,6 +126,15 @@ class WritingViewController: UIViewController {
         selectedStickerView = nil
     }
     
+    @objc func tapPolaroidImageView(_ gesture: UITapGestureRecognizer) {
+        if selectedStickerView != nil {
+            selectedStickerView = nil
+        } else {
+            dismissStickerView()
+            self.present(actionSheet, animated: true, completion: nil)
+        }
+    }
+    
     @IBAction func didPressCancelButton(_ sender: UIButton) {
         let exitAction = UIAlertAction(title: "나가기", style: .destructive) { [weak self] _ in
             self?.dismiss(animated: true, completion: nil)
@@ -130,6 +144,11 @@ class WritingViewController: UIViewController {
     
     @IBAction func didPressSendButton(_ sender: UIButton) {
         selectedStickerView = nil
+        
+        if scrollViewBotConst.constant != 0 {
+            self.view.endEditing(true)
+            scrollViewBotConst.constant = 0
+        }
         
         guard let book = CurrentBook.shared.book, self.isSendAvailable else { return }
         
@@ -154,6 +173,8 @@ class WritingViewController: UIViewController {
             switch result {
             case .success(_):
                 NotificationCenter.default.post(name: NSNotification.Name("updateDiary"), object: nil)
+                // 추가된 부분
+                NotificationCenter.default.post(name: NSNotification.Name("updateBooks"), object: BookUpdateType.update)
                 self?.dismiss(animated: true, completion: nil)
             case .failure(let error):
                 self?.showToast(message: error.localizedDescription, position: .bottom)
@@ -178,7 +199,7 @@ class WritingViewController: UIViewController {
         self.addChild(stickerViewController!)
         stickerViewController?.delegate = self
         
-        let stickerViewOriginY = polaroidView.frame.origin.y + 75 + polaroidImageView.frame.height + topbarHeight
+        let stickerViewOriginY = polaroidView.frame.origin.y + 85 + polaroidImageView.frame.height + topbarHeight // 75
         
         stickerViewController!.view.frame = CGRect(x: 0, y: self.view.frame.height, width: self.view.frame.width, height: self.view.frame.height - stickerViewOriginY)
         self.view.addSubview(stickerViewController!.view)
