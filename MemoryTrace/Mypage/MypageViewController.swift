@@ -160,7 +160,6 @@ extension MypageViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.row == 2 {
-//            let makersVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MakersVC")
             let makersVC = MakersViewController()
             self.navigationController?.pushViewController(makersVC, animated: true)
         } else if indexPath.row == 3 {
