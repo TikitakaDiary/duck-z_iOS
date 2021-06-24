@@ -9,6 +9,8 @@ import UIKit
 
 class MemberCell: UITableViewCell {
     
+    static let identifier = "MemberCell"
+    
     @IBOutlet weak var view: UIView!
     @IBOutlet weak var nameLabel: UILabel!
     

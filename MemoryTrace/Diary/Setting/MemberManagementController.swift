@@ -6,59 +6,45 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 class MemberManagementController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var inviteButton: UIButton!
-    
-    private var userList: [User] = []
-    lazy private var inviteCode = ""
+
+    var viewModel: MemberManagementViewModel!
+    let disposeBag = DisposeBag()
+    lazy private var invitationCode = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.dataSource = self
-        tableView.rowHeight = 80
-        inviteButton.layer.cornerRadius = 22
+        tableView.rowHeight = self.view.frame.width * 0.16
+        inviteButton.layer.cornerRadius = 20
         
         guard let bid = CurrentBook.shared.book?.bid else { return }
+        self.viewModel = MemberManagementViewModel(bid:bid)
 
-        NetworkManager.shared.fetchBookInfo(bookID: bid) { [weak self] (result) in
-            switch result {
-            case .success(let bookInfo):
-                guard let inviteCode = bookInfo.data.inviteCode, let userList = bookInfo.data.userList else {return}
-    
-                self?.inviteCode = inviteCode
-                self?.userList = userList
-                
-                DispatchQueue.main.async {
-                    self?.tableView.reloadData()
-                }
-            case .failure(let error):
-                self?.showToast(message: error.localizedDescription, position: .bottom)
+        self.viewModel.members
+            .asDriver(onErrorJustReturn: [])
+            .drive(tableView.rx.items(cellIdentifier: "MemberCell", cellType: MemberCell.self)) { index, item, cell in
+                cell.nameLabel.text = item.nickname
             }
-        }
+            .disposed(by: disposeBag)
+        
+        self.viewModel.invitationCode
+            .subscribe(onNext: { self.invitationCode = $0 })
+            .disposed(by: disposeBag)
     }
     
     @IBAction func didPressInviteButton(_ sender: UIButton) {
-        if inviteCode.isEmpty {
+        if invitationCode.isEmpty {
             showToast(message: "코드 생성에 실패했습니다.", position: .bottom)
         } else {
             showToast(message: "코드가 복사되었습니다.", position: .bottom)
-            UIPasteboard.general.string = inviteCode
+            UIPasteboard.general.string = invitationCode
         }
     }
 }
 
-extension MemberManagementController: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return userList.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "MemberCell", for: indexPath) as! MemberCell
-        
-        cell.nameLabel.text = userList[indexPath.row].nickname
-        return cell
-    }
-}
