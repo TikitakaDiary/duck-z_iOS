@@ -126,6 +126,8 @@ class DecoratingViewController: UIViewController {
     }
     
     @IBAction func didPressCreateButton(_ sender: UIButton) {
+        self.view.endEditing(true)
+        
         if bookTitleTextView.text == "제목을 입력하세요" || bookTitleTextView.text.getArrayAfterRegex(regex: "[^\\s]").isEmpty {
             showToast(message: "제목을 입력해주세요!", position: .bottom)
             return
