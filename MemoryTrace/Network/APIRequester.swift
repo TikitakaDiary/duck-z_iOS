@@ -8,10 +8,10 @@
 import Alamofire
 
 struct APIRequester {
-    typealias Completion<T> = (Result<T, Error>) -> Void
+    typealias Completion<T> = (Result<T, AFError>) -> Void
     
     let router: Router
-    private let token = "NULL"
+    private let token = "Null"
     
     init(with router: Router) {
         self.router = router
@@ -22,12 +22,7 @@ struct APIRequester {
         )
         
         request.responseDecodable(of: T.self) { response in
-            switch response.result {
-            case let .success(result):
-                completion(.success(result))
-            case let .failure(error):
-                completion(.failure(error))
-            }
+            completion(response.result)
         }
     }
     
@@ -41,12 +36,7 @@ struct APIRequester {
             }
         }, to: router.url, method: .post, headers: ["Authorization": token ?? "No value"]).responseJSON(completionHandler: { data in
         }).responseDecodable(of: T.self) { response in
-            switch response.result {
-            case let .success(result):
-                completion(.success(result))
-            case let .failure(error):
-                completion(.failure(error))
-            }
+            completion(response.result)
         }
     }
     
@@ -60,12 +50,7 @@ struct APIRequester {
         }
         
         request.responseDecodable(of: T.self) { response in
-            switch response.result {
-            case let .success(result):
-                completion(.success(result))
-            case let .failure(error):
-                completion(.failure(error))
-            }
+            completion(response.result)
         }
     }
     
@@ -73,12 +58,7 @@ struct APIRequester {
         let request = AF.request(router.url, method: .put, parameters: router.parameters, encoding: JSONEncoding.default, headers: ["Authorization": token ?? "No value"])
         
         request.responseDecodable(of: T.self) { response in
-            switch response.result {
-            case let .success(result):
-                completion(.success(result))
-            case let .failure(error):
-                completion(.failure(error))
-            }
+            completion(response.result)
         }
     }
 }
