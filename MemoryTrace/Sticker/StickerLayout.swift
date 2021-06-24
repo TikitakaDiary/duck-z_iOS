@@ -11,7 +11,8 @@ class StickerLayout: UICollectionViewFlowLayout {
     override func prepare() {
         super.prepare()
         guard let collectionView = collectionView else {return}
-        let spacing = collectionView.frame.width * 0.0746
+//        let spacing = collectionView.frame.width * 0.0746
+        let spacing = collectionView.frame.width * 0.04
         let cellWidth = (collectionView.frame.width - (spacing * 5)) / 4
         self.itemSize = CGSize(width: cellWidth, height: cellWidth)
         self.scrollDirection = .vertical
