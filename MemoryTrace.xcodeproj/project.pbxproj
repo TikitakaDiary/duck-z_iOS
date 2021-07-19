@@ -14,9 +14,12 @@
 		D10C83CA263AA8FD007DD41D /* DiaryPolaroidCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D10C83C8263AA8FC007DD41D /* DiaryPolaroidCell.xib */; };
 		D10C83CE263AA912007DD41D /* DiaryMiniCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10C83CC263AA912007DD41D /* DiaryMiniCell.swift */; };
 		D10C83CF263AA912007DD41D /* DiaryMiniCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D10C83CD263AA912007DD41D /* DiaryMiniCell.xib */; };
+		D14E635126A565A3003E19F8 /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D14E635026A565A3003E19F8 /* UIImage.swift */; };
 		D15285B82671D21C00E11C7F /* ColorPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D15285B72671D21C00E11C7F /* ColorPickerView.swift */; };
 		D15285BA2671D28100E11C7F /* ColorPickerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D15285B92671D28100E11C7F /* ColorPickerView.xib */; };
 		D15DB9AF267C38A8007C595A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D15DB9AE267C38A8007C595A /* GoogleService-Info.plist */; };
+		D15FBB0326A1D047006BF768 /* DiaryDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D15FBB0226A1D047006BF768 /* DiaryDetailViewModel.swift */; };
+		D15FBB0526A1D60F006BF768 /* ReadingViewControllerRx.swift in Sources */ = {isa = PBXBuildFile; fileRef = D15FBB0426A1D60F006BF768 /* ReadingViewControllerRx.swift */; };
 		D161ED07263ABAC000C31F56 /* DiaryBookLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = D161ED06263ABAC000C31F56 /* DiaryBookLayout.swift */; };
 		D161ED0A263ABC0400C31F56 /* DiaryPolaroidLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = D161ED09263ABC0400C31F56 /* DiaryPolaroidLayout.swift */; };
 		D161ED0D263ABC1900C31F56 /* DiaryMiniLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = D161ED0C263ABC1900C31F56 /* DiaryMiniLayout.swift */; };
@@ -26,11 +29,17 @@
 		D161ED1E263EA75D00C31F56 /* WritingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D161ED1D263EA75D00C31F56 /* WritingViewController.swift */; };
 		D161ED22263EF44600C31F56 /* DiaryHeaderWithButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D161ED20263EF44600C31F56 /* DiaryHeaderWithButtonView.swift */; };
 		D161ED23263EF44700C31F56 /* DiaryHeaderWithButtonView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D161ED21263EF44600C31F56 /* DiaryHeaderWithButtonView.xib */; };
+		D165D275269AF6D600EBD3DF /* ViewModelBindableType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D165D274269AF6D600EBD3DF /* ViewModelBindableType.swift */; };
+		D165D278269C9CE000EBD3DF /* BookStorageType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D165D277269C9CE000EBD3DF /* BookStorageType.swift */; };
+		D165D27A269C9EC100EBD3DF /* BookStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D165D279269C9EC100EBD3DF /* BookStorage.swift */; };
+		D165D27D269CA6C300EBD3DF /* ProfileStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D165D27C269CA6C300EBD3DF /* ProfileStorage.swift */; };
 		D16DF324265415B70073EA37 /* MemberManagementController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D16DF323265415B70073EA37 /* MemberManagementController.swift */; };
 		D170A928265CE7B200D5A4A3 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D170A927265CE7B200D5A4A3 /* UIView.swift */; };
 		D170A94B265E2CDE00D5A4A3 /* BackgroundColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D170A94A265E2CDE00D5A4A3 /* BackgroundColor.swift */; };
 		D170A94D265E44F700D5A4A3 /* SNSType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D170A94C265E44F700D5A4A3 /* SNSType.swift */; };
 		D17E1C49266654BE0037216F /* ColorSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D17E1C48266654BE0037216F /* ColorSettingViewController.swift */; };
+		D1857138268A32380001F1FE /* HomeControllerRx.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1857137268A32380001F1FE /* HomeControllerRx.swift */; };
+		D185713B268A331F0001F1FE /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D185713A268A331F0001F1FE /* HomeViewModel.swift */; };
 		D1858E80264D97B5007EAB62 /* StickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1858E7F264D97B5007EAB62 /* StickerCell.swift */; };
 		D18F05C3267A3242002AA558 /* MakersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D18F05C2267A3242002AA558 /* MakersViewController.swift */; };
 		D194B700264BF8B500D00B8B /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D194B6FD264BF01800D00B8B /* LoginViewController.swift */; };
@@ -57,13 +66,13 @@
 		D1D2CB83264D92C700079756 /* StickerViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1D2CB82264D92C700079756 /* StickerViewCell.swift */; };
 		D1D804D4266285BE00C0A4C8 /* LicenseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1D804D3266285BE00C0A4C8 /* LicenseViewController.swift */; };
 		D1D804D626629E4B00C0A4C8 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1D804D526629E4B00C0A4C8 /* String.swift */; };
-		D1DC173826806D1300774B9A /* CustomBackButtonNavController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1DC173726806D1300774B9A /* CustomBackButtonNavController.swift */; };
 		D1E41E89264A6A0400C41D08 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1E41E88264A6A0400C41D08 /* Router.swift */; };
 		D1E41E8C264BAA1000C41D08 /* Book.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1E41E8B264BAA1000C41D08 /* Book.swift */; };
 		D1E41E8E264BB9B900C41D08 /* Diary.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1E41E8D264BB9B900C41D08 /* Diary.swift */; };
 		D1E41E90264BBC8100C41D08 /* APIRequester.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1E41E8F264BBC8100C41D08 /* APIRequester.swift */; };
 		D1F31E892645ADFF005D9F15 /* CircleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1F31E882645ADFF005D9F15 /* CircleButton.swift */; };
 		D1F31E8C2645B180005D9F15 /* DecoratingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1F31E8B2645B180005D9F15 /* DecoratingViewController.swift */; };
+		D1F7870E26942D01002156AC /* FCM.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1F7870D26942D01002156AC /* FCM.swift */; };
 		D1FA2DBF2647F1FA00AEC471 /* GmarketSansMedium.otf in Resources */ = {isa = PBXBuildFile; fileRef = D1FA2DBC2647F1FA00AEC471 /* GmarketSansMedium.otf */; };
 		D1FA2DC02647F1FA00AEC471 /* GmarketSansLight.otf in Resources */ = {isa = PBXBuildFile; fileRef = D1FA2DBD2647F1FA00AEC471 /* GmarketSansLight.otf */; };
 		D1FA2DC12647F1FA00AEC471 /* GmarketSansBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = D1FA2DBE2647F1FA00AEC471 /* GmarketSansBold.otf */; };
@@ -81,9 +90,12 @@
 		D10C83C8263AA8FC007DD41D /* DiaryPolaroidCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DiaryPolaroidCell.xib; sourceTree = "<group>"; };
 		D10C83CC263AA912007DD41D /* DiaryMiniCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryMiniCell.swift; sourceTree = "<group>"; };
 		D10C83CD263AA912007DD41D /* DiaryMiniCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DiaryMiniCell.xib; sourceTree = "<group>"; };
+		D14E635026A565A3003E19F8 /* UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
 		D15285B72671D21C00E11C7F /* ColorPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPickerView.swift; sourceTree = "<group>"; };
 		D15285B92671D28100E11C7F /* ColorPickerView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ColorPickerView.xib; sourceTree = "<group>"; };
 		D15DB9AE267C38A8007C595A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		D15FBB0226A1D047006BF768 /* DiaryDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryDetailViewModel.swift; sourceTree = "<group>"; };
+		D15FBB0426A1D60F006BF768 /* ReadingViewControllerRx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingViewControllerRx.swift; sourceTree = "<group>"; };
 		D161ED06263ABAC000C31F56 /* DiaryBookLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryBookLayout.swift; sourceTree = "<group>"; };
 		D161ED09263ABC0400C31F56 /* DiaryPolaroidLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryPolaroidLayout.swift; sourceTree = "<group>"; };
 		D161ED0C263ABC1900C31F56 /* DiaryMiniLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryMiniLayout.swift; sourceTree = "<group>"; };
@@ -93,11 +105,17 @@
 		D161ED1D263EA75D00C31F56 /* WritingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WritingViewController.swift; sourceTree = "<group>"; };
 		D161ED20263EF44600C31F56 /* DiaryHeaderWithButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryHeaderWithButtonView.swift; sourceTree = "<group>"; };
 		D161ED21263EF44600C31F56 /* DiaryHeaderWithButtonView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DiaryHeaderWithButtonView.xib; sourceTree = "<group>"; };
+		D165D274269AF6D600EBD3DF /* ViewModelBindableType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelBindableType.swift; sourceTree = "<group>"; };
+		D165D277269C9CE000EBD3DF /* BookStorageType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookStorageType.swift; sourceTree = "<group>"; };
+		D165D279269C9EC100EBD3DF /* BookStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookStorage.swift; sourceTree = "<group>"; };
+		D165D27C269CA6C300EBD3DF /* ProfileStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileStorage.swift; sourceTree = "<group>"; };
 		D16DF323265415B70073EA37 /* MemberManagementController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberManagementController.swift; sourceTree = "<group>"; };
 		D170A927265CE7B200D5A4A3 /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
 		D170A94A265E2CDE00D5A4A3 /* BackgroundColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundColor.swift; sourceTree = "<group>"; };
 		D170A94C265E44F700D5A4A3 /* SNSType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SNSType.swift; sourceTree = "<group>"; };
 		D17E1C48266654BE0037216F /* ColorSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSettingViewController.swift; sourceTree = "<group>"; };
+		D1857137268A32380001F1FE /* HomeControllerRx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeControllerRx.swift; sourceTree = "<group>"; };
+		D185713A268A331F0001F1FE /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		D1858E7F264D97B5007EAB62 /* StickerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickerCell.swift; sourceTree = "<group>"; };
 		D18F05C2267A3242002AA558 /* MakersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakersViewController.swift; sourceTree = "<group>"; };
 		D194B6FD264BF01800D00B8B /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -127,13 +145,13 @@
 		D1D2CB82264D92C700079756 /* StickerViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickerViewCell.swift; sourceTree = "<group>"; };
 		D1D804D3266285BE00C0A4C8 /* LicenseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicenseViewController.swift; sourceTree = "<group>"; };
 		D1D804D526629E4B00C0A4C8 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
-		D1DC173726806D1300774B9A /* CustomBackButtonNavController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomBackButtonNavController.swift; sourceTree = "<group>"; };
 		D1E41E88264A6A0400C41D08 /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
 		D1E41E8B264BAA1000C41D08 /* Book.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Book.swift; sourceTree = "<group>"; };
 		D1E41E8D264BB9B900C41D08 /* Diary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Diary.swift; sourceTree = "<group>"; };
 		D1E41E8F264BBC8100C41D08 /* APIRequester.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIRequester.swift; sourceTree = "<group>"; };
 		D1F31E882645ADFF005D9F15 /* CircleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleButton.swift; sourceTree = "<group>"; };
 		D1F31E8B2645B180005D9F15 /* DecoratingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecoratingViewController.swift; sourceTree = "<group>"; };
+		D1F7870D26942D01002156AC /* FCM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FCM.swift; sourceTree = "<group>"; };
 		D1FA2DBC2647F1FA00AEC471 /* GmarketSansMedium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = GmarketSansMedium.otf; sourceTree = "<group>"; };
 		D1FA2DBD2647F1FA00AEC471 /* GmarketSansLight.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = GmarketSansLight.otf; sourceTree = "<group>"; };
 		D1FA2DBE2647F1FA00AEC471 /* GmarketSansBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = GmarketSansBold.otf; sourceTree = "<group>"; };
@@ -173,8 +191,12 @@
 		D10C83D1263AA91F007DD41D /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				D165D27B269CA69300EBD3DF /* ProfileStorage */,
+				D165D276269C9CC000EBD3DF /* BookStorage */,
 				D18F05C6267A55A9002AA558 /* Model */,
+				D1857139268A327F0001F1FE /* ViewModel */,
 				D1D2BEBA263A875C007D63B4 /* HomeController.swift */,
+				D1857137268A32380001F1FE /* HomeControllerRx.swift */,
 				D1D2BED4263A9D9A007D63B4 /* DiaryBookCell.swift */,
 				D161ED06263ABAC000C31F56 /* DiaryBookLayout.swift */,
 				D1D2BED5263A9D9A007D63B4 /* DiaryBookCell.xib */,
@@ -242,6 +264,14 @@
 			path = Writing;
 			sourceTree = "<group>";
 		};
+		D15FBB0126A1D02C006BF768 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				D15FBB0226A1D047006BF768 /* DiaryDetailViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		D161ED02263AB8B100C31F56 /* Network */ = {
 			isa = PBXGroup;
 			children = (
@@ -255,6 +285,7 @@
 		D161ED03263AB8BF00C31F56 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				D14E635026A565A3003E19F8 /* UIImage.swift */,
 				D1BDEC732647F6B000C9DD8F /* UILabel.swift */,
 				D1BDEC752647F6C200C9DD8F /* UITextField.swift */,
 				D1BDEC772647F6D800C9DD8F /* UITextView.swift */,
@@ -265,13 +296,39 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		D165D276269C9CC000EBD3DF /* BookStorage */ = {
+			isa = PBXGroup;
+			children = (
+				D165D277269C9CE000EBD3DF /* BookStorageType.swift */,
+				D165D279269C9EC100EBD3DF /* BookStorage.swift */,
+			);
+			path = BookStorage;
+			sourceTree = "<group>";
+		};
+		D165D27B269CA69300EBD3DF /* ProfileStorage */ = {
+			isa = PBXGroup;
+			children = (
+				D165D27C269CA6C300EBD3DF /* ProfileStorage.swift */,
+			);
+			path = ProfileStorage;
+			sourceTree = "<group>";
+		};
 		D170A949265E2CB800D5A4A3 /* Support */ = {
 			isa = PBXGroup;
 			children = (
+				D165D274269AF6D600EBD3DF /* ViewModelBindableType.swift */,
 				D170A94A265E2CDE00D5A4A3 /* BackgroundColor.swift */,
 				D170A94C265E44F700D5A4A3 /* SNSType.swift */,
 			);
 			path = Support;
+			sourceTree = "<group>";
+		};
+		D1857139268A327F0001F1FE /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				D185713A268A331F0001F1FE /* HomeViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		D18F05C4267A5580002AA558 /* Model */ = {
@@ -301,7 +358,9 @@
 		D1A198AC266541250029EF73 /* Reading */ = {
 			isa = PBXGroup;
 			children = (
+				D15FBB0126A1D02C006BF768 /* ViewModel */,
 				D1A198AD266542A80029EF73 /* ReadingViewController.swift */,
+				D15FBB0426A1D60F006BF768 /* ReadingViewControllerRx.swift */,
 			);
 			path = Reading;
 			sourceTree = "<group>";
@@ -353,6 +412,7 @@
 				D1D2BEC1263A8764007D63B4 /* LaunchScreen.storyboard */,
 				D1D2BECE263A9A77007D63B4 /* Resources */,
 				D170A949265E2CB800D5A4A3 /* Support */,
+				D1F7870C26942CE2002156AC /* FCM */,
 				D161ED02263AB8B100C31F56 /* Network */,
 				D161ED03263AB8BF00C31F56 /* Extensions */,
 				D10C83D3263AA93E007DD41D /* Login */,
@@ -363,7 +423,6 @@
 				D1F31E872645ADCA005D9F15 /* CustomUI */,
 				D15DB9AE267C38A8007C595A /* GoogleService-Info.plist */,
 				D1D2BEC4263A8764007D63B4 /* Info.plist */,
-				D1DC173726806D1300774B9A /* CustomBackButtonNavController.swift */,
 			);
 			path = MemoryTrace;
 			sourceTree = "<group>";
@@ -406,6 +465,14 @@
 				D1F31E8B2645B180005D9F15 /* DecoratingViewController.swift */,
 			);
 			path = Decorating;
+			sourceTree = "<group>";
+		};
+		D1F7870C26942CE2002156AC /* FCM */ = {
+			isa = PBXGroup;
+			children = (
+				D1F7870D26942D01002156AC /* FCM.swift */,
+			);
+			path = FCM;
 			sourceTree = "<group>";
 		};
 		D1FA2DBB2647F1E800AEC471 /* Fonts */ = {
@@ -565,10 +632,12 @@
 				D1D2CB83264D92C700079756 /* StickerViewCell.swift in Sources */,
 				D19B6D582651235D00D1FDC3 /* StickerViewLayout.swift in Sources */,
 				D1E41E89264A6A0400C41D08 /* Router.swift in Sources */,
+				D1F7870E26942D01002156AC /* FCM.swift in Sources */,
 				D1F31E892645ADFF005D9F15 /* CircleButton.swift in Sources */,
 				D10C83CE263AA912007DD41D /* DiaryMiniCell.swift in Sources */,
 				D1BDEC7A2648536700C9DD8F /* NetworkManager.swift in Sources */,
 				D1E41E90264BBC8100C41D08 /* APIRequester.swift in Sources */,
+				D185713B268A331F0001F1FE /* HomeViewModel.swift in Sources */,
 				D161ED22263EF44600C31F56 /* DiaryHeaderWithButtonView.swift in Sources */,
 				D1BDEC742647F6B000C9DD8F /* UILabel.swift in Sources */,
 				D161ED1E263EA75D00C31F56 /* WritingViewController.swift in Sources */,
@@ -584,13 +653,19 @@
 				D1F31E8C2645B180005D9F15 /* DecoratingViewController.swift in Sources */,
 				D1BDEC762647F6C300C9DD8F /* UITextField.swift in Sources */,
 				D161ED07263ABAC000C31F56 /* DiaryBookLayout.swift in Sources */,
+				D165D27A269C9EC100EBD3DF /* BookStorage.swift in Sources */,
 				D1D2BEB7263A875C007D63B4 /* AppDelegate.swift in Sources */,
+				D15FBB0526A1D60F006BF768 /* ReadingViewControllerRx.swift in Sources */,
 				D161ED1A263D41B000C31F56 /* DiaryHeaderView.swift in Sources */,
+				D165D27D269CA6C300EBD3DF /* ProfileStorage.swift in Sources */,
 				D1D2CB7F264D8D4400079756 /* StickerViewController.swift in Sources */,
+				D165D275269AF6D600EBD3DF /* ViewModelBindableType.swift in Sources */,
 				D1D009EC26839C03007C4334 /* MemberManagementViewModel.swift in Sources */,
+				D165D278269C9CE000EBD3DF /* BookStorageType.swift in Sources */,
 				D161ED0A263ABC0400C31F56 /* DiaryPolaroidLayout.swift in Sources */,
 				D10B34002654188F00BD45D0 /* MemberCell.swift in Sources */,
 				D1C13C472646EC9300C5686F /* DiarySettingViewController.swift in Sources */,
+				D15FBB0326A1D047006BF768 /* DiaryDetailViewModel.swift in Sources */,
 				D1FB38092658E99700AE537C /* MypageViewController.swift in Sources */,
 				D16DF324265415B70073EA37 /* MemberManagementController.swift in Sources */,
 				D10001EB2658FCDD00C17A2B /* ChangeNameViewController.swift in Sources */,
@@ -600,12 +675,13 @@
 				D1D804D626629E4B00C0A4C8 /* String.swift in Sources */,
 				D161ED15263AC48F00C31F56 /* DiaryListViewController.swift in Sources */,
 				D1D2BEB9263A875C007D63B4 /* SceneDelegate.swift in Sources */,
+				D1857138268A32380001F1FE /* HomeControllerRx.swift in Sources */,
 				D194B700264BF8B500D00B8B /* LoginViewController.swift in Sources */,
 				D1E41E8E264BB9B900C41D08 /* Diary.swift in Sources */,
 				D170A94D265E44F700D5A4A3 /* SNSType.swift in Sources */,
 				D1D804D4266285BE00C0A4C8 /* LicenseViewController.swift in Sources */,
-				D1DC173826806D1300774B9A /* CustomBackButtonNavController.swift in Sources */,
 				D10001F3265BBE2900C17A2B /* StickerView.swift in Sources */,
+				D14E635126A565A3003E19F8 /* UIImage.swift in Sources */,
 				D17E1C49266654BE0037216F /* ColorSettingViewController.swift in Sources */,
 				D19B6D5C2652CB1E00D1FDC3 /* Login.swift in Sources */,
 			);
@@ -757,7 +833,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = MemoryTrace/MemoryTrace.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = 6D8SYQ63KK;
 				INFOPLIST_FILE = MemoryTrace/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -765,7 +841,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.tistory.lsh424.duck-z";
 				PRODUCT_NAME = "duck-z";
 				SWIFT_VERSION = 5.0;
@@ -781,7 +857,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = MemoryTrace/MemoryTrace.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = 6D8SYQ63KK;
 				INFOPLIST_FILE = MemoryTrace/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -789,7 +865,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.tistory.lsh424.duck-z";
 				PRODUCT_NAME = "duck-z";
 				SWIFT_VERSION = 5.0;

@@ -11,15 +11,15 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Home Controller-->
+        <!--Home Controller Rx-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController storyboardIdentifier="HomeVC" id="BYZ-38-t0r" customClass="HomeController" customModule="duck_z" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="HomeVC" id="BYZ-38-t0r" customClass="HomeControllerRx" customModule="duck_z" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="시작한 교환일기가 없습니다. 😥" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="8l4-Am-T5F">
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="시작한 교환일기가 없습니다. 😥" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="8l4-Am-T5F">
                                 <rect key="frame" x="86" y="401.66666666666669" width="203" height="19"/>
                                 <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="16"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -43,9 +43,6 @@
                                     <constraint firstAttribute="width" secondItem="Gf7-iQ-l0O" secondAttribute="height" multiplier="1:1" id="BmA-Ap-FGi"/>
                                 </constraints>
                                 <state key="normal" image="plusButton"/>
-                                <connections>
-                                    <action selector="didPressAddButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="oVT-P1-Ppg"/>
-                                </connections>
                             </button>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="chq-DA-S6V">
                                 <rect key="frame" x="0.0" y="128" width="375" height="684"/>
@@ -144,7 +141,7 @@
                                 </attributedString>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" insetsLayoutMarginsFromSafeArea="NO" text="작성한 일기가 없습니다. 😥" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="uMI-VB-Rla">
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" insetsLayoutMarginsFromSafeArea="NO" text="작성한 일기가 없습니다. 😥" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="uMI-VB-Rla">
                                 <rect key="frame" x="99.666666666666686" y="401.66666666666669" width="176" height="19"/>
                                 <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="16"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -366,7 +363,7 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gNY-GI-eq3">
                                 <rect key="frame" x="321" y="44" width="30" height="52.333333333333343"/>
                                 <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="16"/>
-                                <state key="normal" title="전달">
+                                <state key="normal" title="저장">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
@@ -412,7 +409,9 @@
                         <outlet property="polaroidImageView" destination="LOt-eJ-e0K" id="f8t-N3-uyV"/>
                         <outlet property="polaroidView" destination="vdm-RT-NfV" id="IF5-Ob-hdT"/>
                         <outlet property="scrollViewBotConst" destination="ZAa-6i-he5" id="Xz0-dr-2ne"/>
+                        <outlet property="sendButton" destination="gNY-GI-eq3" id="Xj8-c3-tTY"/>
                         <outlet property="textView" destination="OMD-sE-9Ac" id="B1k-4d-Lkw"/>
+                        <outlet property="titleLabel" destination="8o3-YT-PXs" id="2Fm-Yu-lc4"/>
                         <outlet property="titleTextField" destination="I38-Kz-ieU" id="rIz-UC-crR"/>
                         <outlet property="writerLabel" destination="lgn-C0-O6Z" id="Thz-zw-NdP"/>
                     </connections>
@@ -446,9 +445,6 @@
                                             <state key="normal" title="코드 생성하여 친구 초대하기">
                                                 <color key="titleColor" red="0.12941176469999999" green="0.12941176469999999" blue="0.12941176469999999" alpha="1" colorSpace="calibratedRGB"/>
                                             </state>
-                                            <connections>
-                                                <action selector="didPressInviteButton:" destination="h1r-J9-SQJ" eventType="touchUpInside" id="i1j-pS-I1S"/>
-                                            </connections>
                                         </button>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -479,7 +475,7 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                     </subviews>
-                                                    <color key="backgroundColor" red="0.30980392156862746" green="0.30980392156862746" blue="0.30980392156862746" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="backgroundColor" red="0.30980392156862746" green="0.30980392156862746" blue="0.30980392156862746" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                     <constraints>
                                                         <constraint firstItem="A5h-9i-hew" firstAttribute="width" secondItem="hoz-SW-2Ap" secondAttribute="width" multiplier="0.902141" id="6D3-vc-JT2"/>
                                                         <constraint firstAttribute="width" secondItem="hoz-SW-2Ap" secondAttribute="height" multiplier="327:52" id="Mug-8o-2Ua"/>
@@ -1327,10 +1323,10 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</string>
             </objects>
             <point key="canvasLocation" x="16.800000000000001" y="-619.21182266009851"/>
         </scene>
-        <!--Reading View Controller-->
+        <!--Reading View Controller Rx-->
         <scene sceneID="ig8-hz-vnB">
             <objects>
-                <viewController storyboardIdentifier="ReadingVC" id="Mad-BA-73d" customClass="ReadingViewController" customModule="duck_z" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ReadingVC" id="Mad-BA-73d" customClass="ReadingViewControllerRx" customModule="duck_z" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="u6J-vc-jJM">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
