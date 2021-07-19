@@ -25,29 +25,26 @@ class DiaryListViewController: UIViewController {
     var isMyTurn: Bool?
     lazy var page: Int = 1
     lazy var hasNext: Bool = false
-    lazy var totalDiaryCount = 0
-    var arriavalItem: Int = 0
-    
+    lazy var totalDiaryCount: Int = 0
+    var sectionCounts: [Int] = [] {
+        didSet {
+            if sectionCounts.isEmpty {
+                noDiaryLabel.isHidden = false
+            } else {
+                noDiaryLabel.isHidden = true
+            }
+        }
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        diaryCollectionView.delegate = self
-        diaryCollectionView.dataSource = self
         setupCollectionView()
+        setupNavi()
         bookTitleLabel.text = CurrentBook.shared.book?.title
-        
-        let rightBarButton = UIBarButtonItem(image: UIImage(named: "setting"), style: .plain, target: self, action: #selector(didPressSetting))
-        rightBarButton.imageInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 7)
-        navigationItem.rightBarButtonItem = rightBarButton
-        navigationItem.rightBarButtonItem?.tintColor = .white
-        
-        let backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
-        self.navigationItem.backBarButtonItem = backBarButtonItem
         fetchDiaryList(page: page)
         
-        diaryCollectionView.refreshControl = UIRefreshControl()
-        diaryCollectionView.refreshControl?.tintColor = .white
         NotificationCenter.default.addObserver(self, selector: #selector(updateDiary(_:)), name: NSNotification.Name("updateDiary"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateBookName(_:)), name: NSNotification.Name("updateBookName"), object: nil)
     }
     
     override func viewDidLayoutSubviews() {
@@ -62,12 +59,42 @@ class DiaryListViewController: UIViewController {
         ImageCache.default.clearMemoryCache()
     }
     
+    private func setupCollectionView() {
+        diaryCollectionView.delegate = self
+        diaryCollectionView.dataSource = self
+        diaryCollectionView.refreshControl = UIRefreshControl()
+        diaryCollectionView.refreshControl?.tintColor = .white
+        diaryCollectionView.collectionViewLayout = DiaryPolaroidLayout()
+        
+        let polaroidCell = UINib(nibName: "DiaryPolaroidCell", bundle: nil)
+        let miniCell = UINib(nibName: "DiaryMiniCell", bundle: nil)
+        let headerView = UINib(nibName: "DiaryHeaderView", bundle: nil)
+        let headerWithButtonView = UINib(nibName: "DiaryHeaderWithButtonView", bundle: nil)
+        
+        self.diaryCollectionView.register(polaroidCell, forCellWithReuseIdentifier: "polaroidCell")
+        self.diaryCollectionView.register(miniCell, forCellWithReuseIdentifier: "miniCell")
+        self.diaryCollectionView.register(headerView, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "diaryHeaderView")
+        self.diaryCollectionView.register(headerWithButtonView, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "headerWithButtonView")
+    }
+    
+    private func setupNavi() {
+        let rightBarButton = UIBarButtonItem(image: UIImage(named: "setting"), style: .plain, target: self, action: #selector(didPressSetting))
+        rightBarButton.imageInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 7)
+        navigationItem.rightBarButtonItem = rightBarButton
+        let backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
+        self.navigationItem.backBarButtonItem = backBarButtonItem
+    }
+    
     @objc func updateDiary(_ notification: Notification) {
         self.page = 1
         self.diaryList.removeAll()
         self.totalDiaryCount = 0
-        self.arriavalItem = 0
         self.fetchDiaryList(page: self.page)
+    }
+    
+    @objc func updateBookName(_ notification: Notification) {
+        guard let bookName = notification.object as? String else { return }
+        self.bookTitleLabel.text = bookName
     }
     
     private func fetchDiaryList(page: Int) {
@@ -85,40 +112,37 @@ class DiaryListViewController: UIViewController {
         NetworkManager.shared.fetchDiaryList(bookID: book.bid, page: page, size: pageSize) { [weak self] (result) in
             
             switch result {
-            case .success(let diaryList):
-                guard let strongSelf = self else { return }
-                
-                self?.isMyTurn = diaryList.data.whoseTurn == UserDefaults.standard.integer(forKey: "uid")
-                self?.diaryList = self?.classifiedDiaryList(originalList: strongSelf.diaryList, diaryList: diaryList.data.diaryList) ?? []
-                self?.totalDiaryCount += diaryList.data.diaryList.count
+            case .success(let diaryInfo):
+                self?.isMyTurn = diaryInfo.data.whoseTurn == UserDefaults.standard.integer(forKey: "uid")
+
+                self?.appendList(new: diaryInfo.data.diaryList)
+                self?.totalDiaryCount += diaryInfo.data.diaryList.count
+                self?.hasNext = diaryInfo.data.hasNext
                 DispatchQueue.main.async {
-                    
-                    if strongSelf.diaryList.isEmpty {
-                        self?.noDiaryLabel.isHidden = false
-                    } else {
-                        self?.noDiaryLabel.isHidden = true
-                    }
-                    
                     self?.diaryCollectionView.reloadData()
-                    self?.hasNext = diaryList.data.hasNext
                 }
             case .failure(let error):
+                if page == 1 {
+                    self?.sectionCounts = []
+                    DispatchQueue.main.async {
+                        self?.diaryCollectionView.reloadData()
+                    }
+                }
                 self?.page -= 1
                 self?.showToast(message: error.localizedDescription, position: .bottom)
             }
         }
     }
-    
-    private func classifiedDiaryList(originalList: [[DiaryInfo]], diaryList: [DiaryInfo]) -> [[DiaryInfo]] {
-        var classifiedDiaryArray: [[DiaryInfo]] = originalList
-        diaryList.forEach {
-            if classifiedDiaryArray.isEmpty || !compareDate(firstDate: classifiedDiaryArray.last!.last!.createdDate, secondDate: $0.createdDate) {
-                classifiedDiaryArray.append([$0])
+
+    private func appendList(new list: [DiaryInfo]) {
+        list.forEach {
+            if diaryList.isEmpty || !compareDate(firstDate: diaryList.last!.last!.createdDate, secondDate: $0.createdDate) {
+                diaryList.append([$0])
             } else {
-                classifiedDiaryArray[classifiedDiaryArray.endIndex - 1].append($0)
+                diaryList[diaryList.endIndex - 1].append($0)
             }
         }
-        return classifiedDiaryArray
+        sectionCounts = diaryList.map { $0.count }
     }
     
     private func compareDate(firstDate: String, secondDate: String) -> Bool {
@@ -133,7 +157,6 @@ class DiaryListViewController: UIViewController {
     }
     
     @IBAction func didPressLayoutButton(_ sender: UIButton) {
-        self.arriavalItem = 0
         switch layout {
         case .polaroid:
             diaryCollectionView.collectionViewLayout = DiaryMiniLayout()
@@ -148,19 +171,6 @@ class DiaryListViewController: UIViewController {
         DispatchQueue.main.async {
             self.diaryCollectionView.reloadData()
         }
-    }
-    
-    private func setupCollectionView() {
-        diaryCollectionView.collectionViewLayout = DiaryPolaroidLayout()
-        let polaroidCell = UINib(nibName: "DiaryPolaroidCell", bundle: nil)
-        let miniCell = UINib(nibName: "DiaryMiniCell", bundle: nil)
-        let headerView = UINib(nibName: "DiaryHeaderView", bundle: nil)
-        let headerWithButtonView = UINib(nibName: "DiaryHeaderWithButtonView", bundle: nil)
-        
-        self.diaryCollectionView.register(polaroidCell, forCellWithReuseIdentifier: "polaroidCell")
-        self.diaryCollectionView.register(miniCell, forCellWithReuseIdentifier: "miniCell")
-        self.diaryCollectionView.register(headerView, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "diaryHeaderView")
-        self.diaryCollectionView.register(headerWithButtonView, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "headerWithButtonView")
     }
     
     @objc func didPressSetting() {
@@ -183,6 +193,7 @@ extension DiaryListViewController: UICollectionViewDelegate, UICollectionViewDat
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+
         let diaryInfo = diaryList[indexPath.section][indexPath.item]
         
         if layout == .polaroid {
@@ -232,18 +243,27 @@ extension DiaryListViewController: UICollectionViewDelegate, UICollectionViewDat
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let readingVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ReadingVC") as? ReadingViewController else {return}
+//        guard let readingVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ReadingVC") as? ReadingViewController else {return}
+//
+//        readingVC.did = diaryList[indexPath.section][indexPath.item].did
+//        self.navigationController?.pushViewController(readingVC, animated: true)
         
-        readingVC.did = diaryList[indexPath.section][indexPath.item].did
+        guard let readingVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ReadingVC") as? ReadingViewControllerRx else {return}
+        
+        let did = diaryList[indexPath.section][indexPath.item].did
+        readingVC.viewModel = DiaryDetailViewModel(diaryID: did)
         self.navigationController?.pushViewController(readingVC, animated: true)
     }
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        if indexPath.section > 0 && indexPath.item == 0 {
-            self.arriavalItem += diaryList[indexPath.section - 1].count
+        var arriavalItem = 0
+
+        for i in 0..<indexPath.section {
+            arriavalItem += sectionCounts[i]
         }
-        
-        if self.hasNext && self.arriavalItem + (indexPath.item + 1) == totalDiaryCount - 20 && totalDiaryCount / 40 == self.page {
+        arriavalItem += (indexPath.item + 1)
+
+        if self.hasNext && arriavalItem == totalDiaryCount - 20 && totalDiaryCount / 40 == self.page {
             self.page += 1
             fetchDiaryList(page: self.page)
         }
@@ -256,7 +276,6 @@ extension DiaryListViewController: UICollectionViewDelegate, UICollectionViewDat
                 self.page = 1
                 self.diaryList.removeAll()
                 self.totalDiaryCount = 0
-                self.arriavalItem = 0
                 self.fetchDiaryList(page: self.page)
             }
         }
