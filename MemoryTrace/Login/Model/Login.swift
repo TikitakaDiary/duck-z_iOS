@@ -12,6 +12,7 @@ struct Login: Codable {
     let nickname: String
     let snsKey: String
     let snsType: SNSType
+    let token:  String
 }
 
 struct LoginResponse: Codable {
@@ -28,3 +29,11 @@ struct UserData: Codable {
     let createdDate: String
     let jwt: String
 }
+
+struct Profile {
+    let nickname: String
+    let snsType: String
+    let createdDate: String
+}
+
+
