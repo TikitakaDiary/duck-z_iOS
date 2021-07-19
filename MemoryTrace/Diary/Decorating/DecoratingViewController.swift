@@ -28,7 +28,6 @@ class DecoratingViewController: UIViewController {
     private var stickerViewController: StickerViewController?
     private var _selectedStickerView:StickerView?
     var editType: EditType = .create
-    var books: Books!
     
     lazy var colorPickerView: ColorPickerView = {
         let colorIndex = self.editType == .create ? 11 : CurrentBook.shared.book?.bgColor
@@ -160,13 +159,14 @@ class DecoratingViewController: UIViewController {
         case .modify:
             guard let bid = CurrentBook.shared.book?.bid else {return}
             let modifiedImage = hasSticker ? stickerImageView.image : image
-            let modifiedBookCover = ModifiedBookCover(bgColor: colorPickerView.currentButton.tag, title: bookTitle, stickerImage: modifiedImage, bid: bid)
+            let modifiedBookCover = BookCover(bgColor: colorPickerView.currentButton.tag, title: bookTitle, stickerImage: modifiedImage, bid: bid)
 
             NetworkManager.shared.modifyBookCover(bookCover: modifiedBookCover) { [weak self] (result) in
                 
                 switch result {
                 case .success(_):
                     NotificationCenter.default.post(name: NSNotification.Name("updateBooks"), object: BookUpdateType.update)
+                    NotificationCenter.default.post(name: NSNotification.Name("updateBookName"), object: bookTitle)
                     self?.dismiss(animated: true, completion: nil)
                 case .failure(let error):
                     self?.showToast(message: error.localizedDescription, position: .bottom)
