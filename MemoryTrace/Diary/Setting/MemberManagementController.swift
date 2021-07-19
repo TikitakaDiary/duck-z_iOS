@@ -14,37 +14,43 @@ class MemberManagementController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var inviteButton: UIButton!
 
-    var viewModel: MemberManagementViewModel!
+    var viewModel = MemberManagementViewModel(bookId: CurrentBook.shared.book?.bid)
     let disposeBag = DisposeBag()
-    lazy private var invitationCode = ""
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.rowHeight = self.view.frame.width * 0.16
         inviteButton.layer.cornerRadius = 20
-        
-        guard let bid = CurrentBook.shared.book?.bid else { return }
-        self.viewModel = MemberManagementViewModel(bid:bid)
-
-        self.viewModel.members
+        bind()
+    }
+    
+    private func bind() {
+        self.viewModel.members()
             .asDriver(onErrorJustReturn: [])
-            .drive(tableView.rx.items(cellIdentifier: "MemberCell", cellType: MemberCell.self)) { index, item, cell in
+            .drive(tableView.rx.items(cellIdentifier: "MemberCell", cellType: MemberCell.self)) { [weak self] index, item, cell in
+                if self?.viewModel.whoseTurn() == item.uid {
+                    cell.view.backgroundColor = UIColor(red: 177/255, green: 177/255, blue: 177/255, alpha: 1)
+                }
                 cell.nameLabel.text = item.nickname
             }
             .disposed(by: disposeBag)
         
-        self.viewModel.invitationCode
-            .subscribe(onNext: { self.invitationCode = $0 })
+        self.viewModel.errorMessage
+            .subscribe { [weak self] errMessage in
+                self?.showToast(message: errMessage, position: .bottom)
+            }
             .disposed(by: disposeBag)
-    }
-    
-    @IBAction func didPressInviteButton(_ sender: UIButton) {
-        if invitationCode.isEmpty {
-            showToast(message: "코드 생성에 실패했습니다.", position: .bottom)
-        } else {
-            showToast(message: "코드가 복사되었습니다.", position: .bottom)
-            UIPasteboard.general.string = invitationCode
-        }
+        
+        self.inviteButton.rx.tap
+            .bind { [unowned self] _ in
+                if self.viewModel.code().isEmpty {
+                    self.showToast(message: "코드 생성에 실패했습니다.", position: .bottom)
+                } else {
+                    self.showToast(message: "코드가 복사되었습니다.", position: .bottom)
+                    UIPasteboard.general.string = self.viewModel.code()
+                }
+            }
+            .disposed(by: disposeBag)
     }
 }
 
