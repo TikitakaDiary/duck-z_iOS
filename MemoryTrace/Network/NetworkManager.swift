@@ -27,7 +27,7 @@ class NetworkManager {
     func createBook(bookCover: BookCover, completion: @escaping Completion<BookInfo>) {
         let router: Router = .createBook(bookCover: bookCover)
         let imageData = bookCover.stickerImage?.pngData()
-        APIRequester(with: router).postMultiPartRequest(imageName: "stickerImg", data: imageData, completion: completion)
+        APIRequester(with: router).multiPartRequest(imageName: "stickerImg", data: imageData, method: .post, completion: completion)
     }
     
     func fetchBookInfo(bookID: Int, completion: @escaping Completion<BookInfo>) {
@@ -43,7 +43,7 @@ class NetworkManager {
     func createDiary(writingContent: WritingContent, completion: @escaping Completion<Diary>) {
         let router: Router = .createDiary(writingContent: writingContent)
         let imageData = writingContent.image.jpegData(compressionQuality: 0.5)
-        APIRequester(with: router).postMultiPartRequest(imageName: "img", data: imageData, completion: completion)
+        APIRequester(with: router).multiPartRequest(imageName: "img", data: imageData, method: .post, completion: completion)
     }
     
     func fetchDiary(diaryID: Int, completion: @escaping Completion<DiaryContent>) {
@@ -71,19 +71,40 @@ class NetworkManager {
         APIRequester(with: router).put(completion: completion)
     }
     
-    func modifyBookCover(bookCover: ModifiedBookCover, completion: @escaping    Completion<NoDataResponse>) {
+    func modifyBookCover(bookCover: BookCover, completion: @escaping Completion<NoDataResponse>) {
         let router: Router = .modifyBookCover(bookCover: bookCover)
         let imageData = bookCover.stickerImage?.pngData()
-        APIRequester(with: router).postMultiPartRequest(imageName: "stickerImg", data: imageData, completion: completion)
+        APIRequester(with: router).multiPartRequest(imageName: "stickerImg", data: imageData, method: .post,completion: completion)
     }
     
-    func enterDiary(invitationCode: String, completion: @escaping    Completion<NoDataResponse>) {
+    func enterDiary(invitationCode: String, completion: @escaping Completion<NoDataResponse>) {
         let router: Router = .invite(invitationCode: invitationCode)
         APIRequester(with: router).postRequest(completion: completion)
     }
     
-    // MARK:- Rx
+    func postFCMToken(uid: Int, token: String, completion: @escaping Completion<FCM>) {
+        let router: Router = .postFCMToken(uid: uid, token: token)
+        APIRequester(with: router).postRequest(completion: completion)
+    }
     
+    func deleteFCMToken(uid: Int, token: String, completion: @escaping Completion<NoDataResponse>) {
+        let router: Router = .deleteFCMToken(uid: uid, fcmToken: token)
+        APIRequester(with: router).delete(completion: completion)
+    }
+    
+    func fcmTest(uid: Int, token: String, completion: @escaping Completion<NoDataResponse>) {
+        let router: Router = .fcmTest(uid: uid, fcmToken: token)
+        APIRequester(with: router).postRequest(completion: completion)
+    }
+    
+    func modifyDiary(diaryID: Int, modifiedContent: ModifiedContent, completion: @escaping Completion<NoDataResponse>) {
+        
+        let router: Router = .modifyDiary(modifiedContent: modifiedContent)
+        let imageData = modifiedContent.image?.pngData()
+        APIRequester(with: router).multiPartRequest(imageName: "img", data: imageData, method: .post, completion: completion)
+    }
+    
+    // MARK:- Rx
     func fetchBookInfoRx(bookID: Int) -> Observable<BookInfo> {
         return Observable.create { emitter in
             let router: Router = .fetchBookInfo(bookID: bookID)
@@ -91,6 +112,54 @@ class NetworkManager {
                 switch result {
                 case .success(let bookInfo):
                     emitter.onNext(bookInfo)
+                    emitter.onCompleted()
+                case .failure(let err):
+                    emitter.onError(err)
+                }
+            }
+            return Disposables.create()
+        }
+    }
+    
+    func fetchBookListRx(page: Int) -> Observable<BookList> {
+        return Observable.create { emitter in
+            let router: Router = .fetchBookList(page: page)
+            APIRequester(with: router).getRequest { (result: Result<BookList, AFError>) in
+                switch result {
+                case .success(let bookList):
+                    emitter.onNext(bookList)
+                    emitter.onCompleted()
+                case .failure(let err):
+                    emitter.onError(err)
+                }
+            }
+            return Disposables.create()
+        }
+    }
+    
+    func fetchUserInfoRx() -> Observable<LoginResponse> {
+        return Observable.create { emitter in
+            let router: Router = .fetchUserInfo
+            APIRequester(with: router).getRequest { (result: Result<LoginResponse, AFError>) in
+                switch result {
+                case .success(let response):
+                    emitter.onNext(response)
+                    emitter.onCompleted()
+                case .failure(let err):
+                    emitter.onError(err)
+                }
+            }
+            return Disposables.create()
+        }
+    }
+    
+    func fetchDiaryRx(diaryID: Int) -> Observable<Content> {
+        return Observable.create { emitter in
+            let router: Router = .fetchDiary(diaryID: diaryID)
+            APIRequester(with: router).getRequest { (result: Result<DiaryContent, AFError>) in
+                switch result {
+                case .success(let diaryContent):
+                    emitter.onNext(diaryContent.data)
                     emitter.onCompleted()
                 case .failure(let err):
                     emitter.onError(err)

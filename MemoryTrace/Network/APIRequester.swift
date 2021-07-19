@@ -26,7 +26,7 @@ struct APIRequester {
         }
     }
     
-    func postMultiPartRequest<T: Codable> (imageName: String, data: Data? = nil, completion: @escaping Completion<T>) {
+    func multiPartRequest<T: Codable> (imageName: String, data: Data? = nil, method: HTTPMethod  ,completion: @escaping Completion<T>) {
         AF.upload(multipartFormData: { multiPart in
             if data != nil {
                 multiPart.append(data!, withName: imageName, fileName: "image.png", mimeType: "image/png")
@@ -34,8 +34,7 @@ struct APIRequester {
             for (key, value) in router.parameters {
                 multiPart.append("\(value)".data(using: String.Encoding.utf8)!, withName: key)
             }
-        }, to: router.url, method: .post, headers: ["Authorization": token ?? "No value"]).responseJSON(completionHandler: { data in
-        }).responseDecodable(of: T.self) { response in
+        }, to: router.url, method: method, headers: ["Authorization": token ?? "No value"]).responseDecodable(of: T.self) { response in
             completion(response.result)
         }
     }
@@ -56,6 +55,14 @@ struct APIRequester {
     
     func put<T: Codable> (completion: @escaping Completion<T>) {
         let request = AF.request(router.url, method: .put, parameters: router.parameters, encoding: JSONEncoding.default, headers: ["Authorization": token ?? "No value"])
+        
+        request.responseDecodable(of: T.self) { response in
+            completion(response.result)
+        }
+    }
+    
+    func delete<T: Codable> (completion: @escaping Completion<T>) {
+        let request = AF.request(router.url, method: .delete, parameters: router.parameters, encoding: JSONEncoding.default, headers: ["Authorization": token ?? "No value"])
         
         request.responseDecodable(of: T.self) { response in
             completion(response.result)
