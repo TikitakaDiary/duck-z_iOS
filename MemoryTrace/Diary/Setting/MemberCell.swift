@@ -18,4 +18,10 @@ class MemberCell: UITableViewCell {
         super.awakeFromNib()
         view.layer.cornerRadius = 10
     }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.nameLabel.text = nil
+        self.view.backgroundColor = UIColor(red: 79/255, green: 79/255, blue: 79/255, alpha: 1)
+    }
 }
