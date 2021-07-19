@@ -16,10 +16,16 @@ class WritingViewController: UIViewController {
     @IBOutlet weak var textView: UITextView!
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var writerLabel: UILabel!
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var sendButton: UIButton!
+    
     @IBOutlet weak var scrollViewBotConst: NSLayoutConstraint!
     
     var isStickerAvailble: Bool = false
     var colorIndex: Int?
+    var editType: EditType = .create
+    var isPhotoChangeAvailable: Bool = false
+    var content: Content?
     private let imagePicker = UIImagePickerController()
     private var stickerViewController: StickerViewController?
     private var _selectedStickerView:StickerView?
@@ -38,14 +44,12 @@ class WritingViewController: UIViewController {
             return _selectedStickerView
         }
         set {
-            // if other sticker choosed then resign the handler
             if _selectedStickerView != newValue {
                 if let selectedStickerView = _selectedStickerView {
                     selectedStickerView.showEditingHandlers = false
                 }
                 _selectedStickerView = newValue
             }
-            // assign handler to new sticker added
             if let selectedStickerView = _selectedStickerView {
                 selectedStickerView.showEditingHandlers = true
                 selectedStickerView.superview?.bringSubviewToFront(selectedStickerView)
@@ -91,7 +95,7 @@ class WritingViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
- 
+
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tap(_:)))
         contentView.addGestureRecognizer(tapGesture)
         
@@ -112,21 +116,40 @@ class WritingViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         
         toolbarSetup(textView: textView, textField: titleTextField)
-        writerLabel.text = "by \(UserDefaults.standard.string(forKey: "name") ?? "")"
         
+        writerLabel.text = "by \(UserDefaults.standard.string(forKey: "name") ?? "")"
         let date = Date()
         let calendar = Calendar.current
         let components = calendar.dateComponents([.year, .month, .day, .hour], from: date)
         
         guard let year =  components.year, let month = components.month ,let day = components.day else { return }
         dateLabel.text = "\(year)년 \(month)월 \(day)일"
+        
+        switch editType {
+        case .create:
+            break
+        case .modify:
+            self.titleLabel.text = "일기 수정"
+            
+            if let content = self.content {
+                self.polaroidImageView.kf.setImage(with: URL(string: content.img))
+                self.titleTextField.text = content.title
+                self.textView.text = content.content
+                self.textView.textColor = UIColor.init(red: 255/255, green: 255/255, blue: 255/255, alpha: 1)
+            }
+        }
     }
-    
-    @objc func tap(_ gesture: UITapGestureRecognizer) {
+
+    @objc private func tap(_ gesture: UITapGestureRecognizer) {
         selectedStickerView = nil
     }
     
-    @objc func tapPolaroidImageView(_ gesture: UITapGestureRecognizer) {
+    @objc private func tapPolaroidImageView(_ gesture: UITapGestureRecognizer) {
+        if editType == .modify && isPhotoChangeAvailable == false {
+            showPhotoEditAlert()
+            return
+        }
+        
         if selectedStickerView != nil {
             selectedStickerView = nil
         } else {
@@ -135,11 +158,29 @@ class WritingViewController: UIViewController {
         }
     }
     
-    @IBAction func didPressCancelButton(_ sender: UIButton) {
-        let exitAction = UIAlertAction(title: "나가기", style: .destructive) { [weak self] _ in
-            self?.dismiss(animated: true, completion: nil)
+    private func showPhotoEditAlert() {
+        let editAction = UIAlertAction(title: "편집하기", style: .default) { _ in
+            self.isPhotoChangeAvailable = true
+            self.polaroidImageView.image = UIImage(named: "photo")
         }
-        showAlert(title: "나가기", message: "일기를 전달하지 않고 나갈시, 작성한 내용은 저장되지 않습니다.", action: exitAction)
+        
+        showAlert(title: "사진 편집", message: "사진 편집 시, 부착한 스티커와 사진 모두 리셋됩니다. 그래도 편집하시겠습니까?", action: editAction)
+    }
+    
+    @IBAction func didPressCancelButton(_ sender: UIButton) {
+        let exitAction = UIAlertAction(title: "나가기", style: .destructive) { _ in
+            self.dismiss(animated: true, completion: nil)
+        }
+        
+        var exitAlertMessage = ""
+        switch editType {
+        case .create:
+            exitAlertMessage = "일기를 전달하지 않고 나갈시, 작성한 내용은 저장되지 않습니다"
+        case .modify:
+            exitAlertMessage = "일기를 저장하지 않고 나갈시, 수정한 내용은 반영되지 않습니다"
+        }
+        
+        showAlert(title: "나가기", message: exitAlertMessage, action: exitAction)
     }
     
     @IBAction func didPressSendButton(_ sender: UIButton) {
@@ -157,29 +198,52 @@ class WritingViewController: UIViewController {
             return
         }
 
-        guard isStickerAvailble else {
+        guard isStickerAvailble || (editType == .modify && !isPhotoChangeAvailable) else {
             showToast(message: "사진 혹은 배경색을 설정해주세요!", position: .bottom)
             return }
-
-        guard let img = polaroidImageView.asImage() else {return}
+        
+        guard let img = polaroidImageView.asImage(), let resizedImage = img.resizedImage(targetSize: CGSize(width: 300, height: 300))  else {return}
         
         let diaryContent = textView.text == "이곳을 눌러 일기를 작성해보세요!" ? "" : textView.text
-        
-        let content = WritingContent(bookID: book.bid, title: title, content: diaryContent ?? "", image: img)
-        
-        self.isSendAvailable = false
 
-        NetworkManager.shared.createDiary(writingContent: content) { [weak self] (result) in
-            switch result {
-            case .success(_):
-                NotificationCenter.default.post(name: NSNotification.Name("updateDiary"), object: nil)
-                // 추가된 부분
-                NotificationCenter.default.post(name: NSNotification.Name("updateBooks"), object: BookUpdateType.update)
-                self?.dismiss(animated: true, completion: nil)
-            case .failure(let error):
-                self?.showToast(message: error.localizedDescription, position: .bottom)
-                self?.isSendAvailable = true
+        self.isSendAvailable = false
+        
+        func postNoti() {
+            NotificationCenter.default.post(name: NSNotification.Name("updateDiary"), object: nil)
+            NotificationCenter.default.post(name: NSNotification.Name("updateBooks"), object: BookUpdateType.update)
+        }
+        
+        switch editType {
+        case .create:
+            let writingContent = WritingContent(bookID: book.bid, title: title, content: diaryContent ?? "", image: resizedImage)
+            NetworkManager.shared.createDiary(writingContent: writingContent) { [weak self] (result) in
+                switch result {
+                case .success(_):
+                    postNoti()
+                    self?.dismiss(animated: true, completion: nil)
+                case .failure(let error):
+                    self?.showToast(message: error.localizedDescription, position: .bottom)
+                    self?.isSendAvailable = true
+                }
             }
+        case .modify:
+            guard let did = self.content?.did else { return }
+  
+            let modifiedContent = ModifiedContent(diaryID: did, title: title, content: diaryContent ?? "", image: isPhotoChangeAvailable ? resizedImage : nil)
+            NetworkManager.shared.modifyDiary(diaryID: did, modifiedContent: modifiedContent) { [weak self] result in
+                switch result {
+                case .success(_):
+                    guard let presentingVC = self?.presentingViewController as? UINavigationController, let readingVC = presentingVC.viewControllers.last as? ReadingViewControllerRx, let did = self?.content?.did else { return }
+ 
+                    readingVC.viewModel.fetch(diaryID: did)
+                    postNoti()
+                    self?.dismiss(animated: true, completion: nil)
+                case .failure(let error):
+                    self?.showToast(message: error.localizedDescription, position: .bottom)
+                    self?.isSendAvailable = true
+                }
+            }
+            
         }
     }
 
@@ -188,6 +252,11 @@ class WritingViewController: UIViewController {
     }
     
     @IBAction func didPressStickerButton(_ sender: UIButton) {
+        if editType == .modify && isPhotoChangeAvailable == false {
+            showPhotoEditAlert()
+            return
+        }
+        
         guard isStickerAvailble else {
             showToast(message: "사진이나 단색배경을 먼저 선택해주세요", position: .bottom)
             return }
@@ -210,6 +279,11 @@ class WritingViewController: UIViewController {
     }
     
     @IBAction func didPressAlbumButton(_ sender: UIButton) {
+        if editType == .modify && isPhotoChangeAvailable == false {
+            showPhotoEditAlert()
+            return
+        }
+        
         self.present(actionSheet, animated: true, completion: nil)
     }
 

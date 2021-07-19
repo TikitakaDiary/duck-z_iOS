@@ -23,7 +23,6 @@ class LoginViewController: UIViewController {
             UserApi.shared.loginWithKakaoTalk {(oauthToken, error) in
                 if let error = error {
                     print(error)
-//                    self.showToast(message: error.localizedDescription, position: .bottom)
                 }
                 else {
                 }
@@ -32,12 +31,10 @@ class LoginViewController: UIViewController {
             UserApi.shared.me() { [weak self] (user, error) in
                 if let error = error {
                     print(error)
-//                    self?.showToast(message: error.localizedDescription, position: .bottom)
                 }
                 else {
                     guard let key = user?.id, let name = user?.kakaoAccount?.profile?.nickname else { return }
-                    
-                    self?.login(loginInfo: Login(profileImg: nil, nickname: name, snsKey: String(key), snsType: .kakao))
+                    self?.login(name: name, snsKey: String(key), snsType: .kakao)
                 }
             }
         }
@@ -57,14 +54,20 @@ class LoginViewController: UIViewController {
         controller.performRequests()
     }
     
-    private func login(loginInfo: Login) {
+    private func login(name: String, snsKey: String, snsType: SNSType) {
+        
+        guard let fcmToken = UserDefaults.standard.string(forKey: "fcmToken") else { return }
+        
+        let loginInfo = Login(profileImg: nil, nickname: name, snsKey: snsKey, snsType: snsType, token: fcmToken)
+        
         NetworkManager.shared.login(login: loginInfo) { [weak self] (result) in
             switch result {
             case .success(let response):
                 guard let data = response.data else { return }
                 let jwt = data.jwt
                 let uid = data.uid
-           
+                UserDefaults.standard.set(jwt, forKey: "jwt")
+                UserDefaults.standard.set(uid, forKey: "uid")
                 self?.presentHomeController()
             case .failure(let error):
                 self?.showToast(message: error.localizedDescription, position: .bottom)
@@ -73,10 +76,11 @@ class LoginViewController: UIViewController {
     }
     
     private func presentHomeController() {
-        guard let homeVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "HomeVC") as? HomeController else {return}
+        guard let homeVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "HomeVC") as? HomeControllerRx else {return}
         let naviController = UINavigationController(rootViewController: homeVC)
-        naviController.modalPresentationStyle = .fullScreen
-        self.present(naviController, animated: false, completion: nil)
+        
+        let keyWindow = UIApplication.shared.windows.filter {$0.isKeyWindow}.first
+        keyWindow?.rootViewController = naviController
     }
 }
 
@@ -94,7 +98,7 @@ extension LoginViewController: ASAuthorizationControllerDelegate, ASAuthorizatio
         let key = credential.user
         let name = "\(credential.fullName?.familyName ?? "애플")\(credential.fullName?.givenName ?? " ")"
         
-        login(loginInfo: Login(profileImg: nil, nickname: name, snsKey: key, snsType: .apple))
+        login(name: name, snsKey: key, snsType: .apple)
     }
     
     // 실패 후 동작
@@ -118,7 +122,7 @@ extension LoginViewController: GIDSignInDelegate {
         
         // 사용자 정보 가져오기
         guard let key = user.userID, let name = user.profile.name else { return }
-        login(loginInfo: Login(profileImg: nil, nickname: name, snsKey: key, snsType: .google))
+        login(name: name, snsKey: key, snsType: .google)
     }
     
     // 구글 로그인 연동 해제

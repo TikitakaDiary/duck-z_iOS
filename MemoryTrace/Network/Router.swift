@@ -19,8 +19,12 @@ enum Router {
     case fetchUserInfo
     case modifyName(name: String)
     case deleteAccount
-    case modifyBookCover(bookCover: ModifiedBookCover)
+    case modifyBookCover(bookCover: BookCover)
     case exitBook(bookID: Int)
+    case postFCMToken(uid: Int, token: String)
+    case deleteFCMToken(uid: Int, fcmToken: String)
+    case fcmTest(uid: Int, fcmToken: String)
+    case modifyDiary(modifiedContent: ModifiedContent)
     
     private var baseURL: String {
         return ""
@@ -58,6 +62,14 @@ enum Router {
             return "/book/update"
         case .exitBook(let bookID):
             return "/book/exit/\(bookID)"
+        case .postFCMToken:
+            return "/user/fcm"
+        case .deleteFCMToken:
+            return "/token"
+        case .fcmTest:
+            return "/token/test"
+        case .modifyDiary:
+            return "/diary/update"
         }
     }
     
@@ -78,7 +90,7 @@ enum Router {
         case .invite(let code):
             return ["inviteCode": code]
         case .login(let login):
-            return ["nickname" : login.nickname, "snsKey" : login.snsKey, "snsType" : login.snsType.rawValue]
+            return ["nickname" : login.nickname, "snsKey" : login.snsKey, "snsType" : login.snsType.rawValue, "token" : login.token]
         case .fetchUserInfo:
             return [:]
         case .modifyName(let name):
@@ -86,9 +98,17 @@ enum Router {
         case .deleteAccount:
             return [:]
         case .modifyBookCover(let bookCover):
-            return ["bgColor": bookCover.bgColor, "title": bookCover.title, "bid" : bookCover.bid]
+            return ["bgColor": bookCover.bgColor, "title": bookCover.title, "bid" : bookCover.bid!]
         case .exitBook:
             return [:]
+        case .postFCMToken(let uid, let token):
+            return ["token":token, "uid": uid]
+        case .deleteFCMToken(let uid, let token):
+            return ["uid" : uid, "token" : token]
+        case .fcmTest(let uid, let token):
+            return ["uid" : uid, "token" : token]
+        case .modifyDiary(let modifiedContent):
+            return ["did" : modifiedContent.diaryID, "content" : modifiedContent.content, "img" : modifiedContent.image, "title" : modifiedContent.title]
         }
     }
 }

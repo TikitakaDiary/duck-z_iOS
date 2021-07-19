@@ -7,22 +7,45 @@
 
 import Foundation
 import RxSwift
-import RxRelay
 
 class MemberManagementViewModel {
-    let bookInfo = PublishSubject<BookInfo>()
-
-    lazy var members = bookInfo.compactMap {
-        $0.data.userList
+    let disposeBag = DisposeBag()
+    
+    private var invitationCode = ""
+    private var turn = 0
+    private var error = PublishSubject<Error>()
+    private var userList = BehaviorSubject<[User]>(value: [])
+    
+    lazy var errorMessage = error.compactMap {
+        $0.localizedDescription
     }
     
-    lazy var invitationCode = bookInfo.compactMap {
-        $0.data.inviteCode
-    }
-
-    init(bid: Int) {
-        _ = NetworkManager.shared.fetchBookInfoRx(bookID: bid)
+    init(bookId: Int?) {
+        guard let bid = bookId else { return }
+        
+        NetworkManager.shared.fetchBookInfoRx(bookID: bid)
             .take(1)
-            .bind(to: bookInfo)
+            .do(onNext: { [weak self] info in
+                self?.invitationCode = info.data.inviteCode ?? ""
+                self?.turn = info.data.whoseTurn ?? 0
+            })
+            .subscribe(onNext: { [weak self] info in
+                self?.userList.onNext(info.data.userList ?? [])
+            }, onError: { [weak self] err in
+                self?.error.onNext(err)
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    func members() -> Observable<[User]> {
+        return userList
+    }
+    
+    func code() -> String {
+        return self.invitationCode
+    }
+    
+    func whoseTurn() -> Int {
+        return self.turn
     }
 }

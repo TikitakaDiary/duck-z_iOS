@@ -33,7 +33,7 @@ class CurrentBook {
     static let shared = CurrentBook()
     private init() {}
     var book: Book? = nil
-    var cellIdx: Int? = nil
+//    var cellIdx: Int? = nil
 }
 
 class Books {
@@ -69,13 +69,14 @@ struct BookCover {
     let bgColor: Int
     let title: String
     let stickerImage: UIImage?
-}
-
-struct ModifiedBookCover {
-    let bgColor: Int
-    let title: String
-    let stickerImage: UIImage?
-    let bid: Int
+    let bid: Int?
+    
+    init(bgColor: Int, title: String, stickerImage: UIImage?, bid: Int? = nil) {
+        self.bgColor = bgColor
+        self.title = title
+        self.stickerImage = stickerImage
+        self.bid = bid
+    }
 }
 
 struct NoDataResponse: Codable {

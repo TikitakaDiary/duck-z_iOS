@@ -98,9 +98,6 @@ extension StickerViewController: UICollectionViewDelegate, UICollectionViewDataS
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if scrollView.tag == 0 {
             let idx = Int(scrollView.contentOffset.x / stickerCollectionView.frame.width)
-//            currentButton.backgroundColor = .lightGray
-//            buttons[idx].backgroundColor = .white
-            
             currentButton.tintColor = UIColor.init(white: 1, alpha: 0.5)
             buttons[idx].tintColor = UIColor.init(white: 1, alpha: 1)
             currentButton = buttons[idx]

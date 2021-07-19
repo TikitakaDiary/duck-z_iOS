@@ -10,6 +10,7 @@ target 'MemoryTrace' do
   pod 'Alamofire'
   pod 'Firebase/Auth'
   pod 'GoogleSignIn'
+  pod 'Firebase/Messaging'
   pod 'KakaoSDKCommon'
   pod 'KakaoSDKAuth'
   pod 'KakaoSDKUser'

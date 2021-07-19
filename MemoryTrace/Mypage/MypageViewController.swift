@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RxSwift
 
 class MypageViewController: UIViewController {
     
@@ -18,6 +19,9 @@ class MypageViewController: UIViewController {
     @IBOutlet weak var socialLabel: UILabel!
     @IBOutlet weak var createDateLabel: UILabel!
     
+    var profileStorage: ProfileStorage!
+    var disposeBag = DisposeBag()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.dataSource = self
@@ -28,37 +32,21 @@ class MypageViewController: UIViewController {
         
         let backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
         self.navigationItem.backBarButtonItem = backBarButtonItem
-        fetchUserInfo()
         toolbarSetup(textField: inviteTextField)
-    }
-    
-    private func fetchUserInfo() {
-        if let name = UserDefaults.standard.string(forKey: "name"), let snsType = UserDefaults.standard.string(forKey: "snsType"), let signInDate = UserDefaults.standard.string(forKey: "signInDate") {
-            self.nameLabel.text = name
-            self.socialLabel.text = snsType
-            self.createDateLabel.text = signInDate
-        }
-        else {
-            NetworkManager.shared.fetchUserInfo { [weak self] (result) in
-                switch result {
-                case .success(let response):
-                    guard let data = response.data else {return}
-                    let date = data.createdDate.date(type: .yearMonthDay)
-                    self?.createDateLabel.text = date
-                    self?.nameLabel.text = data.nickname
-                    self?.socialLabel.text = data.snsType
-                    UserDefaults.standard.setValue(data.snsType, forKey: "snsType")
-                    UserDefaults.standard.setValue(date, forKey: "signInDate")
-                case .failure(let error):
-                    self?.showToast(message: error.localizedDescription, position: .bottom)
-                }
+        
+        profileStorage.userProfile()
+            .bind { profile in
+                self.nameLabel.text = profile.nickname
+                self.socialLabel.text = profile.snsType
+                self.createDateLabel.text = profile.createdDate
             }
-        }
+            .disposed(by: disposeBag)
     }
     
     @IBAction func didPressEditButton(_ sender: UIButton) {
         guard let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ChangeNameVC") as? ChangeNameViewController else {return}
         
+        vc.profileStorage = self.profileStorage
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
@@ -97,15 +85,25 @@ class MypageViewController: UIViewController {
     }
     
     private func signout() {
-        UserDefaults.standard.removeObject(forKey: "jwt")
-        UserDefaults.standard.removeObject(forKey: "name")
-        UserDefaults.standard.removeObject(forKey: "uid")
-        UserDefaults.standard.removeObject(forKey: "snsType")
-        UserDefaults.standard.removeObject(forKey: "signInDate")
-        
-        let vc = self.storyboard?.instantiateViewController(withIdentifier: "LoginVC") as! LoginViewController
-        let keyWindow = UIApplication.shared.windows.filter {$0.isKeyWindow}.first
-        keyWindow?.rootViewController = vc
+        if let fcmToken = UserDefaults.standard.string(forKey: "fcmToken") {
+            let uid = UserDefaults.standard.integer(forKey: "uid")
+            NetworkManager.shared.deleteFCMToken(uid: uid, token: fcmToken) { result in
+                switch result {
+                case .success(_):
+                    UserDefaults.standard.removeObject(forKey: "jwt")
+                    UserDefaults.standard.removeObject(forKey: "name")
+                    UserDefaults.standard.removeObject(forKey: "uid")
+                    UserDefaults.standard.removeObject(forKey: "snsType")
+                    UserDefaults.standard.removeObject(forKey: "signInDate")
+                    let vc = self.storyboard?.instantiateViewController(withIdentifier: "LoginVC") as! LoginViewController
+                    let keyWindow = UIApplication.shared.windows.filter {$0.isKeyWindow}.first
+                    keyWindow?.rootViewController = vc
+                    self.navigationController?.viewControllers.removeAll()
+                case .failure(let err):
+                    self.showToast(message: err.localizedDescription, position: .bottom)
+                }
+            }
+        }
     }
 }
 

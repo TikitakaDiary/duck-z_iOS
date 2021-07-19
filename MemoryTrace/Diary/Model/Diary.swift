@@ -26,6 +26,8 @@ struct DiaryContent: Codable {
 }
 
 struct Content: Codable {
+    let modifiable: Bool
+    let uid: Int
     let did: Int
     let nickname: String
     let title: String
@@ -65,4 +67,11 @@ struct WritingContent {
     let title: String
     let content: String
     let image: UIImage
+}
+
+struct ModifiedContent {
+    let diaryID: Int
+    let title: String
+    let content: String
+    let image: UIImage?
 }

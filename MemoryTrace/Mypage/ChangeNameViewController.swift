@@ -10,6 +10,7 @@ import UIKit
 class ChangeNameViewController: UIViewController {
     
     @IBOutlet weak var nameTextField: UITextField!
+    var profileStorage: ProfileStorage!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,9 +33,9 @@ class ChangeNameViewController: UIViewController {
                 guard let data = response.data else {return}
                 let modifiedName = data.nickname
                 UserDefaults.standard.setValue(modifiedName, forKey: "name")
-                guard let postVC = self?.navigationController?.viewControllers[1] as? MypageViewController else {return}
                 
-                postVC.nameLabel.text = modifiedName
+                self?.profileStorage.fetchProfile()
+                
                 NotificationCenter.default.post(name: NSNotification.Name("updateBooks"), object: BookUpdateType.update)
                 self?.navigationController?.popViewController(animated: true)
             case .failure(let error):
