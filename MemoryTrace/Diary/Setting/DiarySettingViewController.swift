@@ -8,7 +8,6 @@
 import UIKit
 
 class DiarySettingViewController: UIViewController {
-    
     private let tableView = UITableView()
     
     override func viewDidLoad() {
