@@ -28,11 +28,11 @@ class HomeControllerRx: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        plusButton.layer.cornerRadius = 8
+        
         setupNavi()
         setupCollectionView()
         bind()
- 
-        plusButton.layer.cornerRadius = 8
     }
     
     override func didReceiveMemoryWarning() {
@@ -69,7 +69,6 @@ class HomeControllerRx: UIViewController {
             .filter({ $0 == true })
             .bind { _ in
                 if let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "DiaryListVC") as? DiaryListViewController {
-//                    CurrentBook.shared.book = Book(bid: 249, nickname: "이승환👻", title: "test2", bgColor: 11, stickerImg: nil, modifiedDate: "2021-07-07 01:17:26")
                     self.navigationController?.pushViewController(vc, animated: false)
                 }
             }

@@ -23,14 +23,15 @@ class ReadingViewControllerRx: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        configureUI()
+        bind()
+    }
+    
+    private func configureUI() {
         polaroidView.layer.cornerRadius = 10
         imageView.layer.cornerRadius = 10
         imageView.clipsToBounds = true
-        
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: " ", style: .plain, target: self, action: nil)
-        
-        bind()
     }
     
     private func bind() {

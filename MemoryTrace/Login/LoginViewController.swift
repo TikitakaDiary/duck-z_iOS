@@ -25,16 +25,32 @@ class LoginViewController: UIViewController {
                     print(error)
                 }
                 else {
+                    UserApi.shared.me() { [weak self] (user, error) in
+                        if let error = error {
+                            print(error)
+                        }
+                        else {
+                            guard let key = user?.id, let name = user?.kakaoAccount?.profile?.nickname else { return }
+                            self?.login(name: name, snsKey: String(key), snsType: .kakao)
+                        }
+                    }
                 }
             }
-            
-            UserApi.shared.me() { [weak self] (user, error) in
+        } else {
+            UserApi.shared.loginWithKakaoAccount {(oauthToken, error) in
                 if let error = error {
                     print(error)
                 }
                 else {
-                    guard let key = user?.id, let name = user?.kakaoAccount?.profile?.nickname else { return }
-                    self?.login(name: name, snsKey: String(key), snsType: .kakao)
+                    UserApi.shared.me() { [weak self] (user, error) in
+                        if let error = error {
+                            print(error)
+                        }
+                        else {
+                            guard let key = user?.id, let name = user?.kakaoAccount?.profile?.nickname else { return }
+                            self?.login(name: name, snsKey: String(key), snsType: .kakao)
+                        }
+                    }
                 }
             }
         }

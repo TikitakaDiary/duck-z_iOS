@@ -21,7 +21,7 @@ class DecoratingViewController: UIViewController {
     @IBOutlet weak var stickerView: UIView!
     @IBOutlet weak var coverColorLabel: UILabel!
     @IBOutlet weak var bookTitleTextView: UITextView!
-
+    
     lazy private var hasSticker: Bool = false
     lazy var isCreateAvailable: Bool = true
     lazy var isStickerVCUp: Bool = false
@@ -63,20 +63,19 @@ class DecoratingViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        self.view.addSubview(colorPickerView)
-        bookTitleTextView.text = "제목을 입력하세요"
-        
+        addGeture()
+        configureUI()
+        setupUI()
+    }
+    
+    private func addGeture() {
         let tapGesture: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: nil)
         tapGesture.delegate = self
         self.view.addGestureRecognizer(tapGesture)
-
-        NSLayoutConstraint.activate([
-            colorPickerView.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.83),
-            colorPickerView.topAnchor.constraint(equalTo: coverColorLabel.bottomAnchor, constant: 16),
-            colorPickerView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor)
-        ])
-        
+    }
+    
+    private func configureUI() {
+        bookTitleTextView.textContainer.maximumNumberOfLines = 2
         coverView.layer.cornerRadius = 8
         coverView.clipsToBounds = true
         bookTitleTextView.tintColor = .white
@@ -85,9 +84,18 @@ class DecoratingViewController: UIViewController {
         stickerView.clipsToBounds = true
         stickerImageView.clipsToBounds = true
         stickerImageView.isHidden = true
+    }
+    
+    private func setupUI() {
+        bookTitleTextView.text = "제목을 입력하세요"
         stickerImageView.image = UIImage(named: "sticker_area")
         
-        bookTitleTextView.textContainer.maximumNumberOfLines = 2
+        self.view.addSubview(colorPickerView)
+        NSLayoutConstraint.activate([
+            colorPickerView.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.83),
+            colorPickerView.topAnchor.constraint(equalTo: coverColorLabel.bottomAnchor, constant: 16),
+            colorPickerView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor)
+        ])
         
         switch editType {
         case .create:
@@ -145,7 +153,7 @@ class DecoratingViewController: UIViewController {
         switch self.editType {
         case .create:
             let bookCover = BookCover(bgColor: colorPickerView.currentButton.tag, title: bookTitle, stickerImage: image)
-
+            
             NetworkManager.shared.createBook(bookCover: bookCover) { [weak self] (result) in
                 switch result {
                 case .success(_):
@@ -160,7 +168,7 @@ class DecoratingViewController: UIViewController {
             guard let bid = CurrentBook.shared.book?.bid else {return}
             let modifiedImage = hasSticker ? stickerImageView.image : image
             let modifiedBookCover = BookCover(bgColor: colorPickerView.currentButton.tag, title: bookTitle, stickerImage: modifiedImage, bid: bid)
-
+            
             NetworkManager.shared.modifyBookCover(bookCover: modifiedBookCover) { [weak self] (result) in
                 
                 switch result {
@@ -213,22 +221,22 @@ class DecoratingViewController: UIViewController {
 }
 
 extension DecoratingViewController: UIGestureRecognizerDelegate {
-        func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
-            if let stickerSelectionView = stickerViewController?.view, touch.view?.isDescendant(of: stickerSelectionView) == true {
-                return false
-            }
-            
-            if let selectedStickerView = self.selectedStickerView, touch.view?.isDescendant(of: selectedStickerView) == true {
-                return false
-            }
-
-            if !isStickerVCUp && !hasSticker {
-                stickerImageView.isHidden = true
-            }
-
-            selectedStickerView = nil
-            return true
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+        if let stickerSelectionView = stickerViewController?.view, touch.view?.isDescendant(of: stickerSelectionView) == true {
+            return false
         }
+        
+        if let selectedStickerView = self.selectedStickerView, touch.view?.isDescendant(of: selectedStickerView) == true {
+            return false
+        }
+        
+        if !isStickerVCUp && !hasSticker {
+            stickerImageView.isHidden = true
+        }
+        
+        selectedStickerView = nil
+        return true
+    }
 }
 
 extension DecoratingViewController: UITextViewDelegate {
@@ -251,7 +259,7 @@ extension DecoratingViewController: UITextViewDelegate {
 extension DecoratingViewController: StickerViewControllerDelegate {
     func dismissStickerView() {
         guard stickerViewController != nil else { return }
-
+        
         UIView.transition(with: stickerViewController!.view, duration: 0.2, options: .curveLinear) {
             self.stickerViewController!.view.frame.origin = CGPoint(x: 0, y: self.view.frame.height)
         } completion: { _ in
@@ -267,7 +275,7 @@ extension DecoratingViewController: StickerViewControllerDelegate {
         let imageView = UIImageView(image: image)
         imageView.contentMode = .scaleAspectFit
         let stickerWidth = stickerView.frame.width / 4
-
+        
         imageView.frame = CGRect(x: 0, y: 0, width: stickerWidth, height: stickerWidth)
         
         let sticker = StickerView(contentView: imageView)

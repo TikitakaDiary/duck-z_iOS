@@ -95,15 +95,26 @@ class WritingViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        addGesture()
+        addNotification()
+        configureUI()
+        setupUI()
+    }
+    
+    private func addGesture() {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tap(_:)))
         contentView.addGestureRecognizer(tapGesture)
         
         let polaroidImageViewTapGeture = UITapGestureRecognizer(target: self, action: #selector(tapPolaroidImageView(_:)))
         polaroidImageView.addGestureRecognizer(polaroidImageViewTapGeture)
-
+    }
+    
+    private func addNotification() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+    }
+    
+    private func configureUI() {
         self.polaroidImageView.addSubview(stickerView)
-        
         polaroidView.layer.cornerRadius = 10
         polaroidImageView.layer.cornerRadius = 10
         imagePicker.delegate = self
@@ -112,11 +123,10 @@ class WritingViewController: UIViewController {
         textView.tintColor = .white
         textView.tintColorDidChange()
         textView.delegate = self
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
-        
+    }
+    
+    private func setupUI() {
         toolbarSetup(textView: textView, textField: titleTextField)
-        
         writerLabel.text = "by \(UserDefaults.standard.string(forKey: "name") ?? "")"
         let date = Date()
         let calendar = Calendar.current
@@ -130,7 +140,6 @@ class WritingViewController: UIViewController {
             break
         case .modify:
             self.titleLabel.text = "일기 수정"
-            
             if let content = self.content {
                 self.polaroidImageView.kf.setImage(with: URL(string: content.img))
                 self.titleTextField.text = content.title
@@ -283,13 +292,13 @@ class WritingViewController: UIViewController {
             showPhotoEditAlert()
             return
         }
-        
         self.present(actionSheet, animated: true, completion: nil)
     }
 
     override func hideKeyboard(_ sender: Any) {
         super.hideKeyboard(sender)
         scrollViewBotConst.constant = 0
+        activateAnimation(duration: 0.15, delay: 0)
     }
     
     @objc func keyboardWillShow(_ notification: Notification) {
@@ -298,17 +307,21 @@ class WritingViewController: UIViewController {
             let keyboardRectangle = keyboardFrame.cgRectValue
             let keyboardHeight = keyboardRectangle.height
             
-            let duration:TimeInterval = (notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? NSNumber)?.doubleValue ?? 0
+//            let duration:TimeInterval = (notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? NSNumber)?.doubleValue ?? 0
             
             self.scrollViewBotConst.constant = keyboardHeight - (40 + self.view.safeAreaInsets.bottom)
             
-            UIView.animate(
-                withDuration: duration,
-                delay: TimeInterval(0.05),
-                options: .curveEaseIn,
-                animations: { self.view.layoutIfNeeded() },
-                completion: nil)
+            activateAnimation(duration: 0.15, delay: 0.05)
         }
+    }
+    
+    private func activateAnimation(duration: TimeInterval, delay: TimeInterval) {
+        UIView.animate(
+            withDuration: duration,
+            delay: delay,
+            options: .curveEaseIn,
+            animations: { self.view.layoutIfNeeded() },
+            completion: nil)
     }
 }
 
@@ -334,7 +347,6 @@ extension WritingViewController: UIImagePickerControllerDelegate, UINavigationCo
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         
         guard let image = info[.editedImage] as? UIImage else { return }
-        
         polaroidImageView.image = image
         colorIndex = nil
         isStickerAvailble = true

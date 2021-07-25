@@ -833,7 +833,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = MemoryTrace/MemoryTrace.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 6D8SYQ63KK;
 				INFOPLIST_FILE = MemoryTrace/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -841,7 +841,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.0;
+				MARKETING_VERSION = 1.1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.tistory.lsh424.duck-z";
 				PRODUCT_NAME = "duck-z";
 				SWIFT_VERSION = 5.0;
@@ -857,7 +857,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = MemoryTrace/MemoryTrace.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 6D8SYQ63KK;
 				INFOPLIST_FILE = MemoryTrace/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -865,7 +865,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.0;
+				MARKETING_VERSION = 1.1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.tistory.lsh424.duck-z";
 				PRODUCT_NAME = "duck-z";
 				SWIFT_VERSION = 5.0;

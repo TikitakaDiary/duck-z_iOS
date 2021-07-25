@@ -11,7 +11,6 @@ import RxSwift
 class BookStorage: BookStorageType {
     
     private let disposeBag = DisposeBag()
-    
     private var list: [Book] = []
     private var page: Int = 1
     var hasNext: Bool = false
