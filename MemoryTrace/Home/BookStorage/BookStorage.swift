@@ -13,6 +13,7 @@ class BookStorage: BookStorageType {
     private let disposeBag = DisposeBag()
     private var list: [Book] = []
     private var page: Int = 1
+    private var isFetching: Bool = false
     var hasNext: Bool = false
     private lazy var store = BehaviorSubject<[Book]>(value: list)
 
@@ -23,6 +24,8 @@ class BookStorage: BookStorageType {
     }
     
     func fetchBooks() {
+        guard isFetching == false else { return }
+        self.isFetching = true
         NetworkManager.shared.fetchBookListRx(page: page)
             .take(1)
             .do { [weak self] books in
@@ -32,6 +35,7 @@ class BookStorage: BookStorageType {
             }
             .subscribe { [unowned self] _ in
                 self.store.onNext(self.list)
+                self.isFetching = false
             }
             .disposed(by: disposeBag)
     }

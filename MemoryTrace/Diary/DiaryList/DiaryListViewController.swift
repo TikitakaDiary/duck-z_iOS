@@ -20,15 +20,15 @@ class DiaryListViewController: UIViewController {
     @IBOutlet weak var noDiaryLabel: UILabel!
     
     private var layout: Layout = .polaroid
-    private var diaryList: [[DiaryInfo]] = []
+    private var isMyTurn: Bool?
+    private var isFetching: Bool = false
     
-    var isMyTurn: Bool?
     lazy var page: Int = 1
-    lazy var hasNext: Bool = false
-    lazy var totalDiaryCount: Int = 0
-    var sectionCounts: [Int] = [] {
+    lazy var hasNextPage: Bool = false
+    
+    private var diaryList: [[DiaryInfo]] = [] {
         didSet {
-            if sectionCounts.isEmpty {
+            if diaryList.isEmpty {
                 noDiaryLabel.isHidden = false
             } else {
                 noDiaryLabel.isHidden = true
@@ -88,7 +88,6 @@ class DiaryListViewController: UIViewController {
     @objc func updateDiary(_ notification: Notification) {
         self.page = 1
         self.diaryList.removeAll()
-        self.totalDiaryCount = 0
         self.fetchDiaryList(page: self.page)
     }
     
@@ -98,38 +97,31 @@ class DiaryListViewController: UIViewController {
     }
     
     private func fetchDiaryList(page: Int) {
-        let pageSize: Int!
+        guard let book = CurrentBook.shared.book, isFetching == false else { return }
         
-        switch layout {
-        case .polaroid:
-            pageSize = 40
-        case .grid:
-            pageSize = 40
-        }
+        isFetching = true
         
-        guard let book = CurrentBook.shared.book else { return }
-        
-        NetworkManager.shared.fetchDiaryList(bookID: book.bid, page: page, size: pageSize) { [weak self] (result) in
+        NetworkManager.shared.fetchDiaryList(bookID: book.bid, page: page, size: 40) { [weak self] (result) in
             
             switch result {
             case .success(let diaryInfo):
                 self?.isMyTurn = diaryInfo.data.whoseTurn == UserDefaults.standard.integer(forKey: "uid")
-
                 self?.appendList(new: diaryInfo.data.diaryList)
-                self?.totalDiaryCount += diaryInfo.data.diaryList.count
-                self?.hasNext = diaryInfo.data.hasNext
+                self?.hasNextPage = diaryInfo.data.hasNext
                 DispatchQueue.main.async {
                     self?.diaryCollectionView.reloadData()
+                    self?.isFetching = false
                 }
             case .failure(let error):
                 if page == 1 {
-                    self?.sectionCounts = []
+                    self?.diaryList = []
                     DispatchQueue.main.async {
                         self?.diaryCollectionView.reloadData()
                     }
                 }
                 self?.page -= 1
                 self?.showToast(message: error.localizedDescription, position: .bottom)
+                self?.isFetching = false
             }
         }
     }
@@ -142,7 +134,6 @@ class DiaryListViewController: UIViewController {
                 diaryList[diaryList.endIndex - 1].append($0)
             }
         }
-        sectionCounts = diaryList.map { $0.count }
     }
     
     private func compareDate(firstDate: String, secondDate: String) -> Bool {
@@ -155,7 +146,7 @@ class DiaryListViewController: UIViewController {
             return false
         }
     }
-    
+
     @IBAction func didPressLayoutButton(_ sender: UIButton) {
         switch layout {
         case .polaroid:
@@ -167,6 +158,7 @@ class DiaryListViewController: UIViewController {
             sender.setImage(UIImage(named: "polaroid"), for: .normal)
             layout = .polaroid
         }
+        
         diaryCollectionView.setContentOffset(CGPoint(x:0,y:0), animated: false)
         DispatchQueue.main.async {
             self.diaryCollectionView.reloadData()
@@ -193,12 +185,11 @@ extension DiaryListViewController: UICollectionViewDelegate, UICollectionViewDat
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-
         let diaryInfo = diaryList[indexPath.section][indexPath.item]
-        
+
         if layout == .polaroid {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "polaroidCell", for: indexPath) as! DiaryPolaroidCell
-            
+
             guard let imageURL = URL(string: diaryInfo.img) else { return cell}
             cell.titleLabel.text = diaryInfo.title
             cell.imageView.kf.setImage(with: imageURL)
@@ -207,7 +198,7 @@ extension DiaryListViewController: UICollectionViewDelegate, UICollectionViewDat
             return cell
         } else {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "miniCell", for: indexPath) as! DiaryMiniCell
-            
+
             guard let imageURL = URL(string: diaryInfo.img) else { return cell}
             cell.imageView.kf.setImage(with: imageURL)
             return cell
@@ -243,11 +234,6 @@ extension DiaryListViewController: UICollectionViewDelegate, UICollectionViewDat
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        guard let readingVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ReadingVC") as? ReadingViewController else {return}
-//
-//        readingVC.did = diaryList[indexPath.section][indexPath.item].did
-//        self.navigationController?.pushViewController(readingVC, animated: true)
-        
         guard let readingVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ReadingVC") as? ReadingViewControllerRx else {return}
         
         let did = diaryList[indexPath.section][indexPath.item].did
@@ -255,17 +241,23 @@ extension DiaryListViewController: UICollectionViewDelegate, UICollectionViewDat
         self.navigationController?.pushViewController(readingVC, animated: true)
     }
     
-    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        var arriavalItem = 0
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        guard hasNextPage && isFetching == false else { return }
+        
+        let offsetY = scrollView.contentOffset.y
+        let contentHeight = scrollView.contentSize.height
 
-        for i in 0..<indexPath.section {
-            arriavalItem += sectionCounts[i]
-        }
-        arriavalItem += (indexPath.item + 1)
-
-        if self.hasNext && arriavalItem == totalDiaryCount - 20 && totalDiaryCount / 40 == self.page {
-            self.page += 1
-            fetchDiaryList(page: self.page)
+        switch layout {
+        case .polaroid:
+            if offsetY > contentHeight - (scrollView.frame.height * 10) {
+                self.page += 1
+                fetchDiaryList(page: self.page)
+            }
+        case .grid:
+            if offsetY > contentHeight - (scrollView.frame.height * 3/2) {
+                self.page += 1
+                fetchDiaryList(page: self.page)
+            }
         }
     }
     
@@ -275,7 +267,6 @@ extension DiaryListViewController: UICollectionViewDelegate, UICollectionViewDat
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                 self.page = 1
                 self.diaryList.removeAll()
-                self.totalDiaryCount = 0
                 self.fetchDiaryList(page: self.page)
             }
         }

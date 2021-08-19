@@ -7,6 +7,7 @@
 
 import UIKit
 import AuthenticationServices
+import Firebase
 import GoogleSignIn
 import KakaoSDKUser
 
@@ -14,8 +15,6 @@ class LoginViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        GIDSignIn.sharedInstance()?.presentingViewController = self
-        GIDSignIn.sharedInstance().delegate = self
     }
     
     @IBAction func didPressKaKaoLogin(_ sender: UIButton) {
@@ -57,7 +56,15 @@ class LoginViewController: UIViewController {
     }
     
     @IBAction func didPressGoogleLogin(_ sender: UIButton) {
-        GIDSignIn.sharedInstance().signIn()
+        guard let clientID = FirebaseApp.app()?.options.clientID else { return }
+        
+        let signInConfig = GIDConfiguration.init(clientID: clientID)
+        GIDSignIn.sharedInstance.signIn(with: signInConfig, presenting: self) { [weak self] user, error in
+            guard error == nil else { return }
+
+            guard let key = user?.userID, let name = user?.profile?.name else { return }
+            self?.login(name: name, snsKey: key, snsType: .google)
+        }
     }
     
     @IBAction func didPressAppleLogin(_ sender: UIButton) {
@@ -123,26 +130,3 @@ extension LoginViewController: ASAuthorizationControllerDelegate, ASAuthorizatio
     }
 }
 
-// MARK:- GOOGLE ID LOGIN
-extension LoginViewController: GIDSignInDelegate {
-    // 연동을 시도 했을때 불러오는 메소드
-    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
-        if let error = error {
-            if (error as NSError).code == GIDSignInErrorCode.hasNoAuthInKeychain.rawValue {
-                print("The user has not signed in before or they have since signed out.")
-            } else {
-//                self.showToast(message: error.localizedDescription, position: .bottom)
-            }
-            return
-        }
-        
-        // 사용자 정보 가져오기
-        guard let key = user.userID, let name = user.profile.name else { return }
-        login(name: name, snsKey: key, snsType: .google)
-    }
-    
-    // 구글 로그인 연동 해제
-    func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Error!) {
-        print("Disconnect")
-    }
-}
