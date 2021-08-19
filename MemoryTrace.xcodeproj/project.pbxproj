@@ -15,6 +15,7 @@
 		D10C83CE263AA912007DD41D /* DiaryMiniCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10C83CC263AA912007DD41D /* DiaryMiniCell.swift */; };
 		D10C83CF263AA912007DD41D /* DiaryMiniCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D10C83CD263AA912007DD41D /* DiaryMiniCell.xib */; };
 		D14E635126A565A3003E19F8 /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D14E635026A565A3003E19F8 /* UIImage.swift */; };
+		D151346726CAB1970004DA19 /* DiaryListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D151346626CAB1970004DA19 /* DiaryListViewModel.swift */; };
 		D15285B82671D21C00E11C7F /* ColorPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D15285B72671D21C00E11C7F /* ColorPickerView.swift */; };
 		D15285BA2671D28100E11C7F /* ColorPickerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D15285B92671D28100E11C7F /* ColorPickerView.xib */; };
 		D15DB9AF267C38A8007C595A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D15DB9AE267C38A8007C595A /* GoogleService-Info.plist */; };
@@ -91,6 +92,7 @@
 		D10C83CC263AA912007DD41D /* DiaryMiniCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryMiniCell.swift; sourceTree = "<group>"; };
 		D10C83CD263AA912007DD41D /* DiaryMiniCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DiaryMiniCell.xib; sourceTree = "<group>"; };
 		D14E635026A565A3003E19F8 /* UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
+		D151346626CAB1970004DA19 /* DiaryListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryListViewModel.swift; sourceTree = "<group>"; };
 		D15285B72671D21C00E11C7F /* ColorPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPickerView.swift; sourceTree = "<group>"; };
 		D15285B92671D28100E11C7F /* ColorPickerView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ColorPickerView.xib; sourceTree = "<group>"; };
 		D15DB9AE267C38A8007C595A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -240,6 +242,7 @@
 		D10C83D5263AA9A8007DD41D /* DiaryList */ = {
 			isa = PBXGroup;
 			children = (
+				D151346526CAB1200004DA19 /* ViewModel */,
 				D161ED14263AC48F00C31F56 /* DiaryListViewController.swift */,
 				D10C83C7263AA8FC007DD41D /* DiaryPolaroidCell.swift */,
 				D10C83C8263AA8FC007DD41D /* DiaryPolaroidCell.xib */,
@@ -262,6 +265,14 @@
 				D17E1C48266654BE0037216F /* ColorSettingViewController.swift */,
 			);
 			path = Writing;
+			sourceTree = "<group>";
+		};
+		D151346526CAB1200004DA19 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				D151346626CAB1970004DA19 /* DiaryListViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		D15FBB0126A1D02C006BF768 /* ViewModel */ = {
@@ -497,7 +508,6 @@
 				D1D2BEB0263A875C007D63B4 /* Frameworks */,
 				D1D2BEB1263A875C007D63B4 /* Resources */,
 				8FE8E3330744DBDB1BF80239 /* [CP] Embed Pods Frameworks */,
-				DF69E8DA3DF47EEFA1B8EB69 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -581,23 +591,6 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MemoryTrace/Pods-MemoryTrace-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		DF69E8DA3DF47EEFA1B8EB69 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-MemoryTrace/Pods-MemoryTrace-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-MemoryTrace/Pods-MemoryTrace-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MemoryTrace/Pods-MemoryTrace-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		FD0414BDEF1CB3FF2AE1AFDA /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -653,6 +646,7 @@
 				D1F31E8C2645B180005D9F15 /* DecoratingViewController.swift in Sources */,
 				D1BDEC762647F6C300C9DD8F /* UITextField.swift in Sources */,
 				D161ED07263ABAC000C31F56 /* DiaryBookLayout.swift in Sources */,
+				D151346726CAB1970004DA19 /* DiaryListViewModel.swift in Sources */,
 				D165D27A269C9EC100EBD3DF /* BookStorage.swift in Sources */,
 				D1D2BEB7263A875C007D63B4 /* AppDelegate.swift in Sources */,
 				D15FBB0526A1D60F006BF768 /* ReadingViewControllerRx.swift in Sources */,
@@ -841,7 +835,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.1;
+				MARKETING_VERSION = 1.1.3;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.tistory.lsh424.duck-z";
 				PRODUCT_NAME = "duck-z";
 				SWIFT_VERSION = 5.0;
@@ -865,7 +859,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.1;
+				MARKETING_VERSION = 1.1.3;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.tistory.lsh424.duck-z";
 				PRODUCT_NAME = "duck-z";
 				SWIFT_VERSION = 5.0;
