@@ -59,3 +59,16 @@
 <img src="https://user-images.githubusercontent.com/31477658/124504012-98833000-de01-11eb-8148-bd8f4636491c.png" width="25%" height="25%" >
 
 <br>
+
+## 푸시 알림
+다음과 같은 상황에서 푸시 알림을 받을 수 있습니다.
+1. 새로운 일기가 등록되었을 때
+2. 새로운 멤버가 들어왔을 때
+3. 자기 작성 차례가 되었을 때
+ 
+알림을 누르면 해당 일기장으로 이동하며, 
+일기장 생성 중이거나 일기 작성 중 일 때는    
+기존 작성 상태 유지를 위해 이동하지 않습니다.
+
+<img src="https://user-images.githubusercontent.com/31477658/130318278-e64c2c1f-ae1d-49c4-9a71-4670d3f146f9.png" width="50%" height="50%" >
+<img src="https://user-images.githubusercontent.com/31477658/130318283-db2947ee-8f46-4358-b043-3fa9d4b07044.png" width="50%" height="50%" >
