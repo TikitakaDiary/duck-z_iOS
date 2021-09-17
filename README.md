@@ -71,6 +71,103 @@
 기존 작성 상태 유지를 위해 이동하지 않습니다.
 
 <img src="https://user-images.githubusercontent.com/31477658/130318278-e64c2c1f-ae1d-49c4-9a71-4670d3f146f9.png" width="50%" height="50%" >
-<img src="https://user-images.githubusercontent.com/31477658/130318283-db2947ee-8f46-4358-b043-3fa9d4b07044.png" width="50%" height="50%" >
+
+<br> 
+
+## 댓글 기능 
+일기에 댓글을 작성할 수 있습니다. 
+
+<img src="https://user-images.githubusercontent.com/31477658/133807096-2ce83f13-47bd-4591-b3e5-3d1d2336cc51.png" width="25%" height="25%" >
+
+<br>
+
+## 디자인 패턴
+
+MVC 디자인 패턴으로 설계한 앱을 MVVM 디자인 패턴으로 리팩토링중에 있습니다.
+비동기 처리와 데이터 바인딩은 RxSwift를 사용하고 있습니다. 
+
+<img src="https://user-images.githubusercontent.com/31477658/133812741-2c733799-bb53-41b1-a8db-cbdf995cc74e.png" width="100%" height="100%" >
+
+<br>
+
+## 네트워크
+
+통신의 경우 APIRequester와 Router로 분리하고 의존성 주입과 제네릭을 사용함으로써 코드 중복을 방지하고
+유지 보수하기 쉽도록 개발했습니다.
+
+```swift
+import Foundation
+
+enum Router {
+    case createBook(bookCover: BookCover)
+    case fetchBookInfo(bookID: Int)
+    case fetchBookList(page: Int)
+    case createDiary(writingContent: WritingContent)
+    .....
+    .....
+    
+    private var baseURL: String {
+        return "....."
+    }
+    
+    var url: String {
+        return baseURL + path
+    }
+    
+    private var path: String {
+        switch self {
+        case .createBook:
+            return "/book"
+    ......
+    }
+```
 
 
+```swift
+import Alamofire
+
+struct APIRequester {
+    typealias Completion<T> = (Result<T, AFError>) -> Void
+    
+    let router: Router
+
+    init(with router: Router) {
+        self.router = router
+    }
+    
+    func getRequest<T: Codable> (completion: @escaping Completion<T>) {
+        let request = AF.request(router.url, method: .get, headers: ["Authorization": token ?? "No value"]
+        )
+
+        request.responseDecodable(of: T.self) { response in
+            completion(response.result)
+        }
+    }
+    
+    ....
+}
+
+```
+
+<br>
+
+## 중복 코드 및 중복 뷰 처리
+
+여러 뷰 컨트롤러에서 중복되어 사용되는 뷰는 customview로 만들어 사용했고
+같은 부모 클래스, 여러개의 객체가 생성되어 사용되는 경우라면 공통되는 코드부분은 extension으로 빼내어서 유지보수 하기 쉽도록 개발했습니다. 
+
+<img src="https://user-images.githubusercontent.com/31477658/133817270-11752429-fe60-47a9-8c1a-76d9f93b4f64.png" width="100%" height="100%" >
+<img src="https://user-images.githubusercontent.com/31477658/133817486-6283d017-54e9-4827-81b2-656f3bb1a901.png" width="100%" height="100%" >
+
+
+## 다양한 예외 처리
+네트워크 환경이 좋지 않을 때는 사용자가 여러 번 네트워크 api를 호출할 가능성이 있습니다.
+이러한 여러 가지 상황들을 가정하며 예외 처리를 통해 api가 중복 호출되는 것을 방지했습니다.
+
+ex) 여러 번 버튼을 눌러 통신 api를 호출을 할 경우, paging이 적용된 컬렉션 뷰에서 여러 번 api를 호출할 경우 등..
+
+<br>
+
+## 앱의 성능 및 사용성 고려
+
+일기 목록 뷰의 경우 사용자에게 두 가지 컬렉션 뷰 레이아웃을 제공하고, 이미지 캐싱, 이미지 리사이즈, 페이징, pull to refresh 등 다양한 기술을 적용함으로써 앱의 성능과 사용성을 고려했습니다.
