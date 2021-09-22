@@ -155,19 +155,66 @@ struct APIRequester {
 
 여러 뷰 컨트롤러에서 중복되어 사용되는 뷰는 customview로 만들어 사용했고
 같은 부모 클래스, 여러개의 객체가 생성되어 사용되는 경우라면 공통되는 코드부분은 extension으로 빼내어서 유지보수 하기 쉽도록 개발했습니다. 
+이외에도 Property Wrapper를 사용해 중복 코드를 줄이고 유지 보수성을 높이려고 노력했습니다.
 
 <img src="https://user-images.githubusercontent.com/31477658/133817270-11752429-fe60-47a9-8c1a-76d9f93b4f64.png" width="100%" height="100%" >
 <img src="https://user-images.githubusercontent.com/31477658/133817486-6283d017-54e9-4827-81b2-656f3bb1a901.png" width="100%" height="100%" >
 
+```swift
+// Property Wrapper
+
+@propertyWrapper
+struct UserDefault<T> {
+    let key: String
+    let defaultValue: T
+    
+    var wrappedValue: T {
+        get {
+            let udValue = UserDefaults.standard.object(forKey: key) as? T
+            switch (udValue as Any) {
+            case Optional<Any>.some(let value):
+                return value as! T
+            case Optional<Any>.none:
+                return defaultValue
+            default:
+                return udValue ?? defaultValue
+            }
+        }
+        set {
+            switch (newValue as Any) {
+            case Optional<Any>.some(let value):
+                UserDefaults.standard.set(value, forKey: key)
+            case Optional<Any>.none:
+                UserDefaults.standard.removeObject(forKey: key)
+            default:
+                UserDefaults.standard.set(newValue, forKey: key)
+            }
+        }
+    }
+}
+
+final class UserManager {
+    @UserDefault(key: "jwt", defaultValue: nil)
+    static var jwt: String?
+    
+    @UserDefault(key: "signInDate", defaultValue: nil)
+    static var signInDate: String?
+    
+    ...
+}
+
+```
+
+<br>
 
 ## 다양한 예외 처리
-네트워크 환경이 좋지 않을 때는 사용자가 여러 번 네트워크 api를 호출할 가능성이 있습니다.
-이러한 여러 가지 상황들을 가정하며 예외 처리를 통해 api가 중복 호출되는 것을 방지했습니다.
+네트워크 환경이 좋지 않을 때는 사용자가 여러 번 네트워크 api를 호출할 가능성이 있습니다. 이러한 여러 가지 상황들을 가정하며 예외 처리를 통해 api가 중복 호출되는 것을 방지했습니다. ex) 여러 번 버튼을 눌러 통신 api를 호출을 할 경우, paging이 적용된 컬렉션 뷰에서 여러 번 api를 호출할 경우 등..
 
-ex) 여러 번 버튼을 눌러 통신 api를 호출을 할 경우, paging이 적용된 컬렉션 뷰에서 여러 번 api를 호출할 경우 등..
+텍스트를 저장할 때는 정규식을 사용해 space와 new line만 입력하는 것을 방지했습니다. 
+
 
 <br>
 
 ## 앱의 성능 및 사용성 고려
 
-일기 목록 뷰의 경우 사용자에게 두 가지 컬렉션 뷰 레이아웃을 제공하고, 이미지 캐싱, 이미지 리사이즈, 페이징, pull to refresh 등 다양한 기술을 적용함으로써 앱의 성능과 사용성을 고려했습니다.
+알고리즘 개발시 시간복잡도를 고려하며 개발하고 있고, 이미지 캐싱, 이미지 리사이즈, 페이징, pull to refresh 등 다양한 기술을 적용함으로써 앱의 성능과 사용성을 고려했습니다.
