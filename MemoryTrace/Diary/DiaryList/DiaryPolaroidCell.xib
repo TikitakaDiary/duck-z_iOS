@@ -100,7 +100,7 @@
                 <outlet property="titleLabel" destination="0e5-55-NEh" id="ug6-rQ-vyS"/>
                 <outlet property="writerLabel" destination="Pc6-cX-DbA" id="imz-LQ-IAG"/>
             </connections>
-            <point key="canvasLocation" x="-31.159420289855074" y="62.946428571428569"/>
+            <point key="canvasLocation" x="-31.159420289855074" y="62.611607142857139"/>
         </collectionViewCell>
     </objects>
     <resources>

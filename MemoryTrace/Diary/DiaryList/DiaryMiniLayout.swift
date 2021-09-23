@@ -11,11 +11,12 @@ class DiaryMiniLayout: UICollectionViewFlowLayout {
     override func prepare() {
         super.prepare()
         guard let collectionView = collectionView else {return}
-        let cellWidth = (collectionView.frame.width - 72) / 4
+        let padding = 0.064 * collectionView.frame.width
+        let cellWidth = (collectionView.frame.width - (24+padding*2)) / 4
         let cellHeight = cellWidth
         self.itemSize = CGSize(width: cellWidth, height: cellHeight)
         self.scrollDirection = .vertical
-        self.sectionInset = UIEdgeInsets(top: 12, left: 24, bottom: 12, right: 24)
+        self.sectionInset = UIEdgeInsets(top: 12, left: padding, bottom: 12, right: padding)
         self.minimumLineSpacing = 8
         self.minimumInteritemSpacing = 8
     }

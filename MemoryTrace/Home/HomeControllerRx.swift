@@ -34,7 +34,7 @@ class HomeControllerRx: UIViewController {
         setupCollectionView()
         bind()
     }
-    
+
     override func didReceiveMemoryWarning() {
         ImageCache.default.clearMemoryCache()
     }
@@ -60,8 +60,11 @@ class HomeControllerRx: UIViewController {
         navigationItem.rightBarButtonItem = rightBarButton
         
         self.navigationController?.navigationBar.tintColor = .white
-        let backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
-        self.navigationItem.backBarButtonItem = backBarButtonItem
+ 
+        let configuration = UIImage.SymbolConfiguration(weight: .semibold)
+        navigationController?.navigationBar.backIndicatorImage = UIImage(systemName: "chevron.left", withConfiguration: configuration)?.withRenderingMode(.automatic).withAlignmentRectInsets(UIEdgeInsets(top: 0, left: -18, bottom: 0, right: 0))
+        navigationController?.navigationBar.backIndicatorTransitionMaskImage = UIImage(systemName: "chevron.left")?.withRenderingMode(.automatic).withAlignmentRectInsets(UIEdgeInsets(top: 0, left: -18, bottom: 0, right: 0))
+        self.navigationItem.backButtonTitle = ""
     }
     
     private func bind() {

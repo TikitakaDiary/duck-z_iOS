@@ -19,6 +19,7 @@ class DiaryPolaroidCell: UICollectionViewCell {
         super.awakeFromNib()
         bgView.layer.cornerRadius = 10
         imageView.layer.cornerRadius = 10
+        imageView.addBorder()
     }
     
     override func prepareForReuse() {
