@@ -30,6 +30,7 @@
 		D161ED1E263EA75D00C31F56 /* WritingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D161ED1D263EA75D00C31F56 /* WritingViewController.swift */; };
 		D161ED22263EF44600C31F56 /* DiaryHeaderWithButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D161ED20263EF44600C31F56 /* DiaryHeaderWithButtonView.swift */; };
 		D161ED23263EF44700C31F56 /* DiaryHeaderWithButtonView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D161ED21263EF44600C31F56 /* DiaryHeaderWithButtonView.xib */; };
+		D163D02226F9871C00426455 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = D163D02126F9871C00426455 /* Comment.swift */; };
 		D165D275269AF6D600EBD3DF /* ViewModelBindableType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D165D274269AF6D600EBD3DF /* ViewModelBindableType.swift */; };
 		D165D278269C9CE000EBD3DF /* BookStorageType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D165D277269C9CE000EBD3DF /* BookStorageType.swift */; };
 		D165D27A269C9EC100EBD3DF /* BookStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D165D279269C9EC100EBD3DF /* BookStorage.swift */; };
@@ -38,6 +39,7 @@
 		D170A928265CE7B200D5A4A3 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D170A927265CE7B200D5A4A3 /* UIView.swift */; };
 		D170A94B265E2CDE00D5A4A3 /* BackgroundColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D170A94A265E2CDE00D5A4A3 /* BackgroundColor.swift */; };
 		D170A94D265E44F700D5A4A3 /* SNSType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D170A94C265E44F700D5A4A3 /* SNSType.swift */; };
+		D1785EA126FC5E5B002AF1EF /* DefaultBgColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1785EA026FC5E5A002AF1EF /* DefaultBgColor.swift */; };
 		D17E1C49266654BE0037216F /* ColorSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D17E1C48266654BE0037216F /* ColorSettingViewController.swift */; };
 		D1857138268A32380001F1FE /* HomeControllerRx.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1857137268A32380001F1FE /* HomeControllerRx.swift */; };
 		D185713B268A331F0001F1FE /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D185713A268A331F0001F1FE /* HomeViewModel.swift */; };
@@ -53,7 +55,12 @@
 		D1BDEC782647F6D800C9DD8F /* UITextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1BDEC772647F6D800C9DD8F /* UITextView.swift */; };
 		D1BDEC7A2648536700C9DD8F /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1BDEC792648536600C9DD8F /* NetworkManager.swift */; };
 		D1C13C472646EC9300C5686F /* DiarySettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1C13C462646EC9300C5686F /* DiarySettingViewController.swift */; };
+		D1CC789526F106AE00A15655 /* CommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1CC789426F106AE00A15655 /* CommentViewController.swift */; };
+		D1CC789726F1D20D00A15655 /* CALayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1CC789626F1D20D00A15655 /* CALayer.swift */; };
+		D1CF01C726F1E43F0075A4DD /* CommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1CF01C526F1E43F0075A4DD /* CommentCell.swift */; };
+		D1CF01C826F1E43F0075A4DD /* CommentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1CF01C626F1E43F0075A4DD /* CommentCell.xib */; };
 		D1D009EC26839C03007C4334 /* MemberManagementViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1D009EB26839C03007C4334 /* MemberManagementViewModel.swift */; };
+		D1D28C4426FB125100900B0A /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1D28C4326FB125100900B0A /* UserManager.swift */; };
 		D1D2BEB7263A875C007D63B4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1D2BEB6263A875C007D63B4 /* AppDelegate.swift */; };
 		D1D2BEB9263A875C007D63B4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1D2BEB8263A875C007D63B4 /* SceneDelegate.swift */; };
 		D1D2BEBB263A875C007D63B4 /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1D2BEBA263A875C007D63B4 /* HomeController.swift */; };
@@ -107,6 +114,7 @@
 		D161ED1D263EA75D00C31F56 /* WritingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WritingViewController.swift; sourceTree = "<group>"; };
 		D161ED20263EF44600C31F56 /* DiaryHeaderWithButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryHeaderWithButtonView.swift; sourceTree = "<group>"; };
 		D161ED21263EF44600C31F56 /* DiaryHeaderWithButtonView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DiaryHeaderWithButtonView.xib; sourceTree = "<group>"; };
+		D163D02126F9871C00426455 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		D165D274269AF6D600EBD3DF /* ViewModelBindableType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelBindableType.swift; sourceTree = "<group>"; };
 		D165D277269C9CE000EBD3DF /* BookStorageType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookStorageType.swift; sourceTree = "<group>"; };
 		D165D279269C9EC100EBD3DF /* BookStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookStorage.swift; sourceTree = "<group>"; };
@@ -115,6 +123,7 @@
 		D170A927265CE7B200D5A4A3 /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
 		D170A94A265E2CDE00D5A4A3 /* BackgroundColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundColor.swift; sourceTree = "<group>"; };
 		D170A94C265E44F700D5A4A3 /* SNSType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SNSType.swift; sourceTree = "<group>"; };
+		D1785EA026FC5E5A002AF1EF /* DefaultBgColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultBgColor.swift; sourceTree = "<group>"; };
 		D17E1C48266654BE0037216F /* ColorSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSettingViewController.swift; sourceTree = "<group>"; };
 		D1857137268A32380001F1FE /* HomeControllerRx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeControllerRx.swift; sourceTree = "<group>"; };
 		D185713A268A331F0001F1FE /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
@@ -131,7 +140,12 @@
 		D1BDEC772647F6D800C9DD8F /* UITextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextView.swift; sourceTree = "<group>"; };
 		D1BDEC792648536600C9DD8F /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		D1C13C462646EC9300C5686F /* DiarySettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiarySettingViewController.swift; sourceTree = "<group>"; };
+		D1CC789426F106AE00A15655 /* CommentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentViewController.swift; sourceTree = "<group>"; tabWidth = 3; };
+		D1CC789626F1D20D00A15655 /* CALayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CALayer.swift; sourceTree = "<group>"; };
+		D1CF01C526F1E43F0075A4DD /* CommentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentCell.swift; sourceTree = "<group>"; };
+		D1CF01C626F1E43F0075A4DD /* CommentCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CommentCell.xib; sourceTree = "<group>"; };
 		D1D009EB26839C03007C4334 /* MemberManagementViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberManagementViewModel.swift; sourceTree = "<group>"; };
+		D1D28C4326FB125100900B0A /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
 		D1D2BEB3263A875C007D63B4 /* duck-z.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "duck-z.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D1D2BEB6263A875C007D63B4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D1D2BEB8263A875C007D63B4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -193,8 +207,6 @@
 		D10C83D1263AA91F007DD41D /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				D165D27B269CA69300EBD3DF /* ProfileStorage */,
-				D165D276269C9CC000EBD3DF /* BookStorage */,
 				D18F05C6267A55A9002AA558 /* Model */,
 				D1857139268A327F0001F1FE /* ViewModel */,
 				D1D2BEBA263A875C007D63B4 /* HomeController.swift */,
@@ -303,8 +315,17 @@
 				D19B6D5926513FDC00D1FDC3 /* UIViewController.swift */,
 				D170A927265CE7B200D5A4A3 /* UIView.swift */,
 				D1D804D526629E4B00C0A4C8 /* String.swift */,
+				D1CC789626F1D20D00A15655 /* CALayer.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		D163D02026F9870B00426455 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				D163D02126F9871C00426455 /* Comment.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		D165D276269C9CC000EBD3DF /* BookStorage */ = {
@@ -330,6 +351,7 @@
 				D165D274269AF6D600EBD3DF /* ViewModelBindableType.swift */,
 				D170A94A265E2CDE00D5A4A3 /* BackgroundColor.swift */,
 				D170A94C265E44F700D5A4A3 /* SNSType.swift */,
+				D1785EA026FC5E5A002AF1EF /* DefaultBgColor.swift */,
 			);
 			path = Support;
 			sourceTree = "<group>";
@@ -337,6 +359,8 @@
 		D1857139268A327F0001F1FE /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				D165D27B269CA69300EBD3DF /* ProfileStorage */,
+				D165D276269C9CC000EBD3DF /* BookStorage */,
 				D185713A268A331F0001F1FE /* HomeViewModel.swift */,
 			);
 			path = ViewModel;
@@ -387,12 +411,31 @@
 			path = Setting;
 			sourceTree = "<group>";
 		};
+		D1CC789326F1068400A15655 /* Comment */ = {
+			isa = PBXGroup;
+			children = (
+				D163D02026F9870B00426455 /* Model */,
+				D1CC789426F106AE00A15655 /* CommentViewController.swift */,
+				D1CF01C526F1E43F0075A4DD /* CommentCell.swift */,
+				D1CF01C626F1E43F0075A4DD /* CommentCell.xib */,
+			);
+			path = Comment;
+			sourceTree = "<group>";
+		};
 		D1D009EA26839B96007C4334 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
 				D1D009EB26839C03007C4334 /* MemberManagementViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		D1D28C4226FB122700900B0A /* User */ = {
+			isa = PBXGroup;
+			children = (
+				D1D28C4326FB125100900B0A /* UserManager.swift */,
+			);
+			path = User;
 			sourceTree = "<group>";
 		};
 		D1D2BEAA263A875C007D63B4 = {
@@ -422,6 +465,7 @@
 				D1D2BEBC263A875C007D63B4 /* Main.storyboard */,
 				D1D2BEC1263A8764007D63B4 /* LaunchScreen.storyboard */,
 				D1D2BECE263A9A77007D63B4 /* Resources */,
+				D1D28C4226FB122700900B0A /* User */,
 				D170A949265E2CB800D5A4A3 /* Support */,
 				D1F7870C26942CE2002156AC /* FCM */,
 				D161ED02263AB8B100C31F56 /* Network */,
@@ -430,6 +474,7 @@
 				D10C83D4263AA946007DD41D /* Mypage */,
 				D10C83D1263AA91F007DD41D /* Home */,
 				D10C83D2263AA92C007DD41D /* Diary */,
+				D1CC789326F1068400A15655 /* Comment */,
 				D1D2CB7D264D8D0500079756 /* Sticker */,
 				D1F31E872645ADCA005D9F15 /* CustomUI */,
 				D15DB9AE267C38A8007C595A /* GoogleService-Info.plist */,
@@ -568,6 +613,7 @@
 				D161ED23263EF44700C31F56 /* DiaryHeaderWithButtonView.xib in Resources */,
 				D15285BA2671D28100E11C7F /* ColorPickerView.xib in Resources */,
 				D1FA2DBF2647F1FA00AEC471 /* GmarketSansMedium.otf in Resources */,
+				D1CF01C826F1E43F0075A4DD /* CommentCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -624,12 +670,16 @@
 				D170A94B265E2CDE00D5A4A3 /* BackgroundColor.swift in Sources */,
 				D1D2CB83264D92C700079756 /* StickerViewCell.swift in Sources */,
 				D19B6D582651235D00D1FDC3 /* StickerViewLayout.swift in Sources */,
+				D1CF01C726F1E43F0075A4DD /* CommentCell.swift in Sources */,
 				D1E41E89264A6A0400C41D08 /* Router.swift in Sources */,
 				D1F7870E26942D01002156AC /* FCM.swift in Sources */,
 				D1F31E892645ADFF005D9F15 /* CircleButton.swift in Sources */,
 				D10C83CE263AA912007DD41D /* DiaryMiniCell.swift in Sources */,
+				D1D28C4426FB125100900B0A /* UserManager.swift in Sources */,
 				D1BDEC7A2648536700C9DD8F /* NetworkManager.swift in Sources */,
+				D1CC789726F1D20D00A15655 /* CALayer.swift in Sources */,
 				D1E41E90264BBC8100C41D08 /* APIRequester.swift in Sources */,
+				D1CC789526F106AE00A15655 /* CommentViewController.swift in Sources */,
 				D185713B268A331F0001F1FE /* HomeViewModel.swift in Sources */,
 				D161ED22263EF44600C31F56 /* DiaryHeaderWithButtonView.swift in Sources */,
 				D1BDEC742647F6B000C9DD8F /* UILabel.swift in Sources */,
@@ -642,7 +692,9 @@
 				D19B6D5A26513FDC00D1FDC3 /* UIViewController.swift in Sources */,
 				D1858E80264D97B5007EAB62 /* StickerCell.swift in Sources */,
 				D1D2BEBB263A875C007D63B4 /* HomeController.swift in Sources */,
+				D163D02226F9871C00426455 /* Comment.swift in Sources */,
 				D161ED0D263ABC1900C31F56 /* DiaryMiniLayout.swift in Sources */,
+				D1785EA126FC5E5B002AF1EF /* DefaultBgColor.swift in Sources */,
 				D1F31E8C2645B180005D9F15 /* DecoratingViewController.swift in Sources */,
 				D1BDEC762647F6C300C9DD8F /* UITextField.swift in Sources */,
 				D161ED07263ABAC000C31F56 /* DiaryBookLayout.swift in Sources */,
@@ -835,7 +887,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.3;
+				MARKETING_VERSION = 1.1.7;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.tistory.lsh424.duck-z";
 				PRODUCT_NAME = "duck-z";
 				SWIFT_VERSION = 5.0;
@@ -859,7 +911,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.3;
+				MARKETING_VERSION = 1.1.7;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.tistory.lsh424.duck-z";
 				PRODUCT_NAME = "duck-z";
 				SWIFT_VERSION = 5.0;

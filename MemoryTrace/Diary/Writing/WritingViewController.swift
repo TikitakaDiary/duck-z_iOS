@@ -18,7 +18,7 @@ class WritingViewController: UIViewController {
     @IBOutlet weak var writerLabel: UILabel!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var sendButton: UIButton!
-    
+ 
     @IBOutlet weak var scrollViewBotConst: NSLayoutConstraint!
     
     var isStickerAvailble: Bool = false
@@ -117,6 +117,7 @@ class WritingViewController: UIViewController {
         self.polaroidImageView.addSubview(stickerView)
         polaroidView.layer.cornerRadius = 10
         polaroidImageView.layer.cornerRadius = 10
+        polaroidImageView.addBorder()
         imagePicker.delegate = self
         imagePicker.allowsEditing = true
         textView.textContainerInset = UIEdgeInsets(top: 0, left: 0, bottom: 10, right: 0)
@@ -127,7 +128,7 @@ class WritingViewController: UIViewController {
     
     private func setupUI() {
         toolbarSetup(textView: textView, textField: titleTextField)
-        writerLabel.text = "by \(UserDefaults.standard.string(forKey: "name") ?? "")"
+        writerLabel.text = "by \(UserManager.name ?? "")"
         let date = Date()
         let calendar = Calendar.current
         let components = calendar.dateComponents([.year, .month, .day, .hour], from: date)
@@ -163,6 +164,7 @@ class WritingViewController: UIViewController {
             selectedStickerView = nil
         } else {
             dismissStickerView()
+            hideKeyboard(self)
             self.present(actionSheet, animated: true, completion: nil)
         }
     }
@@ -213,7 +215,7 @@ class WritingViewController: UIViewController {
         
         guard let img = polaroidImageView.asImage(), let resizedImage = img.resizedImage(targetSize: CGSize(width: 300, height: 300))  else {return}
         
-        let diaryContent = textView.text == "이곳을 눌러 일기를 작성해보세요!" ? "" : textView.text
+        let diaryContent = textView.text == "이곳을 눌러 일기를 작성해보세요!" && textView.textColor != .white ? "" : textView.text
 
         self.isSendAvailable = false
         
@@ -298,39 +300,30 @@ class WritingViewController: UIViewController {
     override func hideKeyboard(_ sender: Any) {
         super.hideKeyboard(sender)
         scrollViewBotConst.constant = 0
-        activateAnimation(duration: 0.15, delay: 0)
+        self.activateAnimation(duration: 0.15, delay: 0)
     }
     
     @objc func keyboardWillShow(_ notification: Notification) {
         selectedStickerView = nil
+        
         if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
             let keyboardRectangle = keyboardFrame.cgRectValue
             let keyboardHeight = keyboardRectangle.height
-            
+
 //            let duration:TimeInterval = (notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? NSNumber)?.doubleValue ?? 0
-            
+
             self.scrollViewBotConst.constant = keyboardHeight - (40 + self.view.safeAreaInsets.bottom)
-            
-            activateAnimation(duration: 0.15, delay: 0.05)
+            self.activateAnimation(duration: 0.15, delay: 0.05)
         }
-    }
-    
-    private func activateAnimation(duration: TimeInterval, delay: TimeInterval) {
-        UIView.animate(
-            withDuration: duration,
-            delay: delay,
-            options: .curveEaseIn,
-            animations: { self.view.layoutIfNeeded() },
-            completion: nil)
     }
 }
 
 extension WritingViewController: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
         dismissStickerView()
-        if textView.text == "이곳을 눌러 일기를 작성해보세요!" {
+        if textView.text == "이곳을 눌러 일기를 작성해보세요!" && textView.textColor != .white {
             textView.text = ""
-            textView.textColor = UIColor.init(red: 255/255, green: 255/255, blue: 255/255, alpha: 1)
+            textView.textColor = .white
         }
     }
     

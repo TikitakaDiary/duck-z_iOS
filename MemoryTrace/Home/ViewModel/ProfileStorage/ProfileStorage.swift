@@ -31,12 +31,12 @@ class ProfileStorage {
                 .compactMap { $0.data }
                 .do(onNext: { userData in
                     UserManager.snsType = userData.snsType
-                    UserManager.signInDate = userData.createdDate
+                    UserManager.signInDate = userData.createdDate.date(type: .yearMonthDay)
                     UserManager.name = userData.nickname
                 })
-                .bind { userData in
+                .bind { [weak self] userData in
                     let profile = Profile(nickname: userData.nickname, snsType: userData.snsType, createdDate: userData.createdDate.date(type: .yearMonthDay))
-                    self.store.onNext(profile)
+                    self?.store.onNext(profile)
                 }
                 .disposed(by: disposeBag)
         }
