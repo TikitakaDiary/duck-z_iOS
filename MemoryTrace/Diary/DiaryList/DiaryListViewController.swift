@@ -22,7 +22,7 @@ class DiaryListViewController: UIViewController {
     private var layout: Layout = .polaroid
     private var isMyTurn: Bool?
     private var isFetching: Bool = false
-    
+
     lazy var page: Int = 1
     lazy var hasNextPage: Bool = false
     
@@ -38,9 +38,9 @@ class DiaryListViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        bookTitleLabel.text = CurrentBook.shared.book?.title
         setupCollectionView()
         setupNavi()
-        bookTitleLabel.text = CurrentBook.shared.book?.title
         fetchDiaryList(page: page)
         
         NotificationCenter.default.addObserver(self, selector: #selector(updateDiary(_:)), name: NSNotification.Name("updateDiary"), object: nil)
@@ -81,13 +81,11 @@ class DiaryListViewController: UIViewController {
         let rightBarButton = UIBarButtonItem(image: UIImage(named: "setting"), style: .plain, target: self, action: #selector(didPressSetting))
         rightBarButton.imageInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 7)
         navigationItem.rightBarButtonItem = rightBarButton
-        let backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
-        self.navigationItem.backBarButtonItem = backBarButtonItem
+        self.navigationItem.backButtonTitle = ""
     }
     
     @objc func updateDiary(_ notification: Notification) {
         self.page = 1
-        self.diaryList.removeAll()
         self.fetchDiaryList(page: self.page)
     }
     
@@ -105,7 +103,11 @@ class DiaryListViewController: UIViewController {
             
             switch result {
             case .success(let diaryInfo):
-                self?.isMyTurn = diaryInfo.data.whoseTurn == UserDefaults.standard.integer(forKey: "uid")
+                if page == 1 {
+                    self?.diaryList = []
+                }
+                    
+                self?.isMyTurn = diaryInfo.data.whoseTurn == UserManager.uid
                 self?.appendList(new: diaryInfo.data.diaryList)
                 self?.hasNextPage = diaryInfo.data.hasNext
                 DispatchQueue.main.async {
@@ -135,7 +137,7 @@ class DiaryListViewController: UIViewController {
             }
         }
     }
-    
+
     private func compareDate(firstDate: String, secondDate: String) -> Bool {
         let firstDateComponent = firstDate.split(separator: "-")
         let secondDateComponent = secondDate.split(separator: "-")
@@ -235,9 +237,11 @@ extension DiaryListViewController: UICollectionViewDelegate, UICollectionViewDat
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let readingVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ReadingVC") as? ReadingViewControllerRx else {return}
+
+        let diaryInfo = diaryList[indexPath.section][indexPath.item]
+        let diaryDetail = Content(modifiable: false, uid: -999, did: diaryInfo.did, nickname: diaryInfo.nickname, title: diaryInfo.title, img: diaryInfo.img, content: "", template: 0, createdDate: diaryInfo.createdDate)
         
-        let did = diaryList[indexPath.section][indexPath.item].did
-        readingVC.viewModel = DiaryDetailViewModel(diaryID: did)
+        readingVC.viewModel = DiaryDetailViewModel(diaryDetail: diaryDetail)
         self.navigationController?.pushViewController(readingVC, animated: true)
     }
     
@@ -266,7 +270,6 @@ extension DiaryListViewController: UICollectionViewDelegate, UICollectionViewDat
             diaryCollectionView.refreshControl?.endRefreshing()
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                 self.page = 1
-                self.diaryList.removeAll()
                 self.fetchDiaryList(page: self.page)
             }
         }
