@@ -14,6 +14,11 @@ extension UIView {
             layer.render(in: rendererContext.cgContext)
         }
     }
+    
+    func addBorder() {
+        self.layer.borderWidth = 0.3
+        self.layer.borderColor = UIColor.lightGray.cgColor
+    }
 }
 
 
