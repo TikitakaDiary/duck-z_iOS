@@ -22,7 +22,7 @@ class ProfileStorage {
     }
     
     func fetchProfile() {
-        if let name = UserDefaults.standard.string(forKey: "name"), let snsType = UserDefaults.standard.string(forKey: "snsType"), let signInDate = UserDefaults.standard.string(forKey: "signInDate") {
+        if let name = UserManager.name, let snsType = UserManager.snsType, let signInDate = UserManager.signInDate {
             let profile = Profile(nickname: name, snsType: snsType, createdDate: signInDate)
             store.onNext(profile)
         } else {
@@ -30,13 +30,13 @@ class ProfileStorage {
                 .take(1)
                 .compactMap { $0.data }
                 .do(onNext: { userData in
-                    UserDefaults.standard.setValue(userData.snsType, forKey: "snsType")
-                    UserDefaults.standard.setValue(userData.createdDate.date(type: .yearMonthDay), forKey: "signInDate")
-                    UserDefaults.standard.setValue(userData.nickname, forKey: "name")
+                    UserManager.snsType = userData.snsType
+                    UserManager.signInDate = userData.createdDate.date(type: .yearMonthDay)
+                    UserManager.name = userData.nickname
                 })
-                .bind { userData in
+                .bind { [weak self] userData in
                     let profile = Profile(nickname: userData.nickname, snsType: userData.snsType, createdDate: userData.createdDate.date(type: .yearMonthDay))
-                    self.store.onNext(profile)
+                    self?.store.onNext(profile)
                 }
                 .disposed(by: disposeBag)
         }

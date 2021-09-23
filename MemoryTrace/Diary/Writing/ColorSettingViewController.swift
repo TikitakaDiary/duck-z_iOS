@@ -34,8 +34,13 @@ class ColorSettingViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        polaroidView.layer.cornerRadius = 10
+        setupUI()
+    }
+    
+    private func setupUI() {
+        self.polaroidView.layer.cornerRadius = 10
         self.imageView.layer.cornerRadius = 10
+        self.imageView.addSubview(stickerView)
         self.view.addSubview(colorPickerView)
         
         NSLayoutConstraint.activate([
@@ -43,11 +48,10 @@ class ColorSettingViewController: UIViewController {
             colorPickerView.trailingAnchor.constraint(equalTo: polaroidView.trailingAnchor, constant: -12),
             colorPickerView.topAnchor.constraint(equalTo: polaroidView.bottomAnchor, constant: 30)
         ])
-
+        
         titleTextField.text = diaryTitle
         dateLabel.text = date
         writerLabel.text = writer
-        imageView.addSubview(stickerView)
     }
     
     @IBAction func didPressCancelButton(_ sender: UIButton) {

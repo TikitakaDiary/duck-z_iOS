@@ -42,3 +42,5 @@ class ColorPickerView: UIView {
         self.delegate?.changeColor(colorIndex: sender.tag)
     }
 }
+
+

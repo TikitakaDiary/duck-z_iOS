@@ -15,12 +15,11 @@ class MakersViewController: UIViewController {
     }
     
     private func setupMakersView() {
-        self.view.backgroundColor = UIColor(red: 33/255, green: 33/255, blue: 33/255, alpha: 1)
+        self.view.backgroundColor = UIColor(red: 44/255, green: 44/255, blue: 44/255, alpha: 1)
         let scrollView = UIScrollView()
         let makersImageView = UIImageView(image: UIImage(named: "makers"))
-        makersImageView.frame.size = self.view.frame.size
+        makersImageView.frame.size = CGSize(width: self.view.frame.width, height: self.view.frame.width * 2.20)
         makersImageView.contentMode = .scaleAspectFit
-        
         view.addSubview(scrollView)
         scrollView.addSubview(makersImageView)
         scrollView.translatesAutoresizingMaskIntoConstraints = false

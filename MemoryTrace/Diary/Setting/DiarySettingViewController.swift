@@ -21,8 +21,7 @@ class DiarySettingViewController: UIViewController {
     }
     
     private func setupNavigationBar() {
-        let backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
-        self.navigationItem.backBarButtonItem = backBarButtonItem
+        self.navigationItem.backButtonTitle = ""
         self.navigationController?.navigationBar.titleTextAttributes = [ NSAttributedString.Key.font: UIFont(name: "Apple SD Gothic Neo", size: 16) ?? UIFont.systemFont(ofSize: 16)]
         self.navigationController?.navigationBar.tintColor = .white
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
@@ -40,8 +39,12 @@ class DiarySettingViewController: UIViewController {
         
         tableView.translatesAutoresizingMaskIntoConstraints = false
         
-        tableView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
-        tableView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
+//        tableView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
+//        tableView.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.872).isActive = true
+        
+//        tableView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
+        tableView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 9).isActive = true
+        tableView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -9).isActive = true
         tableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
         tableView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 0).isActive = true
     }

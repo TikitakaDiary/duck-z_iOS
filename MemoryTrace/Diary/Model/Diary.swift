@@ -62,6 +62,7 @@ struct DiaryInfo: Codable {
 }
 
 // MARK: - 일기
+
 struct WritingContent {
     let bookID: Int
     let title: String

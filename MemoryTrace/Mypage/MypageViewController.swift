@@ -30,8 +30,8 @@ class MypageViewController: UIViewController {
         userInfoView.layer.cornerRadius = 8
         completionButton.layer.cornerRadius = completionButton.frame.width * 0.235
         
-        let backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
-        self.navigationItem.backBarButtonItem = backBarButtonItem
+
+        self.navigationItem.backButtonTitle = ""
         toolbarSetup(textField: inviteTextField)
         
         profileStorage.userProfile()
@@ -42,7 +42,7 @@ class MypageViewController: UIViewController {
             }
             .disposed(by: disposeBag)
     }
-    
+
     @IBAction func didPressEditButton(_ sender: UIButton) {
         guard let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ChangeNameVC") as? ChangeNameViewController else {return}
         
@@ -52,17 +52,21 @@ class MypageViewController: UIViewController {
     
     @IBAction func didPressCompleteButton(_ sender: UIButton) {
         inviteTextField.endEditing(true)
-
-        guard let code = inviteTextField.text, !code.isEmpty else {
+     
+        guard let code = inviteTextField.text, !code.getArrayAfterRegex(regex: "[^\\s]").isEmpty else {
             showToast(message: "초대 코드를 입력해주세요!", position: .bottom)
             return }
         
         NetworkManager.shared.enterDiary(invitationCode: code) { [weak self] (result) in
             switch result {
-            case .success(_):
-                self?.inviteTextField.text = nil
-                NotificationCenter.default.post(name: NSNotification.Name("updateBooks"), object: BookUpdateType.add)
-                self?.navigationController?.popViewController(animated: true)
+            case .success(let response):
+                if 200 <= response.statusCode && response.statusCode < 300 {
+                    self?.inviteTextField.text = nil
+                    NotificationCenter.default.post(name: NSNotification.Name("updateBooks"), object: BookUpdateType.add)
+                    self?.navigationController?.popViewController(animated: true)
+                } else {
+                    self?.showToast(message: response.responseMessage, position: .bottom)
+                }
             case .failure(_):
                 self?.showToast(message: "error: fail", position: .bottom)
             }
@@ -74,7 +78,8 @@ class MypageViewController: UIViewController {
             NetworkManager.shared.deleteAccount { [weak self] (result) in
                 switch result {
                 case .success(_):
-                    self?.signout()
+                    self?.removeUserData()
+                    self?.moveToLoginViewController()
                 case .failure(let error):
                     self?.showToast(message: error.localizedDescription, position: .bottom)
                 }
@@ -85,25 +90,35 @@ class MypageViewController: UIViewController {
     }
     
     private func signout() {
-        if let fcmToken = UserDefaults.standard.string(forKey: "fcmToken") {
-            let uid = UserDefaults.standard.integer(forKey: "uid")
-            NetworkManager.shared.deleteFCMToken(uid: uid, token: fcmToken) { result in
+        if let fcmToken = UserManager.fcmToken {
+            let uid = UserManager.uid
+            
+            NetworkManager.shared.deleteFCMToken(uid: uid, token: fcmToken) { [weak self] result in
                 switch result {
                 case .success(_):
-                    UserDefaults.standard.removeObject(forKey: "jwt")
-                    UserDefaults.standard.removeObject(forKey: "name")
-                    UserDefaults.standard.removeObject(forKey: "uid")
-                    UserDefaults.standard.removeObject(forKey: "snsType")
-                    UserDefaults.standard.removeObject(forKey: "signInDate")
-                    let vc = self.storyboard?.instantiateViewController(withIdentifier: "LoginVC") as! LoginViewController
-                    let keyWindow = UIApplication.shared.windows.filter {$0.isKeyWindow}.first
-                    keyWindow?.rootViewController = vc
-                    self.navigationController?.viewControllers.removeAll()
+                    self?.removeUserData()
+                    self?.moveToLoginViewController()
                 case .failure(let err):
-                    self.showToast(message: err.localizedDescription, position: .bottom)
+                    self?.showToast(message: err.localizedDescription, position: .bottom)
                 }
             }
         }
+    }
+    
+    private func removeUserData() {
+        UserManager.jwt = nil
+        UserManager.name = nil
+        UserManager.uid = 0
+        UserManager.snsType = nil
+        UserManager.signInDate = nil
+    }
+    
+    private func moveToLoginViewController() {
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "LoginVC") as! LoginViewController
+        
+        let keyWindow = UIApplication.shared.windows.filter {$0.isKeyWindow}.first
+        keyWindow?.rootViewController = vc
+        self.navigationController?.viewControllers.removeAll()
     }
 }
 

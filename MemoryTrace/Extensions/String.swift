@@ -13,6 +13,7 @@ enum DateType {
 }
 
 extension String{
+    // regex 대신, string.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty 사용해도 됨
     func getArrayAfterRegex(regex: String) -> [String] {
         do {
             let regex = try NSRegularExpression(pattern: regex)

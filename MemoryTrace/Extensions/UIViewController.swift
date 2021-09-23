@@ -53,6 +53,15 @@ extension UIViewController {
         }
     }
     
+    func activateAnimation(duration: TimeInterval, delay: TimeInterval) {
+        UIView.animate(
+            withDuration: duration,
+            delay: delay,
+            options: .curveEaseIn,
+            animations: { self.view.layoutIfNeeded() },
+            completion: nil)
+    }
+    
     @objc func hideKeyboard(_ sender: Any){
         self.view.endEditing(true)
     }

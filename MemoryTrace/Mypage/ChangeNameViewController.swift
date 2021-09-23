@@ -14,12 +14,23 @@ class ChangeNameViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.nameTextField.text = UserDefaults.standard.string(forKey: "name")
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "저장", style: .plain, target: self, action: #selector(didPressSave))
+        setupUI()
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
+    }
+    
+    private func setupUI() {
+        self.nameTextField.text = UserManager.name
+        
+        let saveButton = UIButton()
+        saveButton.setTitle("저장", for: .normal)
+        saveButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 9)
+        saveButton.frame.size.width = 50
+        saveButton.contentHorizontalAlignment = .right
+        saveButton.addTarget(self, action: #selector(didPressSave), for: .touchUpInside)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: saveButton)
     }
     
     @objc func didPressSave() {
@@ -32,7 +43,8 @@ class ChangeNameViewController: UIViewController {
             case .success(let response):
                 guard let data = response.data else {return}
                 let modifiedName = data.nickname
-                UserDefaults.standard.setValue(modifiedName, forKey: "name")
+
+                UserManager.name = modifiedName
                 
                 self?.profileStorage.fetchProfile()
                 
