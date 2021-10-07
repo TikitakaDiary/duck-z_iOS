@@ -25,9 +25,14 @@ enum Router {
     case deleteFCMToken(uid: Int, fcmToken: String)
     case fcmTest(uid: Int, fcmToken: String)
     case modifyDiary(modifiedContent: ModifiedContent)
+    case comment(commentInfo: Comment)
+    case reply(replyInfo: Reply)
+    case deleteComment(commentID: Int)
+    case fetchCommentList(diaryID: Int)
     
     private var baseURL: String {
-        return ""
+        let baseURL = Bundle.main.object(forInfoDictionaryKey: "BASE_URL") as? String
+        return baseURL ?? "invalidURL"
     }
     
     var url: String {
@@ -41,7 +46,7 @@ enum Router {
         case .fetchBookInfo(let id):
             return "/book/\(id)"
         case .fetchBookList(let page):
-            return "/book/list?page=\(page)&size=20"
+            return "/book/list?page=\(page)&size=10"
         case .createDiary:
             return "/diary"
         case .fetchDiary(let diaryID):
@@ -70,6 +75,14 @@ enum Router {
             return "/token/test"
         case .modifyDiary:
             return "/diary/update"
+        case .comment:
+            return "/comment"
+        case .reply:
+            return "/comment"
+        case .deleteComment(let commentID):
+            return "/comment/\(commentID)"
+        case .fetchCommentList(let diaryID):
+            return "/comment/list/\(diaryID)"
         }
     }
     
@@ -108,7 +121,15 @@ enum Router {
         case .fcmTest(let uid, let token):
             return ["uid" : uid, "token" : token]
         case .modifyDiary(let modifiedContent):
-            return ["did" : modifiedContent.diaryID, "content" : modifiedContent.content, "img" : modifiedContent.image, "title" : modifiedContent.title]
+            return ["did" : modifiedContent.diaryID, "content" : modifiedContent.content, "title" : modifiedContent.title]
+        case .comment(let comment):
+            return ["content" : comment.content, "did" : comment.did]
+        case .reply(let reply):
+            return ["content" : reply.content, "did" : reply.did, "parent" : reply.parent]
+        case .deleteComment:
+            return [:]
+        case .fetchCommentList:
+            return [:]
         }
     }
 }
