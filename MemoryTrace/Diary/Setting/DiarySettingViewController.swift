@@ -21,7 +21,6 @@ class DiarySettingViewController: UIViewController {
     }
     
     private func setupNavigationBar() {
-        self.navigationItem.backButtonTitle = ""
         self.navigationController?.navigationBar.titleTextAttributes = [ NSAttributedString.Key.font: UIFont(name: "Apple SD Gothic Neo", size: 16) ?? UIFont.systemFont(ofSize: 16)]
         self.navigationController?.navigationBar.tintColor = .white
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]

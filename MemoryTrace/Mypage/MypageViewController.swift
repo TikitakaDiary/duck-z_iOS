@@ -29,9 +29,7 @@ class MypageViewController: UIViewController {
         
         userInfoView.layer.cornerRadius = 8
         completionButton.layer.cornerRadius = completionButton.frame.width * 0.235
-        
 
-        self.navigationItem.backButtonTitle = ""
         toolbarSetup(textField: inviteTextField)
         
         profileStorage.userProfile()
