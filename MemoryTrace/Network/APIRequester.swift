@@ -11,10 +11,11 @@ struct APIRequester {
     typealias Completion<T> = (Result<T, AFError>) -> Void
     
     let router: Router
-    private let token = "Null"
+    private let token = UserManager.jwt
     
     init(with router: Router) {
         self.router = router
+        AF.session.configuration.timeoutIntervalForRequest = 5
     }
     
     func getRequest<T: Codable> (completion: @escaping Completion<T>) {
