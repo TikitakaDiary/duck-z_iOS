@@ -29,7 +29,8 @@ class MemberManagementController: UIViewController {
             .asDriver(onErrorJustReturn: [])
             .drive(tableView.rx.items(cellIdentifier: "MemberCell", cellType: MemberCell.self)) { [weak self] index, item, cell in
                 if self?.viewModel.whoseTurn() == item.uid {
-                    cell.view.backgroundColor = UIColor(red: 177/255, green: 177/255, blue: 177/255, alpha: 1)
+                    cell.view.addBorder(borderWidth: 2, borderColor: UIColor(red: 246/255, green: 206/255, blue: 41/255, alpha: 1))
+                    cell.writingStateLabel.isHidden = false
                 }
                 cell.nameLabel.text = item.nickname
             }
