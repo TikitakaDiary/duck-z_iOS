@@ -65,4 +65,9 @@ extension UIViewController {
     @objc func hideKeyboard(_ sender: Any){
         self.view.endEditing(true)
     }
+    
+    func instantiate(id: String) -> UIViewController {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        return storyboard.instantiateViewController(withIdentifier: id)
+    }
 }

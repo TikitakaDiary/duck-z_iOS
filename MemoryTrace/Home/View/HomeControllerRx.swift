@@ -57,7 +57,7 @@ class HomeControllerRx: UIViewController {
         let configuration = UIImage.SymbolConfiguration(weight: .semibold)
         navigationController?.navigationBar.backIndicatorImage = UIImage(systemName: "chevron.left", withConfiguration: configuration)?.withRenderingMode(.automatic).withAlignmentRectInsets(UIEdgeInsets(top: 0, left: -18, bottom: 0, right: 0))
         navigationController?.navigationBar.backIndicatorTransitionMaskImage = UIImage(systemName: "chevron.left")?.withRenderingMode(.automatic).withAlignmentRectInsets(UIEdgeInsets(top: 0, left: -18, bottom: 0, right: 0))
-        self.navigationItem.backButtonTitle = ""
+
     }
     
     private func setupCollectionView() {
@@ -69,15 +69,6 @@ class HomeControllerRx: UIViewController {
     }
     
     private func bind() {
-        self.viewModel.isReceivedFCM
-            .filter({ $0 == true })
-            .bind { [weak self] _ in
-                if let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "DiaryListVC") as? DiaryListViewController {
-                    self?.navigationController?.pushViewController(vc, animated: false)
-                }
-            }
-            .disposed(by: disposeBag)
-        
         self.viewModel.noBooksLabelIsHidden
             .observe(on: MainScheduler.instance)
             .bind(to: noBookLabel.rx.isHidden)
@@ -97,17 +88,16 @@ class HomeControllerRx: UIViewController {
 
                 cell.colorView.backgroundColor = BackgroundColor(rawValue: book.bgColor)?.color
                 cell.titleLabel.text = book.title
-                cell.turnLabel.text = "\(book.nickname) 작성 중"
+                cell.turnLabel.text = book.nickname
                 
                 if let stickerImg = book.stickerImg, let imageURL = URL(string: stickerImg) {
                     cell.coverImageView.kf.setImage(with: imageURL)
                 }
             }
             .disposed(by: disposeBag)
-        
+      
         self.viewModel.userProfile
             .map({ $0.nickname })
-            .observe(on: MainScheduler.instance)
             .bind(to: nameLabel.rx.text)
             .disposed(by: disposeBag)
         

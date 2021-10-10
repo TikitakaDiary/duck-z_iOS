@@ -11,17 +11,23 @@ protocol PresentDelegate: AnyObject {
     func present()
 }
 
-class DiaryHeaderWithButtonView: UICollectionReusableView {
+class DiaryFirstHeaderView: UICollectionReusableView {
     
     weak var delegate: PresentDelegate?
+    
+    @IBOutlet weak var turnInfoView: UIView!
+    @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
+    @IBOutlet weak var yourTurnButton: UIButton!
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        turnInfoView.layer.cornerRadius = 8
     }
     
     override func prepareForReuse() {
         dateLabel.text = nil
+        nameLabel.text = nil
     }
     
     @IBAction func didPressYourTurnButton(_ sender: UIButton) {

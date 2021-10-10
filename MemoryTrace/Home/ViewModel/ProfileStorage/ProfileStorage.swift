@@ -29,15 +29,13 @@ class ProfileStorage {
             NetworkManager.shared.fetchUserInfoRx()
                 .take(1)
                 .compactMap { $0.data }
-                .do(onNext: { userData in
+                .subscribe(with: self, onNext: { (owner, userData) in
                     UserManager.snsType = userData.snsType
                     UserManager.signInDate = userData.createdDate.date(type: .yearMonthDay)
                     UserManager.name = userData.nickname
-                })
-                .bind { [weak self] userData in
                     let profile = Profile(nickname: userData.nickname, snsType: userData.snsType, createdDate: userData.createdDate.date(type: .yearMonthDay))
-                    self?.store.onNext(profile)
-                }
+                    owner.store.onNext(profile)
+                })
                 .disposed(by: disposeBag)
         }
     }

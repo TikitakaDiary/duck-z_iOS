@@ -22,6 +22,7 @@ class DiaryListViewController: UIViewController {
     private var layout: Layout = .polaroid
     private var isMyTurn: Bool?
     private var isFetching: Bool = false
+    private var currentTurnName: String = ""
 
     lazy var page: Int = 1
     lazy var hasNextPage: Bool = false
@@ -46,7 +47,7 @@ class DiaryListViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(updateDiary(_:)), name: NSNotification.Name("updateDiary"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(updateBookName(_:)), name: NSNotification.Name("updateBookName"), object: nil)
     }
-    
+
     override func viewDidLayoutSubviews() {
         bookTitleLabel.frame.size.height = bookTitleLabel.frame.height + 8
     }
@@ -68,20 +69,19 @@ class DiaryListViewController: UIViewController {
         
         let polaroidCell = UINib(nibName: "DiaryPolaroidCell", bundle: nil)
         let miniCell = UINib(nibName: "DiaryMiniCell", bundle: nil)
+        let firstHeaderView = UINib(nibName: "DiaryFirstHeaderView", bundle: nil)
         let headerView = UINib(nibName: "DiaryHeaderView", bundle: nil)
-        let headerWithButtonView = UINib(nibName: "DiaryHeaderWithButtonView", bundle: nil)
         
         self.diaryCollectionView.register(polaroidCell, forCellWithReuseIdentifier: "polaroidCell")
         self.diaryCollectionView.register(miniCell, forCellWithReuseIdentifier: "miniCell")
+        self.diaryCollectionView.register(firstHeaderView, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "diaryFirstHeaderView")
         self.diaryCollectionView.register(headerView, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "diaryHeaderView")
-        self.diaryCollectionView.register(headerWithButtonView, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "headerWithButtonView")
     }
     
     private func setupNavi() {
         let rightBarButton = UIBarButtonItem(image: UIImage(named: "setting"), style: .plain, target: self, action: #selector(didPressSetting))
         rightBarButton.imageInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 7)
         navigationItem.rightBarButtonItem = rightBarButton
-        self.navigationItem.backButtonTitle = ""
     }
     
     @objc func updateDiary(_ notification: Notification) {
@@ -110,6 +110,7 @@ class DiaryListViewController: UIViewController {
                 self?.isMyTurn = diaryInfo.data.whoseTurn == UserManager.uid
                 self?.appendList(new: diaryInfo.data.diaryList)
                 self?.hasNextPage = diaryInfo.data.hasNext
+                self?.currentTurnName = diaryInfo.data.nickname
                 DispatchQueue.main.async {
                     self?.diaryCollectionView.reloadData()
                     self?.isFetching = false
@@ -210,16 +211,27 @@ extension DiaryListViewController: UICollectionViewDelegate, UICollectionViewDat
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         guard let isMyTurn = self.isMyTurn else { return UICollectionReusableView()}
         
-        if indexPath.section == 0 && isMyTurn {
-            let headerViewWithButton = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "headerWithButtonView", for: indexPath) as! DiaryHeaderWithButtonView
-            headerViewWithButton.delegate = self
+        if indexPath.section == 0 {
+            let firstHeader = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "diaryFirstHeaderView", for: indexPath) as! DiaryFirstHeaderView
             
-            if diaryList.isEmpty {
-                headerViewWithButton.dateLabel.text = nil
+            firstHeader.delegate = self
+            
+            if isMyTurn {
+                firstHeader.turnInfoView.isHidden = true
+                firstHeader.yourTurnButton.isHidden = false
             } else {
-                headerViewWithButton.dateLabel.text = diaryList[indexPath.section].last?.createdDate.date(type: .yearMonth)
+                firstHeader.turnInfoView.isHidden = false
+                firstHeader.nameLabel.text = self.currentTurnName
+                firstHeader.yourTurnButton.isHidden = true
             }
-            return headerViewWithButton
+
+            if diaryList.isEmpty {
+                firstHeader.dateLabel.text = nil
+            } else {
+                firstHeader.dateLabel.text = diaryList[indexPath.section].last?.createdDate.date(type: .yearMonth)
+            }
+            
+            return firstHeader
         } else {
             let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "diaryHeaderView", for: indexPath) as! DiaryHeaderView
             headerView.dateLabel.text = diaryList[indexPath.section].last?.createdDate.date(type: .yearMonth)
@@ -229,17 +241,14 @@ extension DiaryListViewController: UICollectionViewDelegate, UICollectionViewDat
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         let width = self.view.frame.width
-        
-        guard let isMyTurn = self.isMyTurn else { return CGSize.zero}
-        
-        return section == 0 && isMyTurn ? CGSize(width: width, height: width * 0.33) : CGSize(width: width, height: width * 0.125)
+        return section == 0 ? CGSize(width: width, height: width * 0.33) : CGSize(width: width, height: width * 0.125)
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let readingVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ReadingVC") as? ReadingViewControllerRx else {return}
 
         let diaryInfo = diaryList[indexPath.section][indexPath.item]
-        let diaryDetail = Content(modifiable: false, uid: -999, did: diaryInfo.did, nickname: diaryInfo.nickname, title: diaryInfo.title, img: diaryInfo.img, content: "", template: 0, createdDate: diaryInfo.createdDate)
+        let diaryDetail = Content(modifiable: false, uid: -999, did: diaryInfo.did, nickname: diaryInfo.nickname, title: diaryInfo.title, img: diaryInfo.img, content: "", template: 0, createdDate: diaryInfo.createdDate, commentCnt: 0)
         
         readingVC.viewModel = DiaryDetailViewModel(diaryDetail: diaryDetail)
         self.navigationController?.pushViewController(readingVC, animated: true)

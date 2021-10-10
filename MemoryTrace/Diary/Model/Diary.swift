@@ -35,6 +35,7 @@ struct Content: Codable {
     let content: String
     let template: Int
     let createdDate: String
+    let commentCnt: Int
 }
 
 // MARK: - 다이어리 리스트 조회
@@ -49,6 +50,7 @@ struct DiaryListData: Codable {
     let hasNext: Bool
     let title: String
     let whoseTurn: Int
+    let nickname: String
     let diaryList: [DiaryInfo]
 }
 

@@ -55,7 +55,7 @@ class NetworkManager {
         let router: Router = .fetchDiaryList(bookID: bookID, page: page, size: size)
         APIRequester(with: router).getRequest(completion: completion)
     }
-    
+
     func modifyName(name: String, completion: @escaping Completion<LoginResponse>) {
         let router: Router = .modifyName(name: name)
         APIRequester(with: router).put(completion: completion)
@@ -102,6 +102,26 @@ class NetworkManager {
         let router: Router = .modifyDiary(modifiedContent: modifiedContent)
         let imageData = modifiedContent.image?.pngData()
         APIRequester(with: router).multiPartRequest(imageName: "img", data: imageData, method: .post, completion: completion)
+    }
+    
+    func comment(comment: Comment, completion: @escaping Completion<CommentResponse>) {
+        let router: Router = .comment(commentInfo: comment)
+        APIRequester(with: router).postRequest(completion: completion)
+    }
+    
+    func reply(reply: Reply, completion: @escaping Completion<CommentResponse>) {
+        let router: Router = .reply(replyInfo: reply)
+        APIRequester(with: router).postRequest(completion: completion)
+    }
+    
+    func deleteComment(commentID: Int, completion: @escaping Completion<CommentResponse>) {
+        let router: Router = .deleteComment(commentID: commentID)
+        APIRequester(with: router).put(completion: completion)
+    }
+    
+    func fetchCommentList(diaryID: Int, completion: @escaping Completion<CommentListResponse>) {
+        let router: Router = .fetchCommentList(diaryID: diaryID)
+        APIRequester(with: router).getRequest(completion: completion)
     }
     
     // MARK:- Rx
